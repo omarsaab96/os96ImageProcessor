@@ -1,0 +1,12 @@
+{
+  "jpegtran": {
+    "version": "3.2.0",
+    "sha256": "fc8f4e4e176bf627febe2e39dae820657e73de9bae7bcbd365b00600c8ce5598",
+    "source": "https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/3.2.0.tar.gz"
+  },
+  "oxipng": {
+    "version": "v10.2.1",
+    "sha256": "35ae3980ab831af64f4aecc98f69b81bfa146fa750a61d17ebbb12520128cbc8",
+    "source": "https://github.com/oxipng/oxipng/releases/download/v10.2.1/oxipng-10.2.1-x86_64-pc-windows-msvc.zip"
+  }
+}

@@ -25,6 +25,10 @@ def quality_ok(reference, decoded):
                     with difference.crop((left, 0, min(left + 64, reference.width), difference.height)) as tile:
                         if max(ImageStat.Stat(tile).rms) > 6:
                             return False
+        if 'A' in reference.getbands() or 'transparency' in reference.info:
+            with reference.crop(box).convert('RGBA') as a, decoded.crop(box).convert('RGBA') as b:
+                if a.getchannel('A').tobytes() != b.getchannel('A').tobytes():
+                    return False
     return max(value / pixels for value in total) <= 2.5 ** 2
 
 
@@ -34,7 +38,7 @@ def encode_smart(image, destination, fmt, options, control, emit):
         if fmt == 'PNG':
             options.update(optimize=True, compress_level=9)
         elif fmt == 'WEBP':
-            options.update(lossless=True, quality=85, method=4)
+            options.update(lossless=True, quality=85, method=4, exact=True)
         image.save(destination, format=fmt, **options)
         return True
 
@@ -45,31 +49,36 @@ def encode_smart(image, destination, fmt, options, control, emit):
     best = None
     fallback = None
     levels = (75, 80, 85, 88, 91, 94, 97, 100)
-    low, high = 0, len(levels) - 1
     best_quality = 100
+    best_sampling = 0
     # Quality generally improves with the encoder quality level. Search that
     # boundary instead of exhaustively encoding every combination. Every chosen
     # candidate still passes the original full-resolution checks.
-    while low <= high:
-        if not control.checkpoint():
-            return False
-        middle = (low + high) // 2
-        quality = levels[middle]
-        emit(f'Optimizing · quality {quality}')
-        with BytesIO() as buffer:
-            image.save(buffer, format='JPEG', **dict(options, quality=quality,
-                       subsampling=0, optimize=True, progressive=False))
-            data = buffer.getvalue()
-        if quality == 100:
-            fallback = data
-        with Image.open(BytesIO(data)) as decoded:
-            accepted = quality_ok(image, decoded)
-        if accepted:
-            if best is None or len(data) < len(best):
-                best, best_quality = data, quality
-            high = middle - 1
-        else:
-            low = middle + 1
+    # Chroma subsampling is a candidate, never an unconditional quality tradeoff.
+    # Already-subsampled photos often re-encode much smaller with 4:2:0 than
+    # with forced 4:4:4. Colored text/edges still have to pass the same checks.
+    for sampling in ((0, 1, 2) if image.mode == 'RGB' else (0,)):
+        low, high = 0, len(levels) - 1
+        while low <= high:
+            if not control.checkpoint():
+                return False
+            middle = (low + high) // 2
+            quality = levels[middle]
+            emit(f'Optimizing · quality {quality}, chroma {sampling}')
+            with BytesIO() as buffer:
+                image.save(buffer, format='JPEG', **dict(options, quality=quality,
+                           subsampling=sampling, optimize=True, progressive=False))
+                data = buffer.getvalue()
+            if quality == 100 and sampling == 0:
+                fallback = data
+            with Image.open(BytesIO(data)) as decoded:
+                accepted = quality_ok(image, decoded)
+            if accepted:
+                if best is None or len(data) < len(best):
+                    best, best_quality, best_sampling = data, quality, sampling
+                high = middle - 1
+            else:
+                low = middle + 1
     # Test progressive coding only at the selected quality, rather than at
     # every search step. Check its decoded pixels too.
     if best is not None:
@@ -77,7 +86,7 @@ def encode_smart(image, destination, fmt, options, control, emit):
             return False
         with BytesIO() as buffer:
             image.save(buffer, format='JPEG', **dict(options, quality=best_quality,
-                       subsampling=0, optimize=True, progressive=True))
+                       subsampling=best_sampling, optimize=True, progressive=True))
             data = buffer.getvalue()
         if len(data) < len(best):
             with Image.open(BytesIO(data)) as decoded:

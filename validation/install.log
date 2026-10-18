@@ -1,0 +1,1466 @@
+﻿2026-10-18 18:29:53.458   Log opened. (Time zone: UTC+03:00)
+2026-10-18 18:29:53.458   Setup version: Inno Setup version 6.7.3
+2026-10-18 18:29:53.458   Original Setup EXE: C:\Users\User\Desktop\os96ImageProcessor\dist\OS96ImageOptimizer-1.0.0rc2-Setup.exe
+2026-10-18 18:29:53.458   Setup command line: /SL5="$51088A,32541615,851968,C:\Users\User\Desktop\os96ImageProcessor\dist\OS96ImageOptimizer-1.0.0rc2-Setup.exe" /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP- /DIR=C:\Users\User\Desktop\os96ImageProcessor\validation\installed /LOG=C:\Users\User\Desktop\os96ImageProcessor\validation\install.log
+2026-10-18 18:29:53.458   Windows version: 10.0.26200
+2026-10-18 18:29:53.458   Windows architecture: x64 (64-bit)
+2026-10-18 18:29:53.458   Machine types supported by system: x86 x64
+2026-10-18 18:29:53.458   User privileges: None
+2026-10-18 18:29:53.462   Administrative install mode: No
+2026-10-18 18:29:53.462   Install mode root key: HKEY_CURRENT_USER
+2026-10-18 18:29:53.462   64-bit install mode: Yes
+2026-10-18 18:29:53.462   RedirectionGuard status for current process: Enabled in enforcing mode
+2026-10-18 18:29:53.463   Created temporary directory: D:\Temp\is-W51RA1A5HY.tmp
+2026-10-18 18:29:53.696   Found 89 files to register with RestartManager.
+2026-10-18 18:29:53.696   Calling RestartManager's RmGetList.
+2026-10-18 18:29:53.709   RmGetList finished successfully.
+2026-10-18 18:29:53.710   RestartManager found no applications using one of our files.
+2026-10-18 18:29:53.717   Starting the installation process.
+2026-10-18 18:29:53.720   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed
+2026-10-18 18:29:53.720   Directory for uninstall files: C:\Users\User\Desktop\os96ImageProcessor\validation\installed
+2026-10-18 18:29:53.721   Creating new uninstall log: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\unins000.dat
+2026-10-18 18:29:53.735   -- File entry --
+2026-10-18 18:29:53.735   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\unins000.exe
+2026-10-18 18:29:53.735   Non-default bitness: 32-bit
+2026-10-18 18:29:53.742   Time stamp of our file: 2026-10-18 18:29:52.950
+2026-10-18 18:29:53.742   Installing the file.
+2026-10-18 18:29:53.754   Successfully installed the file.
+2026-10-18 18:29:53.755   -- File entry --
+2026-10-18 18:29:53.755   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\build-manifest.json
+2026-10-18 18:29:53.755   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:53.755   Installing the file.
+2026-10-18 18:29:53.758   Successfully installed the file.
+2026-10-18 18:29:53.759   -- File entry --
+2026-10-18 18:29:53.759   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\CHANGELOG.md
+2026-10-18 18:29:53.759   Time stamp of our file: 2026-10-18 18:08:56.000
+2026-10-18 18:29:53.759   Installing the file.
+2026-10-18 18:29:53.763   Successfully installed the file.
+2026-10-18 18:29:53.763   -- File entry --
+2026-10-18 18:29:53.764   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\files.sha256
+2026-10-18 18:29:53.764   Time stamp of our file: 2026-10-18 18:24:58.000
+2026-10-18 18:29:53.764   Installing the file.
+2026-10-18 18:29:53.771   Successfully installed the file.
+2026-10-18 18:29:53.771   -- File entry --
+2026-10-18 18:29:53.771   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\LICENSE
+2026-10-18 18:29:53.772   Time stamp of our file: 2026-10-18 15:44:22.000
+2026-10-18 18:29:53.772   Installing the file.
+2026-10-18 18:29:53.775   Successfully installed the file.
+2026-10-18 18:29:53.776   -- File entry --
+2026-10-18 18:29:53.777   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\OS96ImageOptimizer.exe
+2026-10-18 18:29:53.778   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:53.778   Installing the file.
+2026-10-18 18:29:53.849   Successfully installed the file.
+2026-10-18 18:29:53.850   -- File entry --
+2026-10-18 18:29:53.850   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\README.md
+2026-10-18 18:29:53.850   Time stamp of our file: 2026-10-18 18:19:16.000
+2026-10-18 18:29:53.850   Installing the file.
+2026-10-18 18:29:53.853   Successfully installed the file.
+2026-10-18 18:29:53.853   -- File entry --
+2026-10-18 18:29:53.853   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\requirements-release.txt
+2026-10-18 18:29:53.853   Time stamp of our file: 2026-10-18 17:55:08.000
+2026-10-18 18:29:53.853   Installing the file.
+2026-10-18 18:29:53.856   Successfully installed the file.
+2026-10-18 18:29:53.856   -- File entry --
+2026-10-18 18:29:53.857   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\THIRD_PARTY_NOTICES.md
+2026-10-18 18:29:53.857   Time stamp of our file: 2026-10-18 18:10:58.000
+2026-10-18 18:29:53.857   Installing the file.
+2026-10-18 18:29:53.860   Successfully installed the file.
+2026-10-18 18:29:53.860   -- File entry --
+2026-10-18 18:29:53.861   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Python-LICENSE.txt
+2026-10-18 18:29:53.861   Time stamp of our file: 2026-09-30 20:05:16.000
+2026-10-18 18:29:53.861   Installing the file.
+2026-10-18 18:29:53.861   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses
+2026-10-18 18:29:53.865   Successfully installed the file.
+2026-10-18 18:29:53.865   -- File entry --
+2026-10-18 18:29:53.865   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\native\libjpeg-turbo-LICENSE.md
+2026-10-18 18:29:53.865   Time stamp of our file: 2026-06-30 20:25:42.000
+2026-10-18 18:29:53.865   Installing the file.
+2026-10-18 18:29:53.866   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\native
+2026-10-18 18:29:53.868   Successfully installed the file.
+2026-10-18 18:29:53.868   -- File entry --
+2026-10-18 18:29:53.868   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\native\libjpeg-turbo-README.ijg
+2026-10-18 18:29:53.868   Time stamp of our file: 2026-06-30 20:25:42.000
+2026-10-18 18:29:53.868   Installing the file.
+2026-10-18 18:29:53.872   Successfully installed the file.
+2026-10-18 18:29:53.872   -- File entry --
+2026-10-18 18:29:53.872   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\native\libjpeg-turbo-README.md
+2026-10-18 18:29:53.873   Time stamp of our file: 2026-06-30 20:25:42.000
+2026-10-18 18:29:53.873   Installing the file.
+2026-10-18 18:29:53.877   Successfully installed the file.
+2026-10-18 18:29:53.877   -- File entry --
+2026-10-18 18:29:53.877   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\native\oxipng-LICENSE.txt
+2026-10-18 18:29:53.878   Time stamp of our file: 2026-10-18 17:56:48.000
+2026-10-18 18:29:53.878   Installing the file.
+2026-10-18 18:29:53.879   Successfully installed the file.
+2026-10-18 18:29:53.879   -- File entry --
+2026-10-18 18:29:53.880   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Pillow\pillow-12.3.0.dist-info\METADATA
+2026-10-18 18:29:53.880   Time stamp of our file: 2026-10-18 18:12:34.000
+2026-10-18 18:29:53.880   Installing the file.
+2026-10-18 18:29:53.880   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Pillow
+2026-10-18 18:29:53.881   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Pillow\pillow-12.3.0.dist-info
+2026-10-18 18:29:53.883   Successfully installed the file.
+2026-10-18 18:29:53.883   -- File entry --
+2026-10-18 18:29:53.883   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Pillow\pillow-12.3.0.dist-info\licenses\LICENSE
+2026-10-18 18:29:53.883   Time stamp of our file: 2026-10-18 18:12:34.000
+2026-10-18 18:29:53.883   Installing the file.
+2026-10-18 18:29:53.884   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Pillow\pillow-12.3.0.dist-info\licenses
+2026-10-18 18:29:53.887   Successfully installed the file.
+2026-10-18 18:29:53.887   -- File entry --
+2026-10-18 18:29:53.888   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\PyInstaller\hooks\hook-importlib_metadata.py
+2026-10-18 18:29:53.888   Time stamp of our file: 2026-10-18 18:16:58.000
+2026-10-18 18:29:53.888   Installing the file.
+2026-10-18 18:29:53.888   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller
+2026-10-18 18:29:53.889   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\PyInstaller
+2026-10-18 18:29:53.889   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\PyInstaller\hooks
+2026-10-18 18:29:53.891   Successfully installed the file.
+2026-10-18 18:29:53.891   -- File entry --
+2026-10-18 18:29:53.891   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\PyInstaller\hooks\hook-setuptools._vendor.importlib_metadata.py
+2026-10-18 18:29:53.891   Time stamp of our file: 2026-10-18 18:16:58.000
+2026-10-18 18:29:53.891   Installing the file.
+2026-10-18 18:29:53.893   Successfully installed the file.
+2026-10-18 18:29:53.893   -- File entry --
+2026-10-18 18:29:53.893   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\PyInstaller\hooks\pre_safe_import_module\hook-importlib_metadata.py
+2026-10-18 18:29:53.894   Time stamp of our file: 2026-10-18 18:17:00.000
+2026-10-18 18:29:53.894   Installing the file.
+2026-10-18 18:29:53.894   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\PyInstaller\hooks\pre_safe_import_module
+2026-10-18 18:29:53.897   Successfully installed the file.
+2026-10-18 18:29:53.897   -- File entry --
+2026-10-18 18:29:53.897   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\PyInstaller\hooks\pre_safe_import_module\__pycache__\hook-importlib_metadata.cpython-313.pyc
+2026-10-18 18:29:53.898   Time stamp of our file: 2026-10-18 18:17:06.000
+2026-10-18 18:29:53.898   Installing the file.
+2026-10-18 18:29:53.898   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\PyInstaller\hooks\pre_safe_import_module\__pycache__
+2026-10-18 18:29:53.901   Successfully installed the file.
+2026-10-18 18:29:53.901   -- File entry --
+2026-10-18 18:29:53.901   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\PyInstaller\hooks\__pycache__\hook-importlib_metadata.cpython-313.pyc
+2026-10-18 18:29:53.902   Time stamp of our file: 2026-10-18 18:17:04.000
+2026-10-18 18:29:53.902   Installing the file.
+2026-10-18 18:29:53.902   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\PyInstaller\hooks\__pycache__
+2026-10-18 18:29:53.905   Successfully installed the file.
+2026-10-18 18:29:53.906   -- File entry --
+2026-10-18 18:29:53.906   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\PyInstaller\hooks\__pycache__\hook-setuptools._vendor.importlib_metadata.cpython-313.pyc
+2026-10-18 18:29:53.906   Time stamp of our file: 2026-10-18 18:17:06.000
+2026-10-18 18:29:53.906   Installing the file.
+2026-10-18 18:29:53.908   Successfully installed the file.
+2026-10-18 18:29:53.908   -- File entry --
+2026-10-18 18:29:53.908   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\pyinstaller-6.16.0.dist-info\METADATA
+2026-10-18 18:29:53.909   Time stamp of our file: 2026-10-18 18:17:00.000
+2026-10-18 18:29:53.909   Installing the file.
+2026-10-18 18:29:53.909   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\pyinstaller-6.16.0.dist-info
+2026-10-18 18:29:53.915   Successfully installed the file.
+2026-10-18 18:29:53.916   -- File entry --
+2026-10-18 18:29:53.916   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\pyinstaller-6.16.0.dist-info\licenses\COPYING.txt
+2026-10-18 18:29:53.916   Time stamp of our file: 2026-10-18 18:17:00.000
+2026-10-18 18:29:53.916   Installing the file.
+2026-10-18 18:29:53.916   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\pyinstaller\pyinstaller-6.16.0.dist-info\licenses
+2026-10-18 18:29:53.918   Successfully installed the file.
+2026-10-18 18:29:53.918   -- File entry --
+2026-10-18 18:29:53.918   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\PySide6-Essentials\pyside6_essentials-6.10.2.dist-info\METADATA
+2026-10-18 18:29:53.918   Time stamp of our file: 2026-10-18 18:12:42.000
+2026-10-18 18:29:53.918   Installing the file.
+2026-10-18 18:29:53.919   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\PySide6-Essentials
+2026-10-18 18:29:53.919   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\PySide6-Essentials\pyside6_essentials-6.10.2.dist-info
+2026-10-18 18:29:53.921   Successfully installed the file.
+2026-10-18 18:29:53.921   -- File entry --
+2026-10-18 18:29:53.922   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\PySide6-Essentials\pyside6_essentials-6.10.2.dist-info\licenses\LicenseRef-Qt-Commercial.txt
+2026-10-18 18:29:53.922   Time stamp of our file: 2026-10-18 18:12:42.000
+2026-10-18 18:29:53.922   Installing the file.
+2026-10-18 18:29:53.922   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\PySide6-Essentials\pyside6_essentials-6.10.2.dist-info\licenses
+2026-10-18 18:29:53.925   Successfully installed the file.
+2026-10-18 18:29:53.925   -- File entry --
+2026-10-18 18:29:53.926   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\AFL-2.1.txt
+2026-10-18 18:29:53.926   Time stamp of our file: 2026-10-18 15:45:46.000
+2026-10-18 18:29:53.926   Installing the file.
+2026-10-18 18:29:53.926   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt
+2026-10-18 18:29:53.931   Successfully installed the file.
+2026-10-18 18:29:53.931   -- File entry --
+2026-10-18 18:29:53.931   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\Apache-2.0.txt
+2026-10-18 18:29:53.932   Time stamp of our file: 2026-10-18 15:45:46.000
+2026-10-18 18:29:53.932   Installing the file.
+2026-10-18 18:29:53.933   Successfully installed the file.
+2026-10-18 18:29:53.933   -- File entry --
+2026-10-18 18:29:53.934   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\Bitstream-Vera.txt
+2026-10-18 18:29:53.934   Time stamp of our file: 2026-10-18 15:45:50.000
+2026-10-18 18:29:53.934   Installing the file.
+2026-10-18 18:29:53.956   Successfully installed the file.
+2026-10-18 18:29:53.956   -- File entry --
+2026-10-18 18:29:53.956   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\blessing.txt
+2026-10-18 18:29:53.957   Time stamp of our file: 2026-10-18 15:46:10.000
+2026-10-18 18:29:53.957   Installing the file.
+2026-10-18 18:29:53.958   Successfully installed the file.
+2026-10-18 18:29:53.958   -- File entry --
+2026-10-18 18:29:53.958   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\BSD-2-Clause.txt
+2026-10-18 18:29:53.959   Time stamp of our file: 2026-10-18 15:45:48.000
+2026-10-18 18:29:53.959   Installing the file.
+2026-10-18 18:29:53.960   Successfully installed the file.
+2026-10-18 18:29:53.962   -- File entry --
+2026-10-18 18:29:53.962   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\BSD-3-Clause.txt
+2026-10-18 18:29:53.962   Time stamp of our file: 2026-10-18 15:45:48.000
+2026-10-18 18:29:53.962   Installing the file.
+2026-10-18 18:29:53.964   Successfully installed the file.
+2026-10-18 18:29:53.964   -- File entry --
+2026-10-18 18:29:53.964   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\BSD-4-Clause.txt
+2026-10-18 18:29:53.964   Time stamp of our file: 2026-10-18 15:45:48.000
+2026-10-18 18:29:53.964   Installing the file.
+2026-10-18 18:29:53.966   Successfully installed the file.
+2026-10-18 18:29:53.966   -- File entry --
+2026-10-18 18:29:53.966   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\BSL-1.0.txt
+2026-10-18 18:29:53.967   Time stamp of our file: 2026-10-18 15:45:50.000
+2026-10-18 18:29:53.967   Installing the file.
+2026-10-18 18:29:53.968   Successfully installed the file.
+2026-10-18 18:29:53.968   -- File entry --
+2026-10-18 18:29:53.968   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\CC0-1.0.txt
+2026-10-18 18:29:53.968   Time stamp of our file: 2026-10-18 15:45:50.000
+2026-10-18 18:29:53.968   Installing the file.
+2026-10-18 18:29:53.970   Successfully installed the file.
+2026-10-18 18:29:53.970   -- File entry --
+2026-10-18 18:29:53.970   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\FTL.txt
+2026-10-18 18:29:53.970   Time stamp of our file: 2026-10-18 15:45:50.000
+2026-10-18 18:29:53.970   Installing the file.
+2026-10-18 18:29:53.981   Successfully installed the file.
+2026-10-18 18:29:53.981   -- File entry --
+2026-10-18 18:29:53.981   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\GFDL-1.3-no-invariants-only.txt
+2026-10-18 18:29:53.981   Time stamp of our file: 2026-10-18 15:45:52.000
+2026-10-18 18:29:53.981   Installing the file.
+2026-10-18 18:29:53.983   Successfully installed the file.
+2026-10-18 18:29:53.984   -- File entry --
+2026-10-18 18:29:53.984   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\GPL-2.0-only.txt
+2026-10-18 18:29:53.984   Time stamp of our file: 2026-10-18 15:45:52.000
+2026-10-18 18:29:53.984   Installing the file.
+2026-10-18 18:29:53.986   Successfully installed the file.
+2026-10-18 18:29:53.986   -- File entry --
+2026-10-18 18:29:53.986   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\GPL-2.0-or-later.txt
+2026-10-18 18:29:53.986   Time stamp of our file: 2026-10-18 15:45:52.000
+2026-10-18 18:29:53.986   Installing the file.
+2026-10-18 18:29:53.988   Successfully installed the file.
+2026-10-18 18:29:53.988   -- File entry --
+2026-10-18 18:29:53.988   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\GPL-3.0-only.txt
+2026-10-18 18:29:53.988   Time stamp of our file: 2026-10-18 15:45:54.000
+2026-10-18 18:29:53.988   Installing the file.
+2026-10-18 18:29:53.990   Successfully installed the file.
+2026-10-18 18:29:53.991   -- File entry --
+2026-10-18 18:29:53.991   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\HPND.txt
+2026-10-18 18:29:53.991   Time stamp of our file: 2026-10-18 15:45:54.000
+2026-10-18 18:29:53.991   Installing the file.
+2026-10-18 18:29:54.003   Successfully installed the file.
+2026-10-18 18:29:54.004   -- File entry --
+2026-10-18 18:29:54.004   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\IJG.txt
+2026-10-18 18:29:54.004   Time stamp of our file: 2026-10-18 15:45:54.000
+2026-10-18 18:29:54.004   Installing the file.
+2026-10-18 18:29:54.005   Successfully installed the file.
+2026-10-18 18:29:54.005   -- File entry --
+2026-10-18 18:29:54.005   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\Imlib2.txt
+2026-10-18 18:29:54.005   Time stamp of our file: 2026-10-18 15:45:56.000
+2026-10-18 18:29:54.005   Installing the file.
+2026-10-18 18:29:54.007   Successfully installed the file.
+2026-10-18 18:29:54.007   -- File entry --
+2026-10-18 18:29:54.007   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\IPL-1.0.txt
+2026-10-18 18:29:54.007   Time stamp of our file: 2026-10-18 15:45:54.000
+2026-10-18 18:29:54.007   Installing the file.
+2026-10-18 18:29:54.010   Successfully installed the file.
+2026-10-18 18:29:54.010   -- File entry --
+2026-10-18 18:29:54.010   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\LGPL-2.1-or-later.txt
+2026-10-18 18:29:54.010   Time stamp of our file: 2026-10-18 15:45:56.000
+2026-10-18 18:29:54.010   Installing the file.
+2026-10-18 18:29:54.013   Successfully installed the file.
+2026-10-18 18:29:54.013   -- File entry --
+2026-10-18 18:29:54.013   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\LGPL-3.0-only.txt
+2026-10-18 18:29:54.013   Time stamp of our file: 2026-10-18 15:45:56.000
+2026-10-18 18:29:54.013   Installing the file.
+2026-10-18 18:29:54.015   Successfully installed the file.
+2026-10-18 18:29:54.015   -- File entry --
+2026-10-18 18:29:54.015   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\libpng-2.0.txt
+2026-10-18 18:29:54.015   Time stamp of our file: 2026-10-18 15:46:10.000
+2026-10-18 18:29:54.015   Installing the file.
+2026-10-18 18:29:54.017   Successfully installed the file.
+2026-10-18 18:29:54.017   -- File entry --
+2026-10-18 18:29:54.017   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\Libpng.txt
+2026-10-18 18:29:54.017   Time stamp of our file: 2026-10-18 15:45:58.000
+2026-10-18 18:29:54.017   Installing the file.
+2026-10-18 18:29:54.019   Successfully installed the file.
+2026-10-18 18:29:54.019   -- File entry --
+2026-10-18 18:29:54.019   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\LicenseRef-BSD-3-Clause-with-PCRE2-Binary-Like-Packages-Exception.txt
+2026-10-18 18:29:54.019   Time stamp of our file: 2026-10-18 15:46:00.000
+2026-10-18 18:29:54.019   Installing the file.
+2026-10-18 18:29:54.021   Successfully installed the file.
+2026-10-18 18:29:54.021   -- File entry --
+2026-10-18 18:29:54.021   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\LicenseRef-ICC-License.txt
+2026-10-18 18:29:54.021   Time stamp of our file: 2026-10-18 15:46:00.000
+2026-10-18 18:29:54.021   Installing the file.
+2026-10-18 18:29:54.023   Successfully installed the file.
+2026-10-18 18:29:54.023   -- File entry --
+2026-10-18 18:29:54.023   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\LicenseRef-Lcs-Telegraphics.txt
+2026-10-18 18:29:54.023   Time stamp of our file: 2026-10-18 15:46:00.000
+2026-10-18 18:29:54.023   Installing the file.
+2026-10-18 18:29:54.025   Successfully installed the file.
+2026-10-18 18:29:54.025   -- File entry --
+2026-10-18 18:29:54.025   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\LicenseRef-Qt-Commercial.txt
+2026-10-18 18:29:54.025   Time stamp of our file: 2026-10-18 15:46:00.000
+2026-10-18 18:29:54.025   Installing the file.
+2026-10-18 18:29:54.029   Successfully installed the file.
+2026-10-18 18:29:54.029   -- File entry --
+2026-10-18 18:29:54.029   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\LicenseRef-SHA1-Public-Domain.txt
+2026-10-18 18:29:54.030   Time stamp of our file: 2026-10-18 15:46:02.000
+2026-10-18 18:29:54.030   Installing the file.
+2026-10-18 18:29:54.031   Successfully installed the file.
+2026-10-18 18:29:54.032   -- File entry --
+2026-10-18 18:29:54.032   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\Linux-syscall-note.txt
+2026-10-18 18:29:54.032   Time stamp of our file: 2026-10-18 15:46:02.000
+2026-10-18 18:29:54.032   Installing the file.
+2026-10-18 18:29:54.034   Successfully installed the file.
+2026-10-18 18:29:54.034   -- File entry --
+2026-10-18 18:29:54.034   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\MIT-Khronos-old.txt
+2026-10-18 18:29:54.034   Time stamp of our file: 2026-10-18 15:46:02.000
+2026-10-18 18:29:54.034   Installing the file.
+2026-10-18 18:29:54.035   Successfully installed the file.
+2026-10-18 18:29:54.036   -- File entry --
+2026-10-18 18:29:54.036   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\MIT-open-group.txt
+2026-10-18 18:29:54.036   Time stamp of our file: 2026-10-18 15:46:04.000
+2026-10-18 18:29:54.036   Installing the file.
+2026-10-18 18:29:54.037   Successfully installed the file.
+2026-10-18 18:29:54.037   -- File entry --
+2026-10-18 18:29:54.037   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\MIT.txt
+2026-10-18 18:29:54.037   Time stamp of our file: 2026-10-18 15:46:06.000
+2026-10-18 18:29:54.037   Installing the file.
+2026-10-18 18:29:54.039   Successfully installed the file.
+2026-10-18 18:29:54.039   -- File entry --
+2026-10-18 18:29:54.039   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\MPL-2.0.txt
+2026-10-18 18:29:54.039   Time stamp of our file: 2026-10-18 15:46:06.000
+2026-10-18 18:29:54.039   Installing the file.
+2026-10-18 18:29:54.041   Successfully installed the file.
+2026-10-18 18:29:54.041   -- File entry --
+2026-10-18 18:29:54.041   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\Qt-GPL-exception-1.0.txt
+2026-10-18 18:29:54.041   Time stamp of our file: 2026-10-18 15:46:06.000
+2026-10-18 18:29:54.041   Installing the file.
+2026-10-18 18:29:54.043   Successfully installed the file.
+2026-10-18 18:29:54.043   -- File entry --
+2026-10-18 18:29:54.043   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\SPL-1.0.txt
+2026-10-18 18:29:54.044   Time stamp of our file: 2026-10-18 15:46:08.000
+2026-10-18 18:29:54.044   Installing the file.
+2026-10-18 18:29:54.045   Successfully installed the file.
+2026-10-18 18:29:54.046   -- File entry --
+2026-10-18 18:29:54.046   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\Unicode-3.0.txt
+2026-10-18 18:29:54.046   Time stamp of our file: 2026-10-18 15:46:08.000
+2026-10-18 18:29:54.046   Installing the file.
+2026-10-18 18:29:54.047   Successfully installed the file.
+2026-10-18 18:29:54.047   -- File entry --
+2026-10-18 18:29:54.047   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\X11.txt
+2026-10-18 18:29:54.048   Time stamp of our file: 2026-10-18 15:46:08.000
+2026-10-18 18:29:54.048   Installing the file.
+2026-10-18 18:29:54.049   Successfully installed the file.
+2026-10-18 18:29:54.050   -- File entry --
+2026-10-18 18:29:54.050   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\Xerox.txt
+2026-10-18 18:29:54.050   Time stamp of our file: 2026-10-18 15:46:08.000
+2026-10-18 18:29:54.050   Installing the file.
+2026-10-18 18:29:54.051   Successfully installed the file.
+2026-10-18 18:29:54.051   -- File entry --
+2026-10-18 18:29:54.051   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\Qt\Zlib.txt
+2026-10-18 18:29:54.051   Time stamp of our file: 2026-10-18 15:46:10.000
+2026-10-18 18:29:54.051   Installing the file.
+2026-10-18 18:29:54.053   Successfully installed the file.
+2026-10-18 18:29:54.053   -- File entry --
+2026-10-18 18:29:54.053   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\shiboken6\shiboken6-6.10.2.dist-info\METADATA
+2026-10-18 18:29:54.053   Time stamp of our file: 2026-10-18 18:12:32.000
+2026-10-18 18:29:54.053   Installing the file.
+2026-10-18 18:29:54.053   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\shiboken6
+2026-10-18 18:29:54.054   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\shiboken6\shiboken6-6.10.2.dist-info
+2026-10-18 18:29:54.055   Successfully installed the file.
+2026-10-18 18:29:54.056   -- File entry --
+2026-10-18 18:29:54.056   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\shiboken6\shiboken6-6.10.2.dist-info\licenses\LicenseRef-Qt-Commercial.txt
+2026-10-18 18:29:54.056   Time stamp of our file: 2026-10-18 18:12:32.000
+2026-10-18 18:29:54.056   Installing the file.
+2026-10-18 18:29:54.056   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\licenses\shiboken6\shiboken6-6.10.2.dist-info\licenses
+2026-10-18 18:29:54.058   Successfully installed the file.
+2026-10-18 18:29:54.058   -- File entry --
+2026-10-18 18:29:54.058   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-console-l1-1-0.dll
+2026-10-18 18:29:54.058   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.058   Installing the file.
+2026-10-18 18:29:54.059   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal
+2026-10-18 18:29:54.061   Successfully installed the file.
+2026-10-18 18:29:54.062   -- File entry --
+2026-10-18 18:29:54.062   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-datetime-l1-1-0.dll
+2026-10-18 18:29:54.062   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.062   Installing the file.
+2026-10-18 18:29:54.063   Successfully installed the file.
+2026-10-18 18:29:54.063   -- File entry --
+2026-10-18 18:29:54.063   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-debug-l1-1-0.dll
+2026-10-18 18:29:54.064   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.064   Installing the file.
+2026-10-18 18:29:54.066   Successfully installed the file.
+2026-10-18 18:29:54.066   -- File entry --
+2026-10-18 18:29:54.066   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-errorhandling-l1-1-0.dll
+2026-10-18 18:29:54.066   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.066   Installing the file.
+2026-10-18 18:29:54.068   Successfully installed the file.
+2026-10-18 18:29:54.068   -- File entry --
+2026-10-18 18:29:54.068   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-fibers-l1-1-0.dll
+2026-10-18 18:29:54.069   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.069   Installing the file.
+2026-10-18 18:29:54.071   Successfully installed the file.
+2026-10-18 18:29:54.071   -- File entry --
+2026-10-18 18:29:54.071   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-file-l1-1-0.dll
+2026-10-18 18:29:54.071   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.071   Installing the file.
+2026-10-18 18:29:54.073   Successfully installed the file.
+2026-10-18 18:29:54.073   -- File entry --
+2026-10-18 18:29:54.073   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-file-l1-2-0.dll
+2026-10-18 18:29:54.074   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.074   Installing the file.
+2026-10-18 18:29:54.077   Successfully installed the file.
+2026-10-18 18:29:54.077   -- File entry --
+2026-10-18 18:29:54.077   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-file-l2-1-0.dll
+2026-10-18 18:29:54.078   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.078   Installing the file.
+2026-10-18 18:29:54.079   Successfully installed the file.
+2026-10-18 18:29:54.079   -- File entry --
+2026-10-18 18:29:54.079   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-handle-l1-1-0.dll
+2026-10-18 18:29:54.080   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.080   Installing the file.
+2026-10-18 18:29:54.081   Successfully installed the file.
+2026-10-18 18:29:54.082   -- File entry --
+2026-10-18 18:29:54.082   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-heap-l1-1-0.dll
+2026-10-18 18:29:54.082   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.082   Installing the file.
+2026-10-18 18:29:54.084   Successfully installed the file.
+2026-10-18 18:29:54.084   -- File entry --
+2026-10-18 18:29:54.084   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-interlocked-l1-1-0.dll
+2026-10-18 18:29:54.084   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.084   Installing the file.
+2026-10-18 18:29:54.086   Successfully installed the file.
+2026-10-18 18:29:54.086   -- File entry --
+2026-10-18 18:29:54.086   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-libraryloader-l1-1-0.dll
+2026-10-18 18:29:54.086   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.086   Installing the file.
+2026-10-18 18:29:54.088   Successfully installed the file.
+2026-10-18 18:29:54.089   -- File entry --
+2026-10-18 18:29:54.089   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-localization-l1-2-0.dll
+2026-10-18 18:29:54.089   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.089   Installing the file.
+2026-10-18 18:29:54.090   Successfully installed the file.
+2026-10-18 18:29:54.091   -- File entry --
+2026-10-18 18:29:54.091   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-memory-l1-1-0.dll
+2026-10-18 18:29:54.091   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.091   Installing the file.
+2026-10-18 18:29:54.092   Successfully installed the file.
+2026-10-18 18:29:54.093   -- File entry --
+2026-10-18 18:29:54.093   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-namedpipe-l1-1-0.dll
+2026-10-18 18:29:54.093   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.093   Installing the file.
+2026-10-18 18:29:54.095   Successfully installed the file.
+2026-10-18 18:29:54.096   -- File entry --
+2026-10-18 18:29:54.096   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-processenvironment-l1-1-0.dll
+2026-10-18 18:29:54.096   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.096   Installing the file.
+2026-10-18 18:29:54.098   Successfully installed the file.
+2026-10-18 18:29:54.098   -- File entry --
+2026-10-18 18:29:54.098   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-processthreads-l1-1-0.dll
+2026-10-18 18:29:54.098   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.098   Installing the file.
+2026-10-18 18:29:54.099   Successfully installed the file.
+2026-10-18 18:29:54.099   -- File entry --
+2026-10-18 18:29:54.099   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-processthreads-l1-1-1.dll
+2026-10-18 18:29:54.100   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.100   Installing the file.
+2026-10-18 18:29:54.101   Successfully installed the file.
+2026-10-18 18:29:54.101   -- File entry --
+2026-10-18 18:29:54.101   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-profile-l1-1-0.dll
+2026-10-18 18:29:54.101   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.101   Installing the file.
+2026-10-18 18:29:54.103   Successfully installed the file.
+2026-10-18 18:29:54.103   -- File entry --
+2026-10-18 18:29:54.103   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-rtlsupport-l1-1-0.dll
+2026-10-18 18:29:54.103   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.103   Installing the file.
+2026-10-18 18:29:54.105   Successfully installed the file.
+2026-10-18 18:29:54.105   -- File entry --
+2026-10-18 18:29:54.105   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-string-l1-1-0.dll
+2026-10-18 18:29:54.106   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.106   Installing the file.
+2026-10-18 18:29:54.107   Successfully installed the file.
+2026-10-18 18:29:54.107   -- File entry --
+2026-10-18 18:29:54.107   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-synch-l1-1-0.dll
+2026-10-18 18:29:54.107   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.107   Installing the file.
+2026-10-18 18:29:54.109   Successfully installed the file.
+2026-10-18 18:29:54.109   -- File entry --
+2026-10-18 18:29:54.109   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-synch-l1-2-0.dll
+2026-10-18 18:29:54.109   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.109   Installing the file.
+2026-10-18 18:29:54.111   Successfully installed the file.
+2026-10-18 18:29:54.111   -- File entry --
+2026-10-18 18:29:54.111   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-sysinfo-l1-1-0.dll
+2026-10-18 18:29:54.111   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.111   Installing the file.
+2026-10-18 18:29:54.113   Successfully installed the file.
+2026-10-18 18:29:54.113   -- File entry --
+2026-10-18 18:29:54.113   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-timezone-l1-1-0.dll
+2026-10-18 18:29:54.113   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.113   Installing the file.
+2026-10-18 18:29:54.115   Successfully installed the file.
+2026-10-18 18:29:54.115   -- File entry --
+2026-10-18 18:29:54.115   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-core-util-l1-1-0.dll
+2026-10-18 18:29:54.115   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.115   Installing the file.
+2026-10-18 18:29:54.116   Successfully installed the file.
+2026-10-18 18:29:54.117   -- File entry --
+2026-10-18 18:29:54.117   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-crt-conio-l1-1-0.dll
+2026-10-18 18:29:54.117   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.117   Installing the file.
+2026-10-18 18:29:54.118   Successfully installed the file.
+2026-10-18 18:29:54.119   -- File entry --
+2026-10-18 18:29:54.119   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-crt-convert-l1-1-0.dll
+2026-10-18 18:29:54.119   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.119   Installing the file.
+2026-10-18 18:29:54.120   Successfully installed the file.
+2026-10-18 18:29:54.121   -- File entry --
+2026-10-18 18:29:54.121   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-crt-environment-l1-1-0.dll
+2026-10-18 18:29:54.121   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.121   Installing the file.
+2026-10-18 18:29:54.122   Successfully installed the file.
+2026-10-18 18:29:54.122   -- File entry --
+2026-10-18 18:29:54.122   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-crt-filesystem-l1-1-0.dll
+2026-10-18 18:29:54.123   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.123   Installing the file.
+2026-10-18 18:29:54.124   Successfully installed the file.
+2026-10-18 18:29:54.125   -- File entry --
+2026-10-18 18:29:54.125   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-crt-heap-l1-1-0.dll
+2026-10-18 18:29:54.125   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.125   Installing the file.
+2026-10-18 18:29:54.128   Successfully installed the file.
+2026-10-18 18:29:54.129   -- File entry --
+2026-10-18 18:29:54.129   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-crt-locale-l1-1-0.dll
+2026-10-18 18:29:54.129   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.129   Installing the file.
+2026-10-18 18:29:54.131   Successfully installed the file.
+2026-10-18 18:29:54.131   -- File entry --
+2026-10-18 18:29:54.131   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-crt-math-l1-1-0.dll
+2026-10-18 18:29:54.131   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.131   Installing the file.
+2026-10-18 18:29:54.133   Successfully installed the file.
+2026-10-18 18:29:54.134   -- File entry --
+2026-10-18 18:29:54.134   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-crt-process-l1-1-0.dll
+2026-10-18 18:29:54.134   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.134   Installing the file.
+2026-10-18 18:29:54.136   Successfully installed the file.
+2026-10-18 18:29:54.136   -- File entry --
+2026-10-18 18:29:54.136   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-crt-runtime-l1-1-0.dll
+2026-10-18 18:29:54.136   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.136   Installing the file.
+2026-10-18 18:29:54.139   Successfully installed the file.
+2026-10-18 18:29:54.139   -- File entry --
+2026-10-18 18:29:54.139   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-crt-stdio-l1-1-0.dll
+2026-10-18 18:29:54.139   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.139   Installing the file.
+2026-10-18 18:29:54.141   Successfully installed the file.
+2026-10-18 18:29:54.141   -- File entry --
+2026-10-18 18:29:54.141   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-crt-string-l1-1-0.dll
+2026-10-18 18:29:54.141   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.141   Installing the file.
+2026-10-18 18:29:54.142   Successfully installed the file.
+2026-10-18 18:29:54.143   -- File entry --
+2026-10-18 18:29:54.143   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-crt-time-l1-1-0.dll
+2026-10-18 18:29:54.143   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.143   Installing the file.
+2026-10-18 18:29:54.145   Successfully installed the file.
+2026-10-18 18:29:54.145   -- File entry --
+2026-10-18 18:29:54.145   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\api-ms-win-crt-utility-l1-1-0.dll
+2026-10-18 18:29:54.145   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.145   Installing the file.
+2026-10-18 18:29:54.147   Successfully installed the file.
+2026-10-18 18:29:54.147   -- File entry --
+2026-10-18 18:29:54.148   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\base_library.zip
+2026-10-18 18:29:54.148   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:54.148   Installing the file.
+2026-10-18 18:29:54.181   Successfully installed the file.
+2026-10-18 18:29:54.181   -- File entry --
+2026-10-18 18:29:54.181   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\libcrypto-3-x64.dll
+2026-10-18 18:29:54.182   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.182   Installing the file.
+2026-10-18 18:29:54.323   Successfully installed the file.
+2026-10-18 18:29:54.323   -- File entry --
+2026-10-18 18:29:54.323   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\libcrypto-3.dll
+2026-10-18 18:29:54.324   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.324   Installing the file.
+2026-10-18 18:29:54.514   Successfully installed the file.
+2026-10-18 18:29:54.514   -- File entry --
+2026-10-18 18:29:54.514   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\libffi-8.dll
+2026-10-18 18:29:54.514   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.514   Installing the file.
+2026-10-18 18:29:54.518   Successfully installed the file.
+2026-10-18 18:29:54.518   -- File entry --
+2026-10-18 18:29:54.518   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\libssl-3-x64.dll
+2026-10-18 18:29:54.518   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.518   Installing the file.
+2026-10-18 18:29:54.551   Successfully installed the file.
+2026-10-18 18:29:54.551   -- File entry --
+2026-10-18 18:29:54.551   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\libssl-3.dll
+2026-10-18 18:29:54.551   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.551   Installing the file.
+2026-10-18 18:29:54.616   Successfully installed the file.
+2026-10-18 18:29:54.616   -- File entry --
+2026-10-18 18:29:54.616   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\pyexpat.pyd
+2026-10-18 18:29:54.617   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.617   Installing the file.
+2026-10-18 18:29:54.630   Successfully installed the file.
+2026-10-18 18:29:54.631   -- File entry --
+2026-10-18 18:29:54.631   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\python3.dll
+2026-10-18 18:29:54.631   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.631   Installing the file.
+2026-10-18 18:29:54.636   Successfully installed the file.
+2026-10-18 18:29:54.636   -- File entry --
+2026-10-18 18:29:54.636   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\python313.dll
+2026-10-18 18:29:54.636   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.636   Installing the file.
+2026-10-18 18:29:54.850   Successfully installed the file.
+2026-10-18 18:29:54.850   -- File entry --
+2026-10-18 18:29:54.850   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\select.pyd
+2026-10-18 18:29:54.850   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.850   Installing the file.
+2026-10-18 18:29:54.852   Successfully installed the file.
+2026-10-18 18:29:54.852   -- File entry --
+2026-10-18 18:29:54.852   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\ucrtbase.dll
+2026-10-18 18:29:54.853   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.853   Installing the file.
+2026-10-18 18:29:54.898   Successfully installed the file.
+2026-10-18 18:29:54.898   -- File entry --
+2026-10-18 18:29:54.898   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\unicodedata.pyd
+2026-10-18 18:29:54.898   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.898   Installing the file.
+2026-10-18 18:29:54.972   Successfully installed the file.
+2026-10-18 18:29:54.972   -- File entry --
+2026-10-18 18:29:54.972   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\VCRUNTIME140.dll
+2026-10-18 18:29:54.972   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.972   Installing the file.
+2026-10-18 18:29:54.985   Successfully installed the file.
+2026-10-18 18:29:54.985   -- File entry --
+2026-10-18 18:29:54.985   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\VCRUNTIME140_1.dll
+2026-10-18 18:29:54.985   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.985   Installing the file.
+2026-10-18 18:29:54.991   Successfully installed the file.
+2026-10-18 18:29:54.991   -- File entry --
+2026-10-18 18:29:54.991   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\_bz2.pyd
+2026-10-18 18:29:54.991   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:54.991   Installing the file.
+2026-10-18 18:29:55.000   Successfully installed the file.
+2026-10-18 18:29:55.001   -- File entry --
+2026-10-18 18:29:55.001   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\_ctypes.pyd
+2026-10-18 18:29:55.001   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.001   Installing the file.
+2026-10-18 18:29:55.014   Successfully installed the file.
+2026-10-18 18:29:55.014   -- File entry --
+2026-10-18 18:29:55.014   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\_decimal.pyd
+2026-10-18 18:29:55.014   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.014   Installing the file.
+2026-10-18 18:29:55.031   Successfully installed the file.
+2026-10-18 18:29:55.031   -- File entry --
+2026-10-18 18:29:55.031   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\_elementtree.pyd
+2026-10-18 18:29:55.032   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.032   Installing the file.
+2026-10-18 18:29:55.041   Successfully installed the file.
+2026-10-18 18:29:55.042   -- File entry --
+2026-10-18 18:29:55.042   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\_hashlib.pyd
+2026-10-18 18:29:55.042   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.042   Installing the file.
+2026-10-18 18:29:55.048   Successfully installed the file.
+2026-10-18 18:29:55.048   -- File entry --
+2026-10-18 18:29:55.048   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\_lzma.pyd
+2026-10-18 18:29:55.048   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.048   Installing the file.
+2026-10-18 18:29:55.056   Successfully installed the file.
+2026-10-18 18:29:55.056   -- File entry --
+2026-10-18 18:29:55.056   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\_multiprocessing.pyd
+2026-10-18 18:29:55.056   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.056   Installing the file.
+2026-10-18 18:29:55.059   Successfully installed the file.
+2026-10-18 18:29:55.059   -- File entry --
+2026-10-18 18:29:55.059   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\_queue.pyd
+2026-10-18 18:29:55.059   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.059   Installing the file.
+2026-10-18 18:29:55.068   Successfully installed the file.
+2026-10-18 18:29:55.068   -- File entry --
+2026-10-18 18:29:55.068   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\_socket.pyd
+2026-10-18 18:29:55.069   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.069   Installing the file.
+2026-10-18 18:29:55.075   Successfully installed the file.
+2026-10-18 18:29:55.075   -- File entry --
+2026-10-18 18:29:55.075   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\_ssl.pyd
+2026-10-18 18:29:55.076   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.076   Installing the file.
+2026-10-18 18:29:55.086   Successfully installed the file.
+2026-10-18 18:29:55.086   -- File entry --
+2026-10-18 18:29:55.086   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\_wmi.pyd
+2026-10-18 18:29:55.087   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.087   Installing the file.
+2026-10-18 18:29:55.090   Successfully installed the file.
+2026-10-18 18:29:55.090   -- File entry --
+2026-10-18 18:29:55.090   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\assets\app.ico
+2026-10-18 18:29:55.091   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.091   Installing the file.
+2026-10-18 18:29:55.091   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\assets
+2026-10-18 18:29:55.096   Successfully installed the file.
+2026-10-18 18:29:55.097   -- File entry --
+2026-10-18 18:29:55.097   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\assets\app.png
+2026-10-18 18:29:55.097   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.098   Installing the file.
+2026-10-18 18:29:55.099   Successfully installed the file.
+2026-10-18 18:29:55.099   -- File entry --
+2026-10-18 18:29:55.100   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\assets\native\jpegtran.exe
+2026-10-18 18:29:55.100   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.100   Installing the file.
+2026-10-18 18:29:55.100   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\assets\native
+2026-10-18 18:29:55.117   Successfully installed the file.
+2026-10-18 18:29:55.118   -- File entry --
+2026-10-18 18:29:55.118   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\assets\native\manifest.json
+2026-10-18 18:29:55.118   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.118   Installing the file.
+2026-10-18 18:29:55.119   Successfully installed the file.
+2026-10-18 18:29:55.119   -- File entry --
+2026-10-18 18:29:55.119   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\assets\native\oxipng.exe
+2026-10-18 18:29:55.119   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.120   Installing the file.
+2026-10-18 18:29:55.155   Successfully installed the file.
+2026-10-18 18:29:55.155   -- File entry --
+2026-10-18 18:29:55.155   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\assets\native\VCRUNTIME140.dll
+2026-10-18 18:29:55.155   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.155   Installing the file.
+2026-10-18 18:29:55.158   Successfully installed the file.
+2026-10-18 18:29:55.158   -- File entry --
+2026-10-18 18:29:55.158   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PIL\_avif.cp313-win_amd64.pyd
+2026-10-18 18:29:55.158   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.158   Installing the file.
+2026-10-18 18:29:55.158   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PIL
+2026-10-18 18:29:55.372   Successfully installed the file.
+2026-10-18 18:29:55.372   -- File entry --
+2026-10-18 18:29:55.372   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PIL\_imaging.cp313-win_amd64.pyd
+2026-10-18 18:29:55.372   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.372   Installing the file.
+2026-10-18 18:29:55.482   Successfully installed the file.
+2026-10-18 18:29:55.482   -- File entry --
+2026-10-18 18:29:55.482   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PIL\_imagingcms.cp313-win_amd64.pyd
+2026-10-18 18:29:55.483   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.483   Installing the file.
+2026-10-18 18:29:55.503   Successfully installed the file.
+2026-10-18 18:29:55.503   -- File entry --
+2026-10-18 18:29:55.503   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PIL\_imagingmath.cp313-win_amd64.pyd
+2026-10-18 18:29:55.504   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.504   Installing the file.
+2026-10-18 18:29:55.507   Successfully installed the file.
+2026-10-18 18:29:55.507   -- File entry --
+2026-10-18 18:29:55.507   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PIL\_imagingtk.cp313-win_amd64.pyd
+2026-10-18 18:29:55.507   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.507   Installing the file.
+2026-10-18 18:29:55.509   Successfully installed the file.
+2026-10-18 18:29:55.510   -- File entry --
+2026-10-18 18:29:55.510   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PIL\_webp.cp313-win_amd64.pyd
+2026-10-18 18:29:55.510   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.510   Installing the file.
+2026-10-18 18:29:55.523   Successfully installed the file.
+2026-10-18 18:29:55.523   -- File entry --
+2026-10-18 18:29:55.523   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\MSVCP140.dll
+2026-10-18 18:29:55.524   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.524   Installing the file.
+2026-10-18 18:29:55.524   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6
+2026-10-18 18:29:55.555   Successfully installed the file.
+2026-10-18 18:29:55.555   -- File entry --
+2026-10-18 18:29:55.555   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\MSVCP140_1.dll
+2026-10-18 18:29:55.555   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.555   Installing the file.
+2026-10-18 18:29:55.557   Successfully installed the file.
+2026-10-18 18:29:55.557   -- File entry --
+2026-10-18 18:29:55.557   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\MSVCP140_2.dll
+2026-10-18 18:29:55.557   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.557   Installing the file.
+2026-10-18 18:29:55.567   Successfully installed the file.
+2026-10-18 18:29:55.567   -- File entry --
+2026-10-18 18:29:55.567   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\opengl32sw.dll
+2026-10-18 18:29:55.567   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:55.568   Installing the file.
+2026-10-18 18:29:56.116   Successfully installed the file.
+2026-10-18 18:29:56.117   -- File entry --
+2026-10-18 18:29:56.117   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\pyside6.abi3.dll
+2026-10-18 18:29:56.117   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:56.117   Installing the file.
+2026-10-18 18:29:56.126   Successfully installed the file.
+2026-10-18 18:29:56.126   -- File entry --
+2026-10-18 18:29:56.126   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\Qt6Core.dll
+2026-10-18 18:29:56.126   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:56.126   Installing the file.
+2026-10-18 18:29:56.433   Successfully installed the file.
+2026-10-18 18:29:56.433   -- File entry --
+2026-10-18 18:29:56.433   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\Qt6Gui.dll
+2026-10-18 18:29:56.433   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:56.433   Installing the file.
+2026-10-18 18:29:56.906   Successfully installed the file.
+2026-10-18 18:29:56.906   -- File entry --
+2026-10-18 18:29:56.906   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\Qt6Network.dll
+2026-10-18 18:29:56.908   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:56.908   Installing the file.
+2026-10-18 18:29:57.012   Successfully installed the file.
+2026-10-18 18:29:57.012   -- File entry --
+2026-10-18 18:29:57.012   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\Qt6Svg.dll
+2026-10-18 18:29:57.012   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:57.012   Installing the file.
+2026-10-18 18:29:57.048   Successfully installed the file.
+2026-10-18 18:29:57.048   -- File entry --
+2026-10-18 18:29:57.048   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\Qt6Widgets.dll
+2026-10-18 18:29:57.049   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:57.049   Installing the file.
+2026-10-18 18:29:57.404   Successfully installed the file.
+2026-10-18 18:29:57.404   -- File entry --
+2026-10-18 18:29:57.404   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\QtCore.pyd
+2026-10-18 18:29:57.404   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:57.404   Installing the file.
+2026-10-18 18:29:57.539   Successfully installed the file.
+2026-10-18 18:29:57.539   -- File entry --
+2026-10-18 18:29:57.539   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\QtGui.pyd
+2026-10-18 18:29:57.539   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:57.539   Installing the file.
+2026-10-18 18:29:57.732   Successfully installed the file.
+2026-10-18 18:29:57.732   -- File entry --
+2026-10-18 18:29:57.732   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\QtNetwork.pyd
+2026-10-18 18:29:57.732   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:57.732   Installing the file.
+2026-10-18 18:29:57.774   Successfully installed the file.
+2026-10-18 18:29:57.774   -- File entry --
+2026-10-18 18:29:57.775   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\QtWidgets.pyd
+2026-10-18 18:29:57.775   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:57.775   Installing the file.
+2026-10-18 18:29:57.959   Successfully installed the file.
+2026-10-18 18:29:57.960   -- File entry --
+2026-10-18 18:29:57.960   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\VCRUNTIME140.dll
+2026-10-18 18:29:57.960   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:57.960   Installing the file.
+2026-10-18 18:29:57.970   Successfully installed the file.
+2026-10-18 18:29:57.970   -- File entry --
+2026-10-18 18:29:57.970   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\VCRUNTIME140_1.dll
+2026-10-18 18:29:57.971   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:57.971   Installing the file.
+2026-10-18 18:29:57.975   Successfully installed the file.
+2026-10-18 18:29:57.975   -- File entry --
+2026-10-18 18:29:57.975   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\generic\qtuiotouchplugin.dll
+2026-10-18 18:29:57.976   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:57.976   Installing the file.
+2026-10-18 18:29:57.976   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins
+2026-10-18 18:29:57.976   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\generic
+2026-10-18 18:29:57.987   Successfully installed the file.
+2026-10-18 18:29:57.987   -- File entry --
+2026-10-18 18:29:57.987   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\iconengines\qsvgicon.dll
+2026-10-18 18:29:57.987   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:57.987   Installing the file.
+2026-10-18 18:29:57.988   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\iconengines
+2026-10-18 18:29:57.992   Successfully installed the file.
+2026-10-18 18:29:57.992   -- File entry --
+2026-10-18 18:29:57.992   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\imageformats\qgif.dll
+2026-10-18 18:29:57.992   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:57.992   Installing the file.
+2026-10-18 18:29:57.993   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\imageformats
+2026-10-18 18:29:57.999   Successfully installed the file.
+2026-10-18 18:29:57.999   -- File entry --
+2026-10-18 18:29:57.999   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\imageformats\qicns.dll
+2026-10-18 18:29:57.999   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:57.999   Installing the file.
+2026-10-18 18:29:58.006   Successfully installed the file.
+2026-10-18 18:29:58.006   -- File entry --
+2026-10-18 18:29:58.006   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\imageformats\qico.dll
+2026-10-18 18:29:58.007   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.007   Installing the file.
+2026-10-18 18:29:58.015   Successfully installed the file.
+2026-10-18 18:29:58.015   -- File entry --
+2026-10-18 18:29:58.015   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\imageformats\qjpeg.dll
+2026-10-18 18:29:58.016   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.016   Installing the file.
+2026-10-18 18:29:58.044   Successfully installed the file.
+2026-10-18 18:29:58.044   -- File entry --
+2026-10-18 18:29:58.044   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\imageformats\qsvg.dll
+2026-10-18 18:29:58.044   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.044   Installing the file.
+2026-10-18 18:29:58.049   Successfully installed the file.
+2026-10-18 18:29:58.049   -- File entry --
+2026-10-18 18:29:58.049   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\imageformats\qtga.dll
+2026-10-18 18:29:58.049   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.049   Installing the file.
+2026-10-18 18:29:58.053   Successfully installed the file.
+2026-10-18 18:29:58.053   -- File entry --
+2026-10-18 18:29:58.053   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\imageformats\qtiff.dll
+2026-10-18 18:29:58.054   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.054   Installing the file.
+2026-10-18 18:29:58.076   Successfully installed the file.
+2026-10-18 18:29:58.076   -- File entry --
+2026-10-18 18:29:58.076   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\imageformats\qwbmp.dll
+2026-10-18 18:29:58.077   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.077   Installing the file.
+2026-10-18 18:29:58.080   Successfully installed the file.
+2026-10-18 18:29:58.080   -- File entry --
+2026-10-18 18:29:58.080   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\imageformats\qwebp.dll
+2026-10-18 18:29:58.081   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.081   Installing the file.
+2026-10-18 18:29:58.114   Successfully installed the file.
+2026-10-18 18:29:58.114   -- File entry --
+2026-10-18 18:29:58.114   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\networkinformation\qnetworklistmanager.dll
+2026-10-18 18:29:58.114   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.114   Installing the file.
+2026-10-18 18:29:58.114   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\networkinformation
+2026-10-18 18:29:58.120   Successfully installed the file.
+2026-10-18 18:29:58.120   -- File entry --
+2026-10-18 18:29:58.121   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\platforms\qdirect2d.dll
+2026-10-18 18:29:58.121   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.121   Installing the file.
+2026-10-18 18:29:58.121   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\platforms
+2026-10-18 18:29:58.171   Successfully installed the file.
+2026-10-18 18:29:58.171   -- File entry --
+2026-10-18 18:29:58.172   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\platforms\qminimal.dll
+2026-10-18 18:29:58.172   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.172   Installing the file.
+2026-10-18 18:29:58.175   Successfully installed the file.
+2026-10-18 18:29:58.176   -- File entry --
+2026-10-18 18:29:58.176   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\platforms\qoffscreen.dll
+2026-10-18 18:29:58.176   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.177   Installing the file.
+2026-10-18 18:29:58.184   Successfully installed the file.
+2026-10-18 18:29:58.184   -- File entry --
+2026-10-18 18:29:58.184   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\platforms\qwindows.dll
+2026-10-18 18:29:58.184   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.184   Installing the file.
+2026-10-18 18:29:58.207   Successfully installed the file.
+2026-10-18 18:29:58.208   -- File entry --
+2026-10-18 18:29:58.208   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\styles\qmodernwindowsstyle.dll
+2026-10-18 18:29:58.208   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.208   Installing the file.
+2026-10-18 18:29:58.208   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\styles
+2026-10-18 18:29:58.218   Successfully installed the file.
+2026-10-18 18:29:58.218   -- File entry --
+2026-10-18 18:29:58.218   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\tls\qcertonlybackend.dll
+2026-10-18 18:29:58.218   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.218   Installing the file.
+2026-10-18 18:29:58.218   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\tls
+2026-10-18 18:29:58.222   Successfully installed the file.
+2026-10-18 18:29:58.223   -- File entry --
+2026-10-18 18:29:58.223   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\tls\qopensslbackend.dll
+2026-10-18 18:29:58.223   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.223   Installing the file.
+2026-10-18 18:29:58.234   Successfully installed the file.
+2026-10-18 18:29:58.235   -- File entry --
+2026-10-18 18:29:58.235   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\plugins\tls\qschannelbackend.dll
+2026-10-18 18:29:58.235   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.235   Installing the file.
+2026-10-18 18:29:58.244   Successfully installed the file.
+2026-10-18 18:29:58.245   -- File entry --
+2026-10-18 18:29:58.245   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_ar.qm
+2026-10-18 18:29:58.245   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.245   Installing the file.
+2026-10-18 18:29:58.245   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations
+2026-10-18 18:29:58.251   Successfully installed the file.
+2026-10-18 18:29:58.251   -- File entry --
+2026-10-18 18:29:58.251   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_bg.qm
+2026-10-18 18:29:58.251   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.251   Installing the file.
+2026-10-18 18:29:58.256   Successfully installed the file.
+2026-10-18 18:29:58.257   -- File entry --
+2026-10-18 18:29:58.257   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_ca.qm
+2026-10-18 18:29:58.257   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.257   Installing the file.
+2026-10-18 18:29:58.266   Successfully installed the file.
+2026-10-18 18:29:58.266   -- File entry --
+2026-10-18 18:29:58.266   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_cs.qm
+2026-10-18 18:29:58.266   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.266   Installing the file.
+2026-10-18 18:29:58.271   Successfully installed the file.
+2026-10-18 18:29:58.271   -- File entry --
+2026-10-18 18:29:58.271   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_da.qm
+2026-10-18 18:29:58.271   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.271   Installing the file.
+2026-10-18 18:29:58.278   Successfully installed the file.
+2026-10-18 18:29:58.278   -- File entry --
+2026-10-18 18:29:58.278   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_de.qm
+2026-10-18 18:29:58.278   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.278   Installing the file.
+2026-10-18 18:29:58.287   Successfully installed the file.
+2026-10-18 18:29:58.287   -- File entry --
+2026-10-18 18:29:58.287   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_en.qm
+2026-10-18 18:29:58.287   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.287   Installing the file.
+2026-10-18 18:29:58.290   Successfully installed the file.
+2026-10-18 18:29:58.290   -- File entry --
+2026-10-18 18:29:58.290   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_es.qm
+2026-10-18 18:29:58.291   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.291   Installing the file.
+2026-10-18 18:29:58.300   Successfully installed the file.
+2026-10-18 18:29:58.300   -- File entry --
+2026-10-18 18:29:58.300   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_fa.qm
+2026-10-18 18:29:58.300   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.300   Installing the file.
+2026-10-18 18:29:58.306   Successfully installed the file.
+2026-10-18 18:29:58.306   -- File entry --
+2026-10-18 18:29:58.306   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_fi.qm
+2026-10-18 18:29:58.306   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.306   Installing the file.
+2026-10-18 18:29:58.313   Successfully installed the file.
+2026-10-18 18:29:58.314   -- File entry --
+2026-10-18 18:29:58.314   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_fr.qm
+2026-10-18 18:29:58.314   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.314   Installing the file.
+2026-10-18 18:29:58.322   Successfully installed the file.
+2026-10-18 18:29:58.323   -- File entry --
+2026-10-18 18:29:58.323   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_gd.qm
+2026-10-18 18:29:58.323   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.323   Installing the file.
+2026-10-18 18:29:58.332   Successfully installed the file.
+2026-10-18 18:29:58.332   -- File entry --
+2026-10-18 18:29:58.332   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_he.qm
+2026-10-18 18:29:58.333   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.333   Installing the file.
+2026-10-18 18:29:58.338   Successfully installed the file.
+2026-10-18 18:29:58.338   -- File entry --
+2026-10-18 18:29:58.338   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_hr.qm
+2026-10-18 18:29:58.338   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.338   Installing the file.
+2026-10-18 18:29:58.346   Successfully installed the file.
+2026-10-18 18:29:58.346   -- File entry --
+2026-10-18 18:29:58.346   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_hu.qm
+2026-10-18 18:29:58.347   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.347   Installing the file.
+2026-10-18 18:29:58.358   Successfully installed the file.
+2026-10-18 18:29:58.360   -- File entry --
+2026-10-18 18:29:58.360   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_it.qm
+2026-10-18 18:29:58.361   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.361   Installing the file.
+2026-10-18 18:29:58.374   Successfully installed the file.
+2026-10-18 18:29:58.374   -- File entry --
+2026-10-18 18:29:58.374   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_ja.qm
+2026-10-18 18:29:58.374   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.374   Installing the file.
+2026-10-18 18:29:58.382   Successfully installed the file.
+2026-10-18 18:29:58.382   -- File entry --
+2026-10-18 18:29:58.382   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_ka.qm
+2026-10-18 18:29:58.382   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.382   Installing the file.
+2026-10-18 18:29:58.392   Successfully installed the file.
+2026-10-18 18:29:58.392   -- File entry --
+2026-10-18 18:29:58.392   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_ko.qm
+2026-10-18 18:29:58.393   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.393   Installing the file.
+2026-10-18 18:29:58.401   Successfully installed the file.
+2026-10-18 18:29:58.401   -- File entry --
+2026-10-18 18:29:58.401   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_lg.qm
+2026-10-18 18:29:58.402   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.402   Installing the file.
+2026-10-18 18:29:58.416   Successfully installed the file.
+2026-10-18 18:29:58.416   -- File entry --
+2026-10-18 18:29:58.416   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_lv.qm
+2026-10-18 18:29:58.417   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.417   Installing the file.
+2026-10-18 18:29:58.428   Successfully installed the file.
+2026-10-18 18:29:58.429   -- File entry --
+2026-10-18 18:29:58.429   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_nl.qm
+2026-10-18 18:29:58.430   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.430   Installing the file.
+2026-10-18 18:29:58.443   Successfully installed the file.
+2026-10-18 18:29:58.446   -- File entry --
+2026-10-18 18:29:58.448   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_nn.qm
+2026-10-18 18:29:58.448   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.448   Installing the file.
+2026-10-18 18:29:58.457   Successfully installed the file.
+2026-10-18 18:29:58.457   -- File entry --
+2026-10-18 18:29:58.457   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_pl.qm
+2026-10-18 18:29:58.457   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.457   Installing the file.
+2026-10-18 18:29:58.468   Successfully installed the file.
+2026-10-18 18:29:58.468   -- File entry --
+2026-10-18 18:29:58.469   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_pt_BR.qm
+2026-10-18 18:29:58.469   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.469   Installing the file.
+2026-10-18 18:29:58.487   Successfully installed the file.
+2026-10-18 18:29:58.487   -- File entry --
+2026-10-18 18:29:58.488   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_ru.qm
+2026-10-18 18:29:58.488   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.488   Installing the file.
+2026-10-18 18:29:58.501   Successfully installed the file.
+2026-10-18 18:29:58.501   -- File entry --
+2026-10-18 18:29:58.501   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_sk.qm
+2026-10-18 18:29:58.501   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.501   Installing the file.
+2026-10-18 18:29:58.514   Successfully installed the file.
+2026-10-18 18:29:58.514   -- File entry --
+2026-10-18 18:29:58.514   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_sv.qm
+2026-10-18 18:29:58.514   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.515   Installing the file.
+2026-10-18 18:29:58.527   Successfully installed the file.
+2026-10-18 18:29:58.528   -- File entry --
+2026-10-18 18:29:58.528   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_tr.qm
+2026-10-18 18:29:58.529   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.529   Installing the file.
+2026-10-18 18:29:58.541   Successfully installed the file.
+2026-10-18 18:29:58.541   -- File entry --
+2026-10-18 18:29:58.541   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_uk.qm
+2026-10-18 18:29:58.542   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.542   Installing the file.
+2026-10-18 18:29:58.553   Successfully installed the file.
+2026-10-18 18:29:58.554   -- File entry --
+2026-10-18 18:29:58.554   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_zh_CN.qm
+2026-10-18 18:29:58.554   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.554   Installing the file.
+2026-10-18 18:29:58.564   Successfully installed the file.
+2026-10-18 18:29:58.564   -- File entry --
+2026-10-18 18:29:58.564   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qtbase_zh_TW.qm
+2026-10-18 18:29:58.565   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.565   Installing the file.
+2026-10-18 18:29:58.575   Successfully installed the file.
+2026-10-18 18:29:58.576   -- File entry --
+2026-10-18 18:29:58.576   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_ar.qm
+2026-10-18 18:29:58.577   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.577   Installing the file.
+2026-10-18 18:29:58.581   Successfully installed the file.
+2026-10-18 18:29:58.582   -- File entry --
+2026-10-18 18:29:58.583   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_bg.qm
+2026-10-18 18:29:58.583   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.583   Installing the file.
+2026-10-18 18:29:58.588   Successfully installed the file.
+2026-10-18 18:29:58.589   -- File entry --
+2026-10-18 18:29:58.589   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_ca.qm
+2026-10-18 18:29:58.589   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.589   Installing the file.
+2026-10-18 18:29:58.594   Successfully installed the file.
+2026-10-18 18:29:58.594   -- File entry --
+2026-10-18 18:29:58.594   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_cs.qm
+2026-10-18 18:29:58.595   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.595   Installing the file.
+2026-10-18 18:29:58.600   Successfully installed the file.
+2026-10-18 18:29:58.600   -- File entry --
+2026-10-18 18:29:58.600   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_da.qm
+2026-10-18 18:29:58.601   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.601   Installing the file.
+2026-10-18 18:29:58.605   Successfully installed the file.
+2026-10-18 18:29:58.605   -- File entry --
+2026-10-18 18:29:58.606   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_de.qm
+2026-10-18 18:29:58.607   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.607   Installing the file.
+2026-10-18 18:29:58.610   Successfully installed the file.
+2026-10-18 18:29:58.610   -- File entry --
+2026-10-18 18:29:58.610   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_en.qm
+2026-10-18 18:29:58.611   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.611   Installing the file.
+2026-10-18 18:29:58.615   Successfully installed the file.
+2026-10-18 18:29:58.615   -- File entry --
+2026-10-18 18:29:58.615   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_es.qm
+2026-10-18 18:29:58.616   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.616   Installing the file.
+2026-10-18 18:29:58.619   Successfully installed the file.
+2026-10-18 18:29:58.620   -- File entry --
+2026-10-18 18:29:58.620   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_fa.qm
+2026-10-18 18:29:58.620   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.620   Installing the file.
+2026-10-18 18:29:58.623   Successfully installed the file.
+2026-10-18 18:29:58.623   -- File entry --
+2026-10-18 18:29:58.623   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_fi.qm
+2026-10-18 18:29:58.623   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.623   Installing the file.
+2026-10-18 18:29:58.627   Successfully installed the file.
+2026-10-18 18:29:58.627   -- File entry --
+2026-10-18 18:29:58.627   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_fr.qm
+2026-10-18 18:29:58.628   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.628   Installing the file.
+2026-10-18 18:29:58.630   Successfully installed the file.
+2026-10-18 18:29:58.630   -- File entry --
+2026-10-18 18:29:58.630   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_gd.qm
+2026-10-18 18:29:58.631   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.631   Installing the file.
+2026-10-18 18:29:58.634   Successfully installed the file.
+2026-10-18 18:29:58.634   -- File entry --
+2026-10-18 18:29:58.634   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_gl.qm
+2026-10-18 18:29:58.635   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.635   Installing the file.
+2026-10-18 18:29:58.653   Successfully installed the file.
+2026-10-18 18:29:58.653   -- File entry --
+2026-10-18 18:29:58.653   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_he.qm
+2026-10-18 18:29:58.654   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.654   Installing the file.
+2026-10-18 18:29:58.655   Successfully installed the file.
+2026-10-18 18:29:58.655   -- File entry --
+2026-10-18 18:29:58.656   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_ar.qm
+2026-10-18 18:29:58.656   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.656   Installing the file.
+2026-10-18 18:29:58.660   Successfully installed the file.
+2026-10-18 18:29:58.661   -- File entry --
+2026-10-18 18:29:58.661   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_bg.qm
+2026-10-18 18:29:58.661   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.661   Installing the file.
+2026-10-18 18:29:58.666   Successfully installed the file.
+2026-10-18 18:29:58.666   -- File entry --
+2026-10-18 18:29:58.666   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_ca.qm
+2026-10-18 18:29:58.667   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.667   Installing the file.
+2026-10-18 18:29:58.671   Successfully installed the file.
+2026-10-18 18:29:58.671   -- File entry --
+2026-10-18 18:29:58.671   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_cs.qm
+2026-10-18 18:29:58.672   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.672   Installing the file.
+2026-10-18 18:29:58.676   Successfully installed the file.
+2026-10-18 18:29:58.676   -- File entry --
+2026-10-18 18:29:58.676   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_da.qm
+2026-10-18 18:29:58.677   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.677   Installing the file.
+2026-10-18 18:29:58.679   Successfully installed the file.
+2026-10-18 18:29:58.679   -- File entry --
+2026-10-18 18:29:58.679   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_de.qm
+2026-10-18 18:29:58.680   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.680   Installing the file.
+2026-10-18 18:29:58.683   Successfully installed the file.
+2026-10-18 18:29:58.684   -- File entry --
+2026-10-18 18:29:58.684   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_en.qm
+2026-10-18 18:29:58.684   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.684   Installing the file.
+2026-10-18 18:29:58.687   Successfully installed the file.
+2026-10-18 18:29:58.687   -- File entry --
+2026-10-18 18:29:58.688   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_es.qm
+2026-10-18 18:29:58.688   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.688   Installing the file.
+2026-10-18 18:29:58.692   Successfully installed the file.
+2026-10-18 18:29:58.692   -- File entry --
+2026-10-18 18:29:58.693   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_fr.qm
+2026-10-18 18:29:58.693   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.693   Installing the file.
+2026-10-18 18:29:58.696   Successfully installed the file.
+2026-10-18 18:29:58.696   -- File entry --
+2026-10-18 18:29:58.696   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_gl.qm
+2026-10-18 18:29:58.697   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.697   Installing the file.
+2026-10-18 18:29:58.700   Successfully installed the file.
+2026-10-18 18:29:58.700   -- File entry --
+2026-10-18 18:29:58.700   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_hr.qm
+2026-10-18 18:29:58.701   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.701   Installing the file.
+2026-10-18 18:29:58.705   Successfully installed the file.
+2026-10-18 18:29:58.705   -- File entry --
+2026-10-18 18:29:58.705   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_hu.qm
+2026-10-18 18:29:58.706   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.706   Installing the file.
+2026-10-18 18:29:58.711   Successfully installed the file.
+2026-10-18 18:29:58.711   -- File entry --
+2026-10-18 18:29:58.711   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_it.qm
+2026-10-18 18:29:58.712   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.712   Installing the file.
+2026-10-18 18:29:58.715   Successfully installed the file.
+2026-10-18 18:29:58.716   -- File entry --
+2026-10-18 18:29:58.716   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_ja.qm
+2026-10-18 18:29:58.716   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.716   Installing the file.
+2026-10-18 18:29:58.719   Successfully installed the file.
+2026-10-18 18:29:58.719   -- File entry --
+2026-10-18 18:29:58.719   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_ka.qm
+2026-10-18 18:29:58.719   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.719   Installing the file.
+2026-10-18 18:29:58.722   Successfully installed the file.
+2026-10-18 18:29:58.722   -- File entry --
+2026-10-18 18:29:58.722   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_ko.qm
+2026-10-18 18:29:58.722   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.722   Installing the file.
+2026-10-18 18:29:58.725   Successfully installed the file.
+2026-10-18 18:29:58.725   -- File entry --
+2026-10-18 18:29:58.725   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_nl.qm
+2026-10-18 18:29:58.725   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.725   Installing the file.
+2026-10-18 18:29:58.728   Successfully installed the file.
+2026-10-18 18:29:58.728   -- File entry --
+2026-10-18 18:29:58.728   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_nn.qm
+2026-10-18 18:29:58.729   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.729   Installing the file.
+2026-10-18 18:29:58.731   Successfully installed the file.
+2026-10-18 18:29:58.732   -- File entry --
+2026-10-18 18:29:58.732   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_pl.qm
+2026-10-18 18:29:58.732   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.732   Installing the file.
+2026-10-18 18:29:58.734   Successfully installed the file.
+2026-10-18 18:29:58.735   -- File entry --
+2026-10-18 18:29:58.735   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_pt_BR.qm
+2026-10-18 18:29:58.735   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.735   Installing the file.
+2026-10-18 18:29:58.737   Successfully installed the file.
+2026-10-18 18:29:58.738   -- File entry --
+2026-10-18 18:29:58.738   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_ru.qm
+2026-10-18 18:29:58.738   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.738   Installing the file.
+2026-10-18 18:29:58.740   Successfully installed the file.
+2026-10-18 18:29:58.740   -- File entry --
+2026-10-18 18:29:58.740   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_sk.qm
+2026-10-18 18:29:58.741   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.741   Installing the file.
+2026-10-18 18:29:58.744   Successfully installed the file.
+2026-10-18 18:29:58.744   -- File entry --
+2026-10-18 18:29:58.744   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_sl.qm
+2026-10-18 18:29:58.745   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.745   Installing the file.
+2026-10-18 18:29:58.748   Successfully installed the file.
+2026-10-18 18:29:58.748   -- File entry --
+2026-10-18 18:29:58.749   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_sv.qm
+2026-10-18 18:29:58.749   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.749   Installing the file.
+2026-10-18 18:29:58.753   Successfully installed the file.
+2026-10-18 18:29:58.754   -- File entry --
+2026-10-18 18:29:58.754   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_tr.qm
+2026-10-18 18:29:58.755   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.755   Installing the file.
+2026-10-18 18:29:58.759   Successfully installed the file.
+2026-10-18 18:29:58.759   -- File entry --
+2026-10-18 18:29:58.759   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_uk.qm
+2026-10-18 18:29:58.761   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.761   Installing the file.
+2026-10-18 18:29:58.764   Successfully installed the file.
+2026-10-18 18:29:58.764   -- File entry --
+2026-10-18 18:29:58.764   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_zh_CN.qm
+2026-10-18 18:29:58.764   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.764   Installing the file.
+2026-10-18 18:29:58.767   Successfully installed the file.
+2026-10-18 18:29:58.767   -- File entry --
+2026-10-18 18:29:58.767   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_help_zh_TW.qm
+2026-10-18 18:29:58.768   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.768   Installing the file.
+2026-10-18 18:29:58.771   Successfully installed the file.
+2026-10-18 18:29:58.771   -- File entry --
+2026-10-18 18:29:58.771   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_hr.qm
+2026-10-18 18:29:58.771   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.771   Installing the file.
+2026-10-18 18:29:58.773   Successfully installed the file.
+2026-10-18 18:29:58.773   -- File entry --
+2026-10-18 18:29:58.773   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_hu.qm
+2026-10-18 18:29:58.774   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.774   Installing the file.
+2026-10-18 18:29:58.776   Successfully installed the file.
+2026-10-18 18:29:58.776   -- File entry --
+2026-10-18 18:29:58.776   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_it.qm
+2026-10-18 18:29:58.776   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.776   Installing the file.
+2026-10-18 18:29:58.778   Successfully installed the file.
+2026-10-18 18:29:58.778   -- File entry --
+2026-10-18 18:29:58.778   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_ja.qm
+2026-10-18 18:29:58.779   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.779   Installing the file.
+2026-10-18 18:29:58.780   Successfully installed the file.
+2026-10-18 18:29:58.781   -- File entry --
+2026-10-18 18:29:58.781   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_ka.qm
+2026-10-18 18:29:58.781   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.781   Installing the file.
+2026-10-18 18:29:58.783   Successfully installed the file.
+2026-10-18 18:29:58.783   -- File entry --
+2026-10-18 18:29:58.783   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_ko.qm
+2026-10-18 18:29:58.784   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.784   Installing the file.
+2026-10-18 18:29:58.786   Successfully installed the file.
+2026-10-18 18:29:58.786   -- File entry --
+2026-10-18 18:29:58.786   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_lg.qm
+2026-10-18 18:29:58.786   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.786   Installing the file.
+2026-10-18 18:29:58.788   Successfully installed the file.
+2026-10-18 18:29:58.788   -- File entry --
+2026-10-18 18:29:58.788   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_lt.qm
+2026-10-18 18:29:58.788   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.788   Installing the file.
+2026-10-18 18:29:58.794   Successfully installed the file.
+2026-10-18 18:29:58.794   -- File entry --
+2026-10-18 18:29:58.794   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_lv.qm
+2026-10-18 18:29:58.795   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.795   Installing the file.
+2026-10-18 18:29:58.796   Successfully installed the file.
+2026-10-18 18:29:58.797   -- File entry --
+2026-10-18 18:29:58.797   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_nl.qm
+2026-10-18 18:29:58.797   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.797   Installing the file.
+2026-10-18 18:29:58.799   Successfully installed the file.
+2026-10-18 18:29:58.799   -- File entry --
+2026-10-18 18:29:58.799   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_nn.qm
+2026-10-18 18:29:58.799   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.799   Installing the file.
+2026-10-18 18:29:58.801   Successfully installed the file.
+2026-10-18 18:29:58.801   -- File entry --
+2026-10-18 18:29:58.801   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_pl.qm
+2026-10-18 18:29:58.802   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.802   Installing the file.
+2026-10-18 18:29:58.803   Successfully installed the file.
+2026-10-18 18:29:58.803   -- File entry --
+2026-10-18 18:29:58.803   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_pt_BR.qm
+2026-10-18 18:29:58.804   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.804   Installing the file.
+2026-10-18 18:29:58.805   Successfully installed the file.
+2026-10-18 18:29:58.805   -- File entry --
+2026-10-18 18:29:58.805   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_pt_PT.qm
+2026-10-18 18:29:58.806   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.806   Installing the file.
+2026-10-18 18:29:58.810   Successfully installed the file.
+2026-10-18 18:29:58.810   -- File entry --
+2026-10-18 18:29:58.810   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_ru.qm
+2026-10-18 18:29:58.811   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.811   Installing the file.
+2026-10-18 18:29:58.813   Successfully installed the file.
+2026-10-18 18:29:58.813   -- File entry --
+2026-10-18 18:29:58.813   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_sk.qm
+2026-10-18 18:29:58.813   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.813   Installing the file.
+2026-10-18 18:29:58.815   Successfully installed the file.
+2026-10-18 18:29:58.816   -- File entry --
+2026-10-18 18:29:58.816   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_sl.qm
+2026-10-18 18:29:58.816   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.816   Installing the file.
+2026-10-18 18:29:58.823   Successfully installed the file.
+2026-10-18 18:29:58.823   -- File entry --
+2026-10-18 18:29:58.823   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_sv.qm
+2026-10-18 18:29:58.824   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.824   Installing the file.
+2026-10-18 18:29:58.826   Successfully installed the file.
+2026-10-18 18:29:58.826   -- File entry --
+2026-10-18 18:29:58.826   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_tr.qm
+2026-10-18 18:29:58.827   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.827   Installing the file.
+2026-10-18 18:29:58.829   Successfully installed the file.
+2026-10-18 18:29:58.830   -- File entry --
+2026-10-18 18:29:58.830   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_uk.qm
+2026-10-18 18:29:58.830   Time stamp of our file: 2026-10-18 18:24:50.000
+2026-10-18 18:29:58.830   Installing the file.
+2026-10-18 18:29:58.833   Successfully installed the file.
+2026-10-18 18:29:58.833   -- File entry --
+2026-10-18 18:29:58.833   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_zh_CN.qm
+2026-10-18 18:29:58.833   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.833   Installing the file.
+2026-10-18 18:29:58.836   Successfully installed the file.
+2026-10-18 18:29:58.836   -- File entry --
+2026-10-18 18:29:58.837   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\PySide6\translations\qt_zh_TW.qm
+2026-10-18 18:29:58.837   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.837   Installing the file.
+2026-10-18 18:29:58.839   Successfully installed the file.
+2026-10-18 18:29:58.839   -- File entry --
+2026-10-18 18:29:58.839   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\shiboken6\MSVCP140.dll
+2026-10-18 18:29:58.840   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.840   Installing the file.
+2026-10-18 18:29:58.840   Creating directory: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\shiboken6
+2026-10-18 18:29:58.861   Successfully installed the file.
+2026-10-18 18:29:58.861   -- File entry --
+2026-10-18 18:29:58.861   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\shiboken6\Shiboken.pyd
+2026-10-18 18:29:58.862   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.862   Installing the file.
+2026-10-18 18:29:58.864   Successfully installed the file.
+2026-10-18 18:29:58.864   -- File entry --
+2026-10-18 18:29:58.864   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\shiboken6\shiboken6.abi3.dll
+2026-10-18 18:29:58.864   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.864   Installing the file.
+2026-10-18 18:29:58.883   Successfully installed the file.
+2026-10-18 18:29:58.883   -- File entry --
+2026-10-18 18:29:58.883   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\shiboken6\VCRUNTIME140.dll
+2026-10-18 18:29:58.884   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.884   Installing the file.
+2026-10-18 18:29:58.891   Successfully installed the file.
+2026-10-18 18:29:58.891   -- File entry --
+2026-10-18 18:29:58.891   Dest filename: C:\Users\User\Desktop\os96ImageProcessor\validation\installed\_internal\shiboken6\VCRUNTIME140_1.dll
+2026-10-18 18:29:58.891   Time stamp of our file: 2026-10-18 18:24:48.000
+2026-10-18 18:29:58.891   Installing the file.
+2026-10-18 18:29:58.894   Successfully installed the file.
+2026-10-18 18:29:58.894   -- Icon entry --
+2026-10-18 18:29:58.894   Dest filename: C:\Users\User\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\OS96 Image Optimizer\OS96 Image Optimizer.lnk
+2026-10-18 18:29:58.894   Creating directory: C:\Users\User\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\OS96 Image Optimizer
+2026-10-18 18:29:59.336   Creating the icon.
+2026-10-18 18:29:59.392   Successfully created the icon.
+2026-10-18 18:29:59.421   Saving uninstall information.
+2026-10-18 18:29:59.421   Creating new uninstall key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\OS96.ImageOptimizer_is1
+2026-10-18 18:29:59.421   Writing uninstall key values.
+2026-10-18 18:29:59.422   Detected previous administrative 64-bit install? No
+2026-10-18 18:29:59.422   Detected previous administrative 32-bit install? No
+2026-10-18 18:29:59.425   Installation process succeeded.
+2026-10-18 18:29:59.425   Need to restart Windows? No
+2026-10-18 18:29:59.430   Deinitializing Setup.
+2026-10-18 18:29:59.437   Log closed.

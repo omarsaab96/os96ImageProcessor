@@ -1,0 +1,7 @@
+﻿{
+    "publisher":  "CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US",
+    "source":  "https://www.python.org/ftp/python/3.13.16/python-3.13.16-amd64.exe",
+    "version":  "3.13.16",
+    "signature":  "Valid",
+    "sha256":  "fb4f9f5d438b2396da0086dc70b935c530cb578e37adc6d354f7ad2037fee83b"
+}

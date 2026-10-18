@@ -1,0 +1,14 @@
+﻿{
+    "passed":  true,
+    "version":  "1.0.0rc2",
+    "machine":  "DESKTOP-DHEM058",
+    "checks":  [
+                   "Archive and installer SHA-256",
+                   "Portable executable without Python on PATH",
+                   "Installed app, codecs, native helpers, Unicode path, corrupt input",
+                   "Signature status recorded (unsigned candidate is expected)",
+                   "Uninstaller removed its target directory"
+               ],
+    "error":  null,
+    "signature":  "NotSigned"
+}

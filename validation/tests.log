@@ -1,0 +1,52 @@
+test_cancel_leaves_original (test_engine.EngineTests) ... ok
+test_dimension_options_and_enlargement (test_engine.EngineTests) ... ok
+test_error_does_not_stop_batch (test_engine.EngineTests) ... ok
+test_hierarchy_and_deduplication (test_engine.EngineTests) ... ok
+test_jpeg_lossless_is_byte_identical (test_engine.EngineTests) ... ok
+test_larger_output_is_skipped_without_replacing_source (test_engine.EngineTests) ... ok
+test_lossless_pixels_and_existing_output (test_engine.EngineTests) ... ok
+test_metadata_and_profiles_are_independent (test_engine.EngineTests) ... ok
+test_pause_resume_and_stop_release_waiters (test_engine.EngineTests) ... ok
+test_quality_check_detects_local_damage (test_engine.EngineTests) ... ok
+test_resize_and_in_place (test_engine.EngineTests) ... ok
+test_resolution_resamples_and_writes_density (test_engine.EngineTests) ... ok
+test_smart_cancel_during_search_preserves_source (test_engine.EngineTests) ... ok
+test_smart_estimate_encodes_only_bounded_preview (test_engine.EngineTests) ... ok
+test_smart_jpeg_compresses_with_and_without_resize (test_engine.EngineTests) ... ok
+test_stopped_batch_does_not_write (test_engine.EngineTests) ... ok
+test_supported_formats_resize (test_engine.EngineTests) ... ok
+test_web_invalid_profile_does_not_replace_source (test_engine.EngineTests) ... ok
+test_web_jpeg_strips_exif_even_when_keep_metadata_is_requested (test_engine.EngineTests) ... ok
+test_web_preserves_palette_transparency (test_engine.EngineTests) ... ok
+test_web_removes_metadata_preserves_profile_orientation_and_alpha (test_engine.EngineTests) ... ok
+test_web_respects_manual_compression_selection (test_engine.EngineTests) ... ok
+test_web_smaller_only_skips_larger_candidate_without_color_fallback (test_engine.EngineTests) ... ok
+test_automatic_compression_shows_estimate_before_start (test_preview.PreviewTests) ... ok
+test_batch_replaces_placeholder_for_done_and_existing_output (test_preview.PreviewTests) ... ok
+test_drop_files_folders_and_busy_guard (test_preview.PreviewTests) ... ok
+test_headers_respect_orientation (test_preview.PreviewTests) ... ok
+test_live_estimate_matches_trial_and_preserves_source (test_preview.PreviewTests) ... ok
+test_optimize_help_shrinks_when_lossless_is_toggled (test_preview.PreviewTests) ... ok
+test_optimize_quality_visibility_and_independent_controls (test_preview.PreviewTests) ... ok
+test_remove_multiple_and_keep_exclusions_on_add (test_preview.PreviewTests) ... ok
+test_resize_modes_show_relevant_fields_and_behavior (test_preview.PreviewTests) ... ok
+test_web_preset_overrides_without_losing_manual_preferences (test_preview.PreviewTests) ... ok
+test_comparison_uses_full_resolution_and_preserves_source (test_release.ReleaseTests) ... ok
+test_destination_race_preserves_existing (test_release.ReleaseTests) ... ok
+test_disk_full_preserves_original (test_release.ReleaseTests) ... ok
+test_enlargement_is_written_unless_smaller_only (test_release.ReleaseTests) ... ok
+test_high_bit_depth_and_multiframe_safety (test_release.ReleaseTests) ... ok
+test_invalid_encoder_result_cannot_replace_original (test_release.ReleaseTests) ... ok
+test_no_hardlinks_external_drive (test_release.ReleaseTests) ... ok
+test_path_escape_rejected (test_release.ReleaseTests) ... ok
+test_permission_error_isolated_and_no_replacement (test_release.ReleaseTests) ... ok
+test_preferences_survive_restart_without_destructive_flags (test_release.ReleaseTests) ... ok
+test_presets_and_report_capture (test_release.ReleaseTests) ... ok
+test_retry_runs_only_failed_entries (test_release.ReleaseTests) ... ok
+test_unicode_deep_path_and_mixed_batch (test_release.ReleaseTests) ... ok
+test_web_output_tagged_srgb_without_fallback (test_release.ReleaseTests) ... ok
+
+----------------------------------------------------------------------
+Ran 47 tests in 3.740s
+
+OK

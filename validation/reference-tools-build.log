@@ -1,0 +1,190 @@
+-- Building for: Visual Studio 17 2022
+-- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.26200.
+-- The C compiler identification is MSVC 19.44.35217.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/MSbuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- CMAKE_BUILD_TYPE = Release
+-- VERSION = 3.2.0, BUILD = 20261018
+-- 64-bit build (x86_64)
+-- CMAKE_INSTALL_PREFIX = c:/libjpeg-turbo64
+-- CMAKE_INSTALL_BINDIR = bin (c:/libjpeg-turbo64/bin)
+-- CMAKE_INSTALL_DATAROOTDIR =  (c:/libjpeg-turbo64)
+-- CMAKE_INSTALL_DOCDIR = doc (c:/libjpeg-turbo64/doc)
+-- CMAKE_INSTALL_INCLUDEDIR = include (c:/libjpeg-turbo64/include)
+-- CMAKE_INSTALL_LIBDIR = lib (c:/libjpeg-turbo64/lib)
+-- Shared libraries disabled (ENABLE_SHARED = 0)
+-- Static libraries enabled (ENABLE_STATIC = 1)
+-- Arithmetic decoding support enabled (WITH_ARITH_DEC = 1)
+-- Arithmetic encoding support enabled (WITH_ARITH_ENC = 1)
+-- TurboJPEG API library disabled (WITH_TURBOJPEG = 0)
+-- TurboJPEG Java Native Access interfaces (TurboJPEG/JNA) disabled
+   (WITH_JNA = )
+-- Command-line tools enabled (WITH_TOOLS = 1)
+-- Regression tests enabled (WITH_TESTS = 1)
+-- Emulating libjpeg API/ABI v6.2 (WITH_JPEG7 = 0, WITH_JPEG8 = 0)
+-- libjpeg API shared library version = 62.4.0
+-- Visual C++ run-time library: MultiThreaded$<$<CONFIG:Debug>:Debug> (WITH_CRT_DLL = 0)
+-- Compiler flags = /DWIN32 /D_WINDOWS /O2 /Ob2 /DNDEBUG
+-- Linker flags = /machine:x64 /INCREMENTAL:NO
+-- Looking for sys/types.h
+-- Looking for sys/types.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Looking for stddef.h
+-- Looking for stddef.h - found
+-- Check size of size_t
+-- Check size of size_t - done
+-- Check size of unsigned long
+-- Check size of unsigned long - done
+-- Looking for include file intrin.h
+-- Looking for include file intrin.h - found
+-- Performing Test INLINE_WORKS
+-- Performing Test INLINE_WORKS - Success
+-- INLINE = __forceinline (FORCE_INLINE = 1)
+-- Performing Test HAVE_THREAD_LOCAL
+-- Performing Test HAVE_THREAD_LOCAL - Success
+-- THREAD_LOCAL = __declspec(thread)
+-- CMAKE_EXECUTABLE_SUFFIX = .exe
+-- SIMD extensions: None (WITH_SIMD = 0)
+-- System-supplied libspng disabled (WITH_SYSTEM_SPNG = 0)
+-- System-supplied zlib disabled (WITH_SYSTEM_ZLIB = 0)
+-- Looking for fmemopen
+-- Looking for fmemopen - not found
+-- FLOATTEST8 = no-fp-contract
+-- FLOATTEST12 = no-fp-contract
+-- Configuring done (42.1s)
+-- Generating done (0.7s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    WITH_JAVA
+
+
+-- Build files have been written to: C:/Users/User/Desktop/os96ImageProcessor/validation/reference-tools/jpeg-build
+MSBuild version 17.14.23+b0019275e for .NET Framework
+
+  1>Checking Build System
+  Building Custom Rule C:/Users/User/Desktop/os96ImageProcessor/validation/reference-tools/libjpeg-turbo-3.2.0/CMakeLists.txt
+  jcapimin.c
+  jcapistd-8.c
+  jcapistd-12.c
+  jcapistd-16.c
+  jccoefct-8.c
+  jccoefct-12.c
+  jccolor-8.c
+  jccolor-12.c
+  jccolor-16.c
+  jcdctmgr-8.c
+  jcdctmgr-12.c
+  jcdiffct-8.c
+  jcdiffct-12.c
+  jcdiffct-16.c
+  jchuff.c
+  jcicc.c
+  jcinit.c
+  jclhuff.c
+  jclossls-8.c
+  jclossls-12.c
+  Generating Code...
+  Compiling...
+  jclossls-16.c
+  jcmainct-8.c
+  jcmainct-12.c
+  jcmainct-16.c
+  jcmarker.c
+  jcmaster.c
+  jcomapi.c
+  jcparam.c
+  jcphuff.c
+  jcprepct-8.c
+  jcprepct-12.c
+  jcprepct-16.c
+  jcsample-8.c
+  jcsample-12.c
+  jcsample-16.c
+  jctrans.c
+  jdapimin.c
+  jdapistd-8.c
+  jdapistd-12.c
+  jdapistd-16.c
+  Generating Code...
+  Compiling...
+  jdatadst.c
+  jdatasrc.c
+  jdcoefct-8.c
+  jdcoefct-12.c
+  jdcolor-8.c
+  jdcolor-12.c
+  jdcolor-16.c
+  jddctmgr-8.c
+  jddctmgr-12.c
+  jddiffct-8.c
+  jddiffct-12.c
+  jddiffct-16.c
+  jdhuff.c
+  jdicc.c
+  jdinput.c
+  jdlhuff.c
+  jdlossls-8.c
+  jdlossls-12.c
+  jdlossls-16.c
+  jdmainct-8.c
+  Generating Code...
+  Compiling...
+  jdmainct-12.c
+  jdmainct-16.c
+  jdmarker.c
+  jdmaster.c
+  jdmerge-8.c
+  jdmerge-12.c
+  jdphuff.c
+  jdpostct-8.c
+  jdpostct-12.c
+  jdpostct-16.c
+  jdsample-8.c
+  jdsample-12.c
+  jdsample-16.c
+  jdtrans.c
+  jerror.c
+  jfdctflt.c
+  jfdctfst-8.c
+  jfdctfst-12.c
+  jfdctint-8.c
+  jfdctint-12.c
+  Generating Code...
+  Compiling...
+  jidctflt-8.c
+  jidctflt-12.c
+  jidctfst-8.c
+  jidctfst-12.c
+  jidctint-8.c
+  jidctint-12.c
+  jidctred-8.c
+  jidctred-12.c
+  jmemmgr.c
+  jmemnobs.c
+  jpeg_nbits.c
+  jquant1-8.c
+  jquant1-12.c
+  jquant2-8.c
+  jquant2-12.c
+  jutils-8.c
+  jutils-12.c
+  jutils-16.c
+  jaricom.c
+  jcarith.c
+  Generating Code...
+  Compiling...
+  jdarith.c
+  Generating Code...
+  jpeg-static.vcxproj -> C:\Users\User\Desktop\os96ImageProcessor\validation\reference-tools\jpeg-build\Release\jpeg-static.lib
+  Building Custom Rule C:/Users/User/Desktop/os96ImageProcessor/validation/reference-tools/libjpeg-turbo-3.2.0/CMakeLists.txt
+  jpegtran.c
+  cdjpeg.c
+  rdswitch.c
+  transupp.c
+  Generating Code...
+  jpegtran-static.vcxproj -> C:\Users\User\Desktop\os96ImageProcessor\validation\reference-tools\jpeg-build\Release\jpegtran-static.exe

@@ -74,10 +74,12 @@ class EngineTests(unittest.TestCase):
         self.assertEqual(path.read_bytes(), original)
         self.assertFalse(list(path.parent.glob('.os96-*')))
 
-    def test_jpeg_lossless_is_byte_identical(self):
+    def test_jpeg_lossless_preserves_decoded_pixels(self):
         path = self.make_image('photo.jpg')
         process(Job(path, Path('photo.jpg')), Settings(self.output), Control(), lambda _: None)
-        self.assertEqual(path.read_bytes(), (self.output / 'photo.jpg').read_bytes())
+        with Image.open(path) as source, Image.open(self.output / 'photo.jpg') as output:
+            self.assertEqual(source.tobytes(), output.tobytes())
+        self.assertLessEqual((self.output / 'photo.jpg').stat().st_size, path.stat().st_size)
 
     def test_smart_jpeg_compresses_with_and_without_resize(self):
         from dataclasses import replace
@@ -183,7 +185,7 @@ class EngineTests(unittest.TestCase):
         with Image.open(self.output / path.name) as result:
             self.assertEqual(result.size, (160, 80))
 
-    def test_web_does_not_enlarge_reusable_jpeg_or_its_estimate(self):
+    def test_web_smaller_only_skips_larger_candidate_without_color_fallback(self):
         from unittest.mock import patch
         path = self.source / 'small.jpg'
         exif = Image.Exif()
@@ -191,8 +193,8 @@ class EngineTests(unittest.TestCase):
         with Image.effect_noise((600, 400), 20).convert('RGB') as image:
             image.save(path, quality=65, exif=exif)
         original = path.read_bytes()
-        settings = Settings(self.output, web=True, smart=True)
-        # Force an oversized candidate to exercise the metadata-only fallback.
+        settings = Settings(self.output, web=True, smart=True, only_smaller=True)
+        # Oversized web output must be skipped instead of bypassing conversion.
         def oversized(image, destination, *args):
             image.save(destination, format='JPEG', quality=100, subsampling=0)
             return True
@@ -201,12 +203,8 @@ class EngineTests(unittest.TestCase):
                                        Control(), self.root / 'sample')
             self.assertLessEqual(estimate, len(original))
             self.assertEqual(process(Job(path, Path(path.name)), settings,
-                                     Control(), lambda _: None)[0], 'done')
-        result_path = self.output / path.name
-        self.assertLess(result_path.stat().st_size, len(original))
-        with Image.open(path) as source, Image.open(result_path) as result:
-            self.assertEqual(source.tobytes(), result.tobytes())
-            self.assertFalse(result.getexif())
+                                     Control(), lambda _: None)[0], 'skipped')
+        self.assertFalse((self.output / path.name).exists())
         self.assertEqual(path.read_bytes(), original)
 
     def test_web_invalid_profile_does_not_replace_source(self):
@@ -304,7 +302,7 @@ class EngineTests(unittest.TestCase):
         original = path.read_bytes()
         messages = []
         settings = Settings(self.output, in_place=True, resize='By dimensions',
-                            width=1000, height=1000)
+                            width=1000, height=1000, only_smaller=True)
         self.assertEqual(process(Job(path, Path(path.name)), settings, Control(), messages.append)[0], 'skipped')
         self.assertEqual(messages[-1], 'Skipped · output would be larger')
         self.assertEqual(path.read_bytes(), original)

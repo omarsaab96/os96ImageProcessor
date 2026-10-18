@@ -1,0 +1,62 @@
+name: Windows release checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      full_benchmark:
+        description: Run the full public-photo/reference-optimizer comparison
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13.16'
+          cache: pip
+      - run: python -m pip install --require-hashes -r requirements-release.lock
+      - run: python -m pip install -r requirements-build.txt
+      - run: python scripts/build_windows.py
+      - run: python scripts/benchmark.py --count 32 --report validation/ci-benchmark.json
+      - run: python scripts/package_windows.py
+      - name: Optional photo/reference benchmark
+        if: ${{ inputs.full_benchmark == true }}
+        shell: pwsh
+        run: |
+          python -m pip install -r requirements-benchmark.txt
+          python scripts/fetch_photo_corpus.py
+          python scripts/fetch_original_photos.py
+          python scripts/prepare_reference_tools.py
+          python scripts/compare_optimizers.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-release-candidate
+          path: |
+            dist/*.zip
+            dist/*.sha256
+            dist/*Setup.exe
+            validation/*.json
+            validation/*.md
+  fresh-runner-install:
+    needs: windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows-release-candidate
+          path: downloaded
+      - name: Test actual portable app, installer and uninstaller on a fresh runner
+        shell: pwsh
+        run: |
+          ./packaging/verify_clean_windows.ps1 -ArtifactDirectory "$pwd/downloaded/dist" -ResultDirectory "$pwd/clean-results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fresh-windows-verification
+          path: clean-results

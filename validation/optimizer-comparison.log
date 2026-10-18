@@ -1,0 +1,194 @@
+Comparing graphics\alpha.png
+C:\Users\User\Desktop\os96ImageProcessor\.venv-release\lib\site-packages\PIL\Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Comparing graphics\alpha.webp
+Comparing graphics\depth.png
+Comparing graphics\depth.tiff
+Comparing graphics\text.bmp
+Comparing graphics\text.jpg
+Comparing graphics\text.png
+Comparing photos\201206060006HQ.jpg
+Comparing photos\201206060010HQ.jpg
+Comparing photos\GSFC_20171208_Archive_e002014.jpg
+Comparing photos\iss043e000030.jpg
+Comparing photos\iss043e010521.jpg
+Comparing photos\iss043e072717.jpg
+Comparing photos\iss073e0420094.jpg
+Comparing photos\jsc2018e078337.jpg
+Comparing photos\jsc2018e078340.jpg
+Comparing photos\jsc2018e087572.jpg
+Comparing photos\jsc2018e087573.jpg
+Comparing photos\KSC-20160325-PH-SWW01_0031.jpg
+Comparing photos\KSC-20160325-PH-SWW01_0036.jpg
+Comparing photos\KSC-20160325-PH-SWW01_0041.jpg
+Comparing photos\KSC-20160325-PH-SWW01_0058.jpg
+Comparing photos\MAF_20210526_SuperFlowerMoon08.jpg
+Comparing photos\NHQ202105040016.jpg
+Comparing photos\PIA12189.jpg
+Comparing photos\PIA14417.jpg
+Comparing photos\PIA25077.jpg
+Comparing photos\TTBW-90-aerial-forest-16x9-2-no-logo.jpg
+Comparing photos\TTBW-90-aerial-forest-16x9-2-with-logo.jpg
+Comparing screenshots\comparison.png
+Comparing screenshots\destination.png
+Comparing screenshots\optimize.png
+Comparing screenshots\report.png
+Comparing screenshots\resize.png
+[
+  {
+    "group": "all",
+    "method": "rc1",
+    "files": 34,
+    "before": 11066140,
+    "after": 8424722,
+    "saved_percent": 23.869,
+    "seconds": 30.337,
+    "files_reduced": 13,
+    "quality_passed": 34,
+    "min_ssim": 0.995099,
+    "pixel_exact": 30
+  },
+  {
+    "group": "all",
+    "method": "current",
+    "files": 34,
+    "before": 11066140,
+    "after": 8177086,
+    "saved_percent": 26.107,
+    "seconds": 70.522,
+    "files_reduced": 28,
+    "quality_passed": 34,
+    "min_ssim": 0.995099,
+    "pixel_exact": 15
+  },
+  {
+    "group": "all",
+    "method": "reference_lossless",
+    "files": 31,
+    "before": 8664892,
+    "after": 5841619,
+    "saved_percent": 32.583,
+    "seconds": 8.737,
+    "files_reduced": 31,
+    "quality_passed": 31,
+    "min_ssim": 1.0,
+    "pixel_exact": 30
+  },
+  {
+    "group": "photos",
+    "method": "rc1",
+    "files": 22,
+    "before": 5602744,
+    "after": 5591917,
+    "saved_percent": 0.193,
+    "seconds": 28.793,
+    "files_reduced": 3,
+    "quality_passed": 22,
+    "min_ssim": 0.99815,
+    "pixel_exact": 19
+  },
+  {
+    "group": "photos",
+    "method": "current",
+    "files": 22,
+    "before": 5602744,
+    "after": 5344281,
+    "saved_percent": 4.613,
+    "seconds": 68.796,
+    "files_reduced": 18,
+    "quality_passed": 22,
+    "min_ssim": 0.997364,
+    "pixel_exact": 4
+  },
+  {
+    "group": "photos",
+    "method": "reference_lossless",
+    "files": 22,
+    "before": 5602744,
+    "after": 5275762,
+    "saved_percent": 5.836,
+    "seconds": 4.38,
+    "files_reduced": 22,
+    "quality_passed": 22,
+    "min_ssim": 1.0,
+    "pixel_exact": 22
+  },
+  {
+    "group": "screenshots",
+    "method": "rc1",
+    "files": 5,
+    "before": 187758,
+    "after": 178355,
+    "saved_percent": 5.008,
+    "seconds": 0.466,
+    "files_reduced": 5,
+    "quality_passed": 5,
+    "min_ssim": 1.0,
+    "pixel_exact": 5
+  },
+  {
+    "group": "screenshots",
+    "method": "current",
+    "files": 5,
+    "before": 187758,
+    "after": 178355,
+    "saved_percent": 5.008,
+    "seconds": 0.494,
+    "files_reduced": 5,
+    "quality_passed": 5,
+    "min_ssim": 1.0,
+    "pixel_exact": 5
+  },
+  {
+    "group": "screenshots",
+    "method": "reference_lossless",
+    "files": 5,
+    "before": 187758,
+    "after": 149667,
+    "saved_percent": 20.287,
+    "seconds": 2.912,
+    "files_reduced": 5,
+    "quality_passed": 5,
+    "min_ssim": 1.0,
+    "pixel_exact": 5
+  },
+  {
+    "group": "graphics",
+    "method": "rc1",
+    "files": 7,
+    "before": 5275638,
+    "after": 2654450,
+    "saved_percent": 49.685,
+    "seconds": 1.078,
+    "files_reduced": 5,
+    "quality_passed": 7,
+    "min_ssim": 0.995099,
+    "pixel_exact": 6
+  },
+  {
+    "group": "graphics",
+    "method": "current",
+    "files": 7,
+    "before": 5275638,
+    "after": 2654450,
+    "saved_percent": 49.685,
+    "seconds": 1.232,
+    "files_reduced": 5,
+    "quality_passed": 7,
+    "min_ssim": 0.995099,
+    "pixel_exact": 6
+  },
+  {
+    "group": "graphics",
+    "method": "reference_lossless",
+    "files": 4,
+    "before": 2874390,
+    "after": 416190,
+    "saved_percent": 85.521,
+    "seconds": 1.445,
+    "files_reduced": 4,
+    "quality_passed": 4,
+    "min_ssim": 1.0,
+    "pixel_exact": 3
+  }
+]

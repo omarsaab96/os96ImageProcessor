@@ -1,0 +1,9 @@
+<Configuration>
+  <Networking>Disable</Networking><vGPU>Disable</vGPU>
+  <ClipboardRedirection>Disable</ClipboardRedirection><MemoryInMB>4096</MemoryInMB>
+  <MappedFolders>
+    <MappedFolder><HostFolder>C:\Users\User\Desktop\os96ImageProcessor\validation\sandbox-input</HostFolder><SandboxFolder>C:\OS96Input</SandboxFolder><ReadOnly>true</ReadOnly></MappedFolder>
+    <MappedFolder><HostFolder>C:\Users\User\Desktop\os96ImageProcessor\validation\sandbox-results</HostFolder><SandboxFolder>C:\OS96Results</SandboxFolder><ReadOnly>false</ReadOnly></MappedFolder>
+  </MappedFolders>
+  <LogonCommand><Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\OS96Input\verify_clean_windows.ps1 -ArtifactDirectory C:\OS96Input -ResultDirectory C:\OS96Results -Version 1.0.0rc2</Command></LogonCommand>
+</Configuration>

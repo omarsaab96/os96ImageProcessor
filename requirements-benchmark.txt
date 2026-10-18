@@ -1,0 +1,4 @@
+-r requirements-release.txt
+scikit-image==0.25.2
+numpy==2.2.6
+scipy==1.15.3

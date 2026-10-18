@@ -1,0 +1,14 @@
+{
+  "jpegtran": {
+    "version": "3.2.0",
+    "source": "https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/3.2.0.tar.gz",
+    "source_sha256": "980dd81f425082aa6d7c9e47fef27554ce7a9ffc8e2f6e863b97d263c5c50858",
+    "simd": false,
+    "note": "Lossless coefficient optimizer; not a quality-matched lossy competitor"
+  },
+  "oxipng": {
+    "version": "v10.2.1",
+    "source": "https://github.com/oxipng/oxipng/releases/download/v10.2.1/oxipng-10.2.1-x86_64-pc-windows-msvc.zip",
+    "sha256": "7e940f83ee46874b73f53031f96a15834cb70b220af27391fb06fe7b4dd798e1"
+  }
+}

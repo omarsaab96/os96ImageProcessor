@@ -15,6 +15,8 @@ from PySide6.QtWidgets import (
 )
 from .engine import Settings, Control, discover, run_batch, process, estimate_output, target_size, EXTENSIONS
 from PIL import Image, ImageOps
+from .workflow import WorkflowMixin
+from . import __version__
 
 RESIZE_HELP = {
     'Keep original': 'Keeps each image’s original pixel dimensions. Optimization settings still apply.',
@@ -196,10 +198,15 @@ class Worker(QThread):
             self.result.emit({'fatal': str(exc)})
 
 
-class Window(QMainWindow):
-    def __init__(self):
+class Window(WorkflowMixin, QMainWindow):
+    def __init__(self, persist=False, preferences=None):
         super().__init__()
-        self.setWindowTitle('OS96 · Image Optimizer')
+        self.setWindowTitle(f'OS96 Image Optimizer {__version__}')
+        self.setWindowIcon(QIcon(str(Path(__file__).resolve().parent.parent / 'assets' / 'app.ico')))
+        about = self.menuBar().addMenu('Help').addAction('About OS96')
+        about.triggered.connect(lambda: QMessageBox.about(self, 'About OS96',
+            f'OS96 Image Optimizer {__version__}\nLocal batch optimization and resizing.\n'
+            'JPEG, PNG, WebP, TIFF, BMP\nThird-party license notices are included beside the application.'))
         self.resize(1000, 660)
         self.jobs, self.paths, self.worker, self.scanner = [], [], None, None
         self.excluded = set()
@@ -221,9 +228,10 @@ class Window(QMainWindow):
         split = QSplitter()
         layout.addWidget(split, 1)
         left, right = QWidget(), QWidget()
+        right.setMinimumWidth(310)
         split.addWidget(left)
         split.addWidget(right)
-        split.setSizes([1030, 360])
+        split.setSizes([660, 340])
         ll, rr = QVBoxLayout(left), QVBoxLayout(right)
         ll.setContentsMargins(0, 18, 12, 0)
         rr.setContentsMargins(12, 18, 0, 0)
@@ -349,6 +357,10 @@ class Window(QMainWindow):
         form.addWidget(self.browse)
         self.overwrite = QCheckBox('Overwrite existing output files')
         form.addWidget(self.overwrite)
+        self.only_smaller = QCheckBox('Only save files smaller than the original')
+        self.only_smaller.setToolTip('When enabled, larger results are skipped, including resized and print outputs.')
+        form.addWidget(self.only_smaller)
+        self.only_smaller.toggled.connect(self.schedule_estimates)
         self.add_options_tab(self.output_box, 'Destination')
         self.progress = QProgressBar()
         self.progress.setValue(0)
@@ -385,6 +397,7 @@ class Window(QMainWindow):
         self.color_profile.toggled.connect(self.schedule_estimates)
         self.update_options()
         self.update_remove()
+        self.setup_workflow(persist, ll, rr, preferences)
 
     def add_options_tab(self, options, title):
         options.layout().setContentsMargins(0, 0, 0, 0)
@@ -496,6 +509,7 @@ class Window(QMainWindow):
                         lossless=self.compression.currentText() != 'Manual quality',
                         smart=self.compression.currentText() == 'Automatic',
                         web=self.web.isChecked(),
+                        only_smaller=self.only_smaller.isChecked(),
                         quality=self.quality.value(), png_level=self.png.value(), metadata=self.metadata.isChecked(),
                         color_profile=self.color_profile.isChecked())
 
@@ -509,7 +523,7 @@ class Window(QMainWindow):
         settings = self.preview_settings()
         quick = settings.smart or settings.web
         self.estimate_note.setText(
-            'Sizes are rough preview estimates, capped at source size. Larger results are skipped; full compression runs on Start.'
+            'Sizes are rough small preview estimates. Full compression runs on Start; larger results are allowed unless Only save smaller is enabled.'
             if quick else 'Output sizes are estimated by a background trial encode. Originals are never modified.')
         for index, info in enumerate(self.info):
             valid = 'error' not in info and info['frames'] == 1
@@ -543,7 +557,7 @@ class Window(QMainWindow):
         dimensions = item.data(Qt.UserRole)
         label = f'≈ {file_size(size)}' if size is not None else 'Unavailable'
         item.setText(f'{dimensions}\n{label}' if dimensions else label)
-        item.setToolTip(error or ('Rough preview estimate, capped at source size. Larger results are skipped rather than saved.'
+        item.setToolTip(error or ('Rough small preview estimate; actual output may differ. The size policy is applied when saving.'
                                  if self.compression.currentText() == 'Automatic' or self.web.isChecked() else
                                  'Trial encode using current settings; actual output may vary if the source changes.'))
 
@@ -629,7 +643,7 @@ class Window(QMainWindow):
             if self.estimator and self.estimator.isRunning():
                 self.estimator.control.stop()
         for widget in (self.add_files, self.add_folder, self.clear, self.resize_box,
-                       self.compression_box, self.output_box, self.start):
+                       self.compression_box, self.output_box, self.start, *getattr(self, 'workflow_controls', [])):
             widget.setEnabled(not busy)
         self.pause.setEnabled(busy)
         self.stop.setEnabled(busy)
@@ -663,6 +677,7 @@ class Window(QMainWindow):
         for i in range(len(self.jobs)):
             self.table.item(i, 1).setText('Queued')
         self.worker = Worker(self.jobs.copy(), settings)
+        self.capture_batch(settings)
         self.worker.status.connect(self.image_status)
         self.worker.progress.connect(self.batch_progress)
         self.worker.result.connect(self.completed)
@@ -724,8 +739,14 @@ class Window(QMainWindow):
                 self.image_status(i, self.table.item(i, 1).text())
         saved = (totals['before'] - totals['after']) / 1048576
         self.summary.setText(f"{'Stopped' if stopped else 'Complete'} · {totals['done']} done · {totals['skipped']} skipped · {totals['error']} errors · {saved:.2f} MB saved")
+        self.finish_report(totals)
 
     def closeEvent(self, event):
+        if self.preview_worker and self.preview_worker.isRunning():
+            self.preview_worker.control.stop()
+            self.summary.setText('Stopping preview; close again when it finishes.')
+            event.ignore()
+            return
         if (self.worker and self.worker.isRunning()) or (self.scanner and self.scanner.isRunning()):
             QMessageBox.information(self, 'Work in progress', 'Stop processing and wait for active operations to finish before closing.')
             event.ignore()
@@ -735,10 +756,11 @@ class Window(QMainWindow):
             self.estimator.control.stop()
             event.ignore()
         else:
+            self.save_preferences()
             event.accept()
 
 
-def main():
+def create_application():
     app = QApplication(sys.argv)
     app.setStyle('Fusion')
     palette = QPalette()
@@ -769,6 +791,11 @@ def main():
         QProgressBar { border: none; border-radius: 5px; background: #e0e7f1; text-align: center; height: 19px; }
         QProgressBar::chunk { background: #5390ed; border-radius: 5px; }
     ''')
-    window = Window()
+    return app
+
+
+def main():
+    app = create_application()
+    window = Window(persist=True)
     window.show()
     sys.exit(app.exec())

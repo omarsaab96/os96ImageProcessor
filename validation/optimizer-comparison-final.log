@@ -1,0 +1,354 @@
+Comparing graphics\alpha.png
+C:\Users\User\Desktop\os96ImageProcessor\.venv-release\lib\site-packages\PIL\Image.py:1136: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Comparing graphics\alpha.webp
+Comparing graphics\depth.png
+Comparing graphics\depth.tiff
+Comparing graphics\text.bmp
+Comparing graphics\text.jpg
+Comparing graphics\text.png
+Comparing photos\201206060006HQ.jpg
+Comparing photos\201206060010HQ.jpg
+Comparing photos\GSFC_20171208_Archive_e002014.jpg
+Comparing photos\iss043e000030.jpg
+Comparing photos\iss043e010521.jpg
+Comparing photos\iss043e072717.jpg
+Comparing photos\iss073e0420094.jpg
+Comparing photos\jsc2018e078337.jpg
+Comparing photos\jsc2018e078340.jpg
+Comparing photos\jsc2018e087572.jpg
+Comparing photos\jsc2018e087573.jpg
+Comparing photos\KSC-20160325-PH-SWW01_0031.jpg
+Comparing photos\KSC-20160325-PH-SWW01_0036.jpg
+Comparing photos\KSC-20160325-PH-SWW01_0041.jpg
+Comparing photos\KSC-20160325-PH-SWW01_0058.jpg
+Comparing photos\MAF_20210526_SuperFlowerMoon08.jpg
+Comparing photos\NHQ202105040016.jpg
+Comparing photos\original-KSC-20160325-PH-SWW01_0031.jpg
+Comparing photos\original-KSC-20160325-PH-SWW01_0036.jpg
+Comparing photos\original-TTBW-90-aerial-forest-16x9-2-no-logo.jpg
+Comparing photos\original-TTBW-90-aerial-forest-16x9-2-with-logo.jpg
+Comparing photos\PIA12189.jpg
+Comparing photos\PIA14417.jpg
+Comparing photos\PIA25077.jpg
+Comparing photos\TTBW-90-aerial-forest-16x9-2-no-logo.jpg
+Comparing photos\TTBW-90-aerial-forest-16x9-2-with-logo.jpg
+Comparing screenshots\comparison.png
+Comparing screenshots\destination.png
+Comparing screenshots\optimize.png
+Comparing screenshots\report.png
+Comparing screenshots\resize.png
+[
+  {
+    "group": "all",
+    "method": "rc1",
+    "files": 38,
+    "before": 17986240,
+    "after": 11643566,
+    "saved_percent": 35.264,
+    "seconds": 43.773,
+    "files_reduced": 17,
+    "quality_passed": 38,
+    "min_ssim": 0.963814,
+    "pixel_exact": 30
+  },
+  {
+    "group": "all",
+    "method": "current",
+    "files": 38,
+    "before": 17986240,
+    "after": 11287837,
+    "saved_percent": 37.242,
+    "seconds": 36.968,
+    "files_reduced": 36,
+    "quality_passed": 38,
+    "min_ssim": 0.963814,
+    "pixel_exact": 32
+  },
+  {
+    "group": "all",
+    "method": "reference_lossless",
+    "files": 35,
+    "before": 15584992,
+    "after": 12268639,
+    "saved_percent": 21.279,
+    "seconds": 10.553,
+    "files_reduced": 35,
+    "quality_passed": 35,
+    "min_ssim": 1.0,
+    "pixel_exact": 34
+  },
+  {
+    "group": "photos",
+    "method": "rc1",
+    "files": 26,
+    "before": 12522844,
+    "after": 8810761,
+    "saved_percent": 29.642,
+    "seconds": 42.083,
+    "files_reduced": 7,
+    "quality_passed": 26,
+    "min_ssim": 0.963814,
+    "pixel_exact": 19
+  },
+  {
+    "group": "photos",
+    "method": "current",
+    "files": 26,
+    "before": 12522844,
+    "after": 8494606,
+    "saved_percent": 32.167,
+    "seconds": 32.985,
+    "files_reduced": 26,
+    "quality_passed": 26,
+    "min_ssim": 0.963814,
+    "pixel_exact": 22
+  },
+  {
+    "group": "photos",
+    "method": "reference_lossless",
+    "files": 26,
+    "before": 12522844,
+    "after": 11702782,
+    "saved_percent": 6.549,
+    "seconds": 6.935,
+    "files_reduced": 26,
+    "quality_passed": 26,
+    "min_ssim": 1.0,
+    "pixel_exact": 26
+  },
+  {
+    "group": "photos_original",
+    "method": "rc1",
+    "files": 4,
+    "before": 6920100,
+    "after": 3218844,
+    "saved_percent": 53.486,
+    "seconds": 12.846,
+    "files_reduced": 4,
+    "quality_passed": 4,
+    "min_ssim": 0.963814,
+    "pixel_exact": 0
+  },
+  {
+    "group": "photos_original",
+    "method": "current",
+    "files": 4,
+    "before": 6920100,
+    "after": 3218844,
+    "saved_percent": 53.486,
+    "seconds": 23.103,
+    "files_reduced": 4,
+    "quality_passed": 4,
+    "min_ssim": 0.963814,
+    "pixel_exact": 0
+  },
+  {
+    "group": "photos_original",
+    "method": "reference_lossless",
+    "files": 4,
+    "before": 6920100,
+    "after": 6427020,
+    "saved_percent": 7.125,
+    "seconds": 1.939,
+    "files_reduced": 4,
+    "quality_passed": 4,
+    "min_ssim": 1.0,
+    "pixel_exact": 4
+  },
+  {
+    "group": "photos_web",
+    "method": "rc1",
+    "files": 22,
+    "before": 5602744,
+    "after": 5591917,
+    "saved_percent": 0.193,
+    "seconds": 29.238,
+    "files_reduced": 3,
+    "quality_passed": 22,
+    "min_ssim": 0.99815,
+    "pixel_exact": 19
+  },
+  {
+    "group": "photos_web",
+    "method": "current",
+    "files": 22,
+    "before": 5602744,
+    "after": 5275762,
+    "saved_percent": 5.836,
+    "seconds": 9.883,
+    "files_reduced": 22,
+    "quality_passed": 22,
+    "min_ssim": 1.0,
+    "pixel_exact": 22
+  },
+  {
+    "group": "photos_web",
+    "method": "reference_lossless",
+    "files": 22,
+    "before": 5602744,
+    "after": 5275762,
+    "saved_percent": 5.836,
+    "seconds": 4.996,
+    "files_reduced": 22,
+    "quality_passed": 22,
+    "min_ssim": 1.0,
+    "pixel_exact": 22
+  },
+  {
+    "group": "screenshots",
+    "method": "rc1",
+    "files": 5,
+    "before": 187758,
+    "after": 178355,
+    "saved_percent": 5.008,
+    "seconds": 0.626,
+    "files_reduced": 5,
+    "quality_passed": 5,
+    "min_ssim": 1.0,
+    "pixel_exact": 5
+  },
+  {
+    "group": "screenshots",
+    "method": "current",
+    "files": 5,
+    "before": 187758,
+    "after": 154183,
+    "saved_percent": 17.882,
+    "seconds": 2.134,
+    "files_reduced": 5,
+    "quality_passed": 5,
+    "min_ssim": 1.0,
+    "pixel_exact": 5
+  },
+  {
+    "group": "screenshots",
+    "method": "reference_lossless",
+    "files": 5,
+    "before": 187758,
+    "after": 149667,
+    "saved_percent": 20.287,
+    "seconds": 2.53,
+    "files_reduced": 5,
+    "quality_passed": 5,
+    "min_ssim": 1.0,
+    "pixel_exact": 5
+  },
+  {
+    "group": "graphics",
+    "method": "rc1",
+    "files": 7,
+    "before": 5275638,
+    "after": 2654450,
+    "saved_percent": 49.685,
+    "seconds": 1.064,
+    "files_reduced": 5,
+    "quality_passed": 7,
+    "min_ssim": 0.995099,
+    "pixel_exact": 6
+  },
+  {
+    "group": "graphics",
+    "method": "current",
+    "files": 7,
+    "before": 5275638,
+    "after": 2639048,
+    "saved_percent": 49.977,
+    "seconds": 1.849,
+    "files_reduced": 5,
+    "quality_passed": 7,
+    "min_ssim": 0.995099,
+    "pixel_exact": 5
+  },
+  {
+    "group": "graphics",
+    "method": "reference_lossless",
+    "files": 4,
+    "before": 2874390,
+    "after": 416190,
+    "saved_percent": 85.521,
+    "seconds": 1.088,
+    "files_reduced": 4,
+    "quality_passed": 4,
+    "min_ssim": 1.0,
+    "pixel_exact": 3
+  },
+  {
+    "group": "JPEG",
+    "method": "rc1",
+    "files": 27,
+    "before": 12973141,
+    "after": 9068208,
+    "saved_percent": 30.1,
+    "seconds": 42.559,
+    "files_reduced": 8,
+    "quality_passed": 27,
+    "min_ssim": 0.963814,
+    "pixel_exact": 19
+  },
+  {
+    "group": "JPEG",
+    "method": "current",
+    "files": 27,
+    "before": 12973141,
+    "after": 8752053,
+    "saved_percent": 32.537,
+    "seconds": 33.71,
+    "files_reduced": 27,
+    "quality_passed": 27,
+    "min_ssim": 0.963814,
+    "pixel_exact": 22
+  },
+  {
+    "group": "JPEG",
+    "method": "reference_lossless",
+    "files": 27,
+    "before": 12973141,
+    "after": 12049154,
+    "saved_percent": 7.122,
+    "seconds": 7.117,
+    "files_reduced": 27,
+    "quality_passed": 27,
+    "min_ssim": 1.0,
+    "pixel_exact": 27
+  },
+  {
+    "group": "PNG",
+    "method": "rc1",
+    "files": 8,
+    "before": 2611851,
+    "after": 263564,
+    "saved_percent": 89.909,
+    "seconds": 1.022,
+    "files_reduced": 8,
+    "quality_passed": 8,
+    "min_ssim": 1.0,
+    "pixel_exact": 8
+  },
+  {
+    "group": "PNG",
+    "method": "current",
+    "files": 8,
+    "before": 2611851,
+    "after": 223990,
+    "saved_percent": 91.424,
+    "seconds": 3.035,
+    "files_reduced": 8,
+    "quality_passed": 8,
+    "min_ssim": 1.0,
+    "pixel_exact": 7
+  },
+  {
+    "group": "PNG",
+    "method": "reference_lossless",
+    "files": 8,
+    "before": 2611851,
+    "after": 219485,
+    "saved_percent": 91.597,
+    "seconds": 3.436,
+    "files_reduced": 8,
+    "quality_passed": 8,
+    "min_ssim": 1.0,
+    "pixel_exact": 7
+  }
+]

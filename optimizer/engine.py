@@ -11,6 +11,7 @@ from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 
 from PIL import Image, ImageOps, ImageCms
 from .compression import encode_smart
+from .native import optimize_native, tool_path
 
 EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff', '.bmp'}
 
@@ -42,6 +43,7 @@ class Settings:
     overwrite: bool = False
     smart: bool = False
     web: bool = False
+    only_smaller: bool = False
 
 
 def web_colors(image):
@@ -129,12 +131,36 @@ def estimate_output(job, settings, control, destination):
                         estimate = min(estimate, destination.stat().st_size)
                     if settings.resize == 'Keep original' and settings.metadata and settings.color_profile and not settings.web:
                         estimate = min(estimate, job.source.stat().st_size)
-                    return min(estimate, job.source.stat().st_size)
+                    return min(estimate, job.source.stat().st_size) if settings.only_smaller else estimate
 
 
 def reusable_jpeg(image, settings):
     """A metadata-only JPEG is a size fallback, retaining the source color profile."""
-    return image.format == 'JPEG' and settings.resize == 'Keep original'
+    return image.format == 'JPEG' and settings.resize == 'Keep original' and not settings.web
+
+
+def prefer_lossless_jpeg(image, settings):
+    """Avoid costly generational recompression of already-quantized JPEGs.
+
+    This is an effort heuristic, not an estimated perceptual quality score.
+    High-quality JPEGs, resizing, and web conversion still search candidates.
+    """
+    tables = getattr(image, 'quantization', {})
+    luma = tables.get(0, [])
+    return (settings.smart and reusable_jpeg(image, settings) and bool(luma)
+            and sum(luma) / len(luma) >= 12 and tool_path('jpegtran') is not None)
+
+
+def check_precision(image):
+    """Reject color depths that Pillow decodes to eight bits per channel."""
+    if image.format == 'TIFF' and image.mode not in ('I', 'I;16', 'I;16B', 'I;16L', 'F'):
+        bits = image.tag_v2.get(258, (8,))
+        bits = (bits,) if isinstance(bits, int) else bits
+        if any(value > 8 for value in bits):
+            raise ValueError('High-bit-depth color TIFF is unsupported by this encoder; skipped to preserve channel precision.')
+    if image.format == 'PNG' and image.mode in ('RGB', 'RGBA'):
+        if any('16' in str(tile[3]) for tile in image.tile):
+            raise ValueError('16-bit color PNG is unsupported by this encoder; skipped to preserve channel precision.')
 
 
 def discover(paths: list[Path]) -> tuple[list[Job], list[str]]:
@@ -264,6 +290,8 @@ def process(job: Job, settings: Settings, control: Control, emit):
             return 'cancelled', 0, 0
         emit('Reading')
         destination = job.source if settings.in_place else settings.output / job.relative
+        if not settings.in_place and not destination.resolve().is_relative_to(settings.output.resolve()):
+            raise ValueError('Output path must stay inside the destination folder.')
         if not settings.in_place and destination.resolve() == job.source.resolve():
             raise ValueError('Select “Replace originals” to write to the source file.')
         if destination.exists() and not settings.in_place and not settings.overwrite:
@@ -272,13 +300,14 @@ def process(job: Job, settings: Settings, control: Control, emit):
         before = job.source.stat().st_size
         destination.parent.mkdir(parents=True, exist_ok=True)
         with Image.open(job.source) as original:
+            check_precision(original)
             if getattr(original, 'n_frames', 1) > 1:
                 raise ValueError('Animated or multipage image skipped to preserve all frames.')
             fmt = original.format
             reusable = reusable_jpeg(original, settings)
             # Avoid changing JPEG pixels when lossless mode is requested.
             needs_color_conversion = settings.web and bool(original.info.get('icc_profile'))
-            copy_original = settings.lossless and not settings.smart and reusable and not needs_color_conversion
+            copy_original = (settings.lossless and not settings.smart and reusable and not needs_color_conversion) or prefer_lossless_jpeg(original, settings)
             handle, name = tempfile.mkstemp(prefix='.os96-', suffix=job.source.suffix, dir=destination.parent)
             os.close(handle)
             temporary = Path(name)
@@ -352,7 +381,7 @@ def process(job: Job, settings: Settings, control: Control, emit):
                     elif fmt == 'PNG':
                         options.update(compress_level=settings.png_level)
                     elif fmt == 'WEBP':
-                        options.update(lossless=settings.lossless, quality=85 if settings.lossless else settings.quality, method=4)
+                        options.update(lossless=settings.lossless, quality=85 if settings.lossless else settings.quality, method=4, exact=True)
                     elif fmt == 'TIFF':
                         options.update(compression='tiff_deflate')
                     if settings.smart:
@@ -379,17 +408,40 @@ def process(job: Job, settings: Settings, control: Control, emit):
             emit('Cancelled')
             return 'cancelled', 0, 0
         # Keep the smaller original when no resize/metadata removal was requested.
-        if settings.resize == 'Keep original' and settings.metadata and settings.color_profile and temporary.stat().st_size >= before:
+        if settings.resize == 'Keep original' and settings.metadata and settings.color_profile and not settings.web and temporary.stat().st_size >= before:
             shutil.copy2(job.source, temporary)
+        if fmt == 'JPEG' or (fmt == 'PNG' and settings.smart):
+            optimize_native(temporary, fmt, control, emit)
+        if not control.checkpoint():
+            emit('Cancelled')
+            return 'cancelled', 0, 0
         after = temporary.stat().st_size
-        if after > before:
+        if settings.only_smaller and after > before:
             emit('Skipped · output would be larger')
             return 'skipped', 0, 0
+        # Never replace an original with an unreadable encoder result.
+        with Image.open(temporary) as verification:
+            verification.load()
         if settings.in_place or settings.overwrite:
             os.replace(temporary, destination)
         else:
             # Exclusive creation protects files that appear after the initial check.
-            os.link(temporary, destination)
+            try:
+                os.link(temporary, destination)
+            except FileExistsError:
+                raise
+            except OSError:
+                # FAT/exFAT and some network volumes do not support hard links.
+                # Exclusive creation still protects pre-existing files.
+                created = False
+                try:
+                    with open(destination, 'xb') as outgoing, open(temporary, 'rb') as incoming:
+                        created = True
+                        shutil.copyfileobj(incoming, outgoing)
+                except Exception:
+                    if created:
+                        destination.unlink(missing_ok=True)
+                    raise
             temporary.unlink()
         temporary = None
         emit('Done')
@@ -399,7 +451,10 @@ def process(job: Job, settings: Settings, control: Control, emit):
         return 'error', 0, 0
     finally:
         if temporary is not None:
-            temporary.unlink(missing_ok=True)
+            try:
+                temporary.unlink(missing_ok=True)
+            except OSError:
+                pass  # A cleanup failure must not abort unrelated batch jobs.
 
 
 def run_batch(jobs, settings, control, status, progress):

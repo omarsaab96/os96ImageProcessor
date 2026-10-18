@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "version": "1.0.0rc2",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "checks": [
+    "Qt window and plugin startup",
+    "resize encode/decode",
+    "thumbnail",
+    "full-resolution comparison",
+    "jpg codec and Unicode path",
+    "png codec and Unicode path",
+    "webp codec and Unicode path",
+    "tiff codec and Unicode path",
+    "bmp codec and Unicode path",
+    "native helper integrity",
+    "native JPEG helper executes and preserves pixels",
+    "native PNG helper executes and preserves alpha",
+    "damaged input leaves no output"
+  ]
+}

@@ -1,5 +1,16 @@
 __pycache__/
 .venv/
+.venv-release/
+.venv-release313/
+.tools/
 build/
 dist/
 *.spec
+validation/installed/
+validation/photo-corpus/
+validation/reference-tools/
+validation/comparison-outputs/
+validation/mixed-corpus/
+validation/sandbox-input/
+validation/sandbox-results/
+validation/build-runtime/

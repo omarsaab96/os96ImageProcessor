@@ -1,0 +1,159 @@
+test_alpha_changes_cannot_pass_rgb_quality_gate (test_compression_proof.CompressionProofTests.test_alpha_changes_cannot_pass_rgb_quality_gate) ... ok
+test_already_quantized_jpeg_uses_fast_lossless_path (test_compression_proof.CompressionProofTests.test_already_quantized_jpeg_uses_fast_lossless_path) ... ok
+test_chroma_edges_still_fail_quality_gate (test_compression_proof.CompressionProofTests.test_chroma_edges_still_fail_quality_gate) ... ok
+test_jpeg_lossless_optimization_reduces_without_reencoding (test_compression_proof.CompressionProofTests.test_jpeg_lossless_optimization_reduces_without_reencoding) ... ok
+test_lossless_webp_retains_invisible_rgb_and_alpha (test_compression_proof.CompressionProofTests.test_lossless_webp_retains_invisible_rgb_and_alpha) ... ok
+test_native_cannot_commit_pixel_damage (test_compression_proof.CompressionProofTests.test_native_cannot_commit_pixel_damage) ... ok
+test_native_cannot_strip_metadata (test_compression_proof.CompressionProofTests.test_native_cannot_strip_metadata) ... ok
+test_native_timeout_keeps_existing_valid_image (test_compression_proof.CompressionProofTests.test_native_timeout_keeps_existing_valid_image) ... ok
+test_cancel_leaves_original (test_engine.EngineTests.test_cancel_leaves_original) ... ok
+test_dimension_options_and_enlargement (test_engine.EngineTests.test_dimension_options_and_enlargement) ... ok
+test_error_does_not_stop_batch (test_engine.EngineTests.test_error_does_not_stop_batch) ... ok
+test_hierarchy_and_deduplication (test_engine.EngineTests.test_hierarchy_and_deduplication) ... ok
+test_jpeg_lossless_preserves_decoded_pixels (test_engine.EngineTests.test_jpeg_lossless_preserves_decoded_pixels) ... ok
+test_larger_output_is_skipped_without_replacing_source (test_engine.EngineTests.test_larger_output_is_skipped_without_replacing_source) ... ok
+test_lossless_pixels_and_existing_output (test_engine.EngineTests.test_lossless_pixels_and_existing_output) ... ok
+test_metadata_and_profiles_are_independent (test_engine.EngineTests.test_metadata_and_profiles_are_independent) ... ok
+test_pause_resume_and_stop_release_waiters (test_engine.EngineTests.test_pause_resume_and_stop_release_waiters) ... ok
+test_quality_check_detects_local_damage (test_engine.EngineTests.test_quality_check_detects_local_damage) ... ok
+test_resize_and_in_place (test_engine.EngineTests.test_resize_and_in_place) ... ok
+test_resolution_resamples_and_writes_density (test_engine.EngineTests.test_resolution_resamples_and_writes_density) ... ok
+test_smart_cancel_during_search_preserves_source (test_engine.EngineTests.test_smart_cancel_during_search_preserves_source) ... ok
+test_smart_estimate_encodes_only_bounded_preview (test_engine.EngineTests.test_smart_estimate_encodes_only_bounded_preview) ... ok
+test_smart_jpeg_compresses_with_and_without_resize (test_engine.EngineTests.test_smart_jpeg_compresses_with_and_without_resize) ... ok
+test_stopped_batch_does_not_write (test_engine.EngineTests.test_stopped_batch_does_not_write) ... ok
+test_supported_formats_resize (test_engine.EngineTests.test_supported_formats_resize) ... ok
+test_web_invalid_profile_does_not_replace_source (test_engine.EngineTests.test_web_invalid_profile_does_not_replace_source) ... ok
+test_web_jpeg_strips_exif_even_when_keep_metadata_is_requested (test_engine.EngineTests.test_web_jpeg_strips_exif_even_when_keep_metadata_is_requested) ... ok
+test_web_preserves_palette_transparency (test_engine.EngineTests.test_web_preserves_palette_transparency) ... ok
+test_web_removes_metadata_preserves_profile_orientation_and_alpha (test_engine.EngineTests.test_web_removes_metadata_preserves_profile_orientation_and_alpha) ... ok
+test_web_respects_manual_compression_selection (test_engine.EngineTests.test_web_respects_manual_compression_selection) ... ok
+test_web_smaller_only_skips_larger_candidate_without_color_fallback (test_engine.EngineTests.test_web_smaller_only_skips_larger_candidate_without_color_fallback) ... ok
+test_automatic_compression_shows_estimate_before_start (test_preview.PreviewTests.test_automatic_compression_shows_estimate_before_start) ... ok
+test_batch_replaces_placeholder_for_done_and_existing_output (test_preview.PreviewTests.test_batch_replaces_placeholder_for_done_and_existing_output) ... ok
+test_drop_files_folders_and_busy_guard (test_preview.PreviewTests.test_drop_files_folders_and_busy_guard) ... ok
+test_headers_respect_orientation (test_preview.PreviewTests.test_headers_respect_orientation) ... ok
+test_live_estimate_matches_trial_and_preserves_source (test_preview.PreviewTests.test_live_estimate_matches_trial_and_preserves_source) ... ok
+test_optimize_help_shrinks_when_lossless_is_toggled (test_preview.PreviewTests.test_optimize_help_shrinks_when_lossless_is_toggled) ... ok
+test_optimize_quality_visibility_and_independent_controls (test_preview.PreviewTests.test_optimize_quality_visibility_and_independent_controls) ... ok
+test_remove_multiple_and_keep_exclusions_on_add (test_preview.PreviewTests.test_remove_multiple_and_keep_exclusions_on_add) ... ok
+test_resize_modes_show_relevant_fields_and_behavior (test_preview.PreviewTests.test_resize_modes_show_relevant_fields_and_behavior) ... ok
+test_web_preset_overrides_without_losing_manual_preferences (test_preview.PreviewTests.test_web_preset_overrides_without_losing_manual_preferences) ... ok
+test_16_bit_color_png_rejected_instead_of_silently_truncated (test_release.ReleaseTests.test_16_bit_color_png_rejected_instead_of_silently_truncated) ... ok
+test_16_bit_color_tiff_rejected_instead_of_silently_truncated (test_release.ReleaseTests.test_16_bit_color_tiff_rejected_instead_of_silently_truncated) ... ok
+test_comparison_uses_full_resolution_and_preserves_source (test_release.ReleaseTests.test_comparison_uses_full_resolution_and_preserves_source) ... ok
+test_destination_race_preserves_existing (test_release.ReleaseTests.test_destination_race_preserves_existing) ... ok
+test_disk_full_preserves_original (test_release.ReleaseTests.test_disk_full_preserves_original) ... ok
+test_enlargement_is_written_unless_smaller_only (test_release.ReleaseTests.test_enlargement_is_written_unless_smaller_only) ... ok
+test_high_bit_depth_and_multiframe_safety (test_release.ReleaseTests.test_high_bit_depth_and_multiframe_safety) ... ok
+test_invalid_encoder_result_cannot_replace_original (test_release.ReleaseTests.test_invalid_encoder_result_cannot_replace_original) ... ok
+test_no_hardlinks_external_drive (test_release.ReleaseTests.test_no_hardlinks_external_drive) ... ok
+test_oversized_output_rejected_without_allocating_it (test_release.ReleaseTests.test_oversized_output_rejected_without_allocating_it) ... ok
+test_path_escape_rejected (test_release.ReleaseTests.test_path_escape_rejected) ... ok
+test_permission_error_isolated_and_no_replacement (test_release.ReleaseTests.test_permission_error_isolated_and_no_replacement) ... ok
+test_preferences_survive_restart_without_destructive_flags (test_release.ReleaseTests.test_preferences_survive_restart_without_destructive_flags) ... ok
+test_presets_and_report_capture (test_release.ReleaseTests.test_presets_and_report_capture) ... ok
+test_real_windows_file_lock_does_not_destroy_destination (test_release.ReleaseTests.test_real_windows_file_lock_does_not_destroy_destination) ... ok
+test_retry_runs_only_failed_entries (test_release.ReleaseTests.test_retry_runs_only_failed_entries) ... ok
+test_unicode_deep_path_and_mixed_batch (test_release.ReleaseTests.test_unicode_deep_path_and_mixed_batch) ... ok
+test_web_output_tagged_srgb_without_fallback (test_release.ReleaseTests.test_web_output_tagged_srgb_without_fallback) ... ok
+
+----------------------------------------------------------------------
+Ran 59 tests in 6.590s
+
+OK
+WARNING:pip_audit._cli:--no-deps is supported, but users are encouraged to fully hash their pinned dependencies
+WARNING:pip_audit._cli:Consider using a tool like `pip-compile`: https://pip-tools.readthedocs.io/en/latest/#using-hashes
+No known vulnerabilities found
+713 INFO: PyInstaller: 6.16.0, contrib hooks: 2026.8
+713 INFO: Python: 3.13.16
+768 INFO: Platform: Windows-11-10.0.26200-SP0
+768 INFO: Python environment: C:\Users\User\Desktop\os96ImageProcessor\.venv-release313
+769 INFO: wrote C:\Users\User\Desktop\os96ImageProcessor\OS96ImageOptimizer.spec
+774 INFO: Removing temporary files and cleaning cache in C:\Users\User\AppData\Local\pyinstaller
+797 INFO: Module search paths (PYTHONPATH):
+['C:\\Users\\User\\Desktop\\os96ImageProcessor',
+ 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.tools\\Python313\\python313.zip',
+ 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.tools\\Python313\\DLLs',
+ 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.tools\\Python313\\Lib',
+ 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.tools\\Python313',
+ 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313',
+ 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages',
+ 'C:\\Users\\User\\Desktop\\os96ImageProcessor']
+2229 INFO: Appending 'datas' from .spec
+2230 INFO: checking Analysis
+2230 INFO: Building Analysis because Analysis-00.toc is non existent
+2230 INFO: Looking for Python shared library...
+2230 INFO: Using Python shared library: C:\Users\User\Desktop\os96ImageProcessor\.tools\Python313\python313.dll
+2230 INFO: Running Analysis Analysis-00.toc
+2230 INFO: Target bytecode optimization level: 0
+2230 INFO: Initializing module dependency graph...
+2230 INFO: Initializing module graph hook caches...
+2278 INFO: Analyzing modules for base_library.zip ...
+6614 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+9080 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+13761 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+23175 INFO: Caching module dependency graph...
+23300 INFO: Analyzing C:\Users\User\Desktop\os96ImageProcessor\main.py
+23436 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+23605 INFO: Processing standard module hook 'hook-sysconfig.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+23654 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+23929 INFO: Processing standard module hook 'hook-PIL.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+24373 INFO: Processing standard module hook 'hook-PIL.Image.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+25509 INFO: Processing standard module hook 'hook-xml.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+25537 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+25989 INFO: Processing standard module hook 'hook-xml.dom.domreg.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+30709 INFO: Processing standard module hook 'hook-PIL.ImageFilter.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+31757 INFO: Processing standard module hook 'hook-PySide6.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+32238 INFO: Processing standard module hook 'hook-shiboken6.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+33025 INFO: Processing standard module hook 'hook-PySide6.QtNetwork.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+37393 INFO: Processing standard module hook 'hook-PySide6.QtCore.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+41428 INFO: Processing standard module hook 'hook-PySide6.QtGui.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+46143 INFO: Processing standard module hook 'hook-PySide6.QtWidgets.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+47325 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+49217 INFO: Processing module hooks (post-graph stage)...
+50366 INFO: Processing standard module hook 'hook-PIL.SpiderImagePlugin.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+50573 INFO: Performing binary vs. data reclassification (125 entries)
+52853 INFO: Looking for ctypes DLLs
+52913 INFO: Analyzing run-time hooks ...
+52919 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+52930 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+52943 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+52954 INFO: Including run-time hook 'pyi_rth_pyside6.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+52961 INFO: Processing pre-find-module-path hook 'hook-_pyi_rth_utils.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks\\pre_find_module_path'
+52969 INFO: Processing standard module hook 'hook-_pyi_rth_utils.py' from 'C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PyInstaller\\hooks'
+53012 INFO: Creating base_library.zip...
+53111 INFO: Looking for dynamic libraries
+54142 INFO: Extra DLL search directories (AddDllDirectory): ['C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\shiboken6']
+54142 INFO: Extra DLL search directories (PATH): ['C:\\Users\\User\\Desktop\\os96ImageProcessor\\.venv-release313\\Lib\\site-packages\\PySide6']
+57731 INFO: Warnings written to C:\Users\User\Desktop\os96ImageProcessor\build\OS96ImageOptimizer\warn-OS96ImageOptimizer.txt
+57799 INFO: Graph cross-reference written to C:\Users\User\Desktop\os96ImageProcessor\build\OS96ImageOptimizer\xref-OS96ImageOptimizer.html
+57868 INFO: checking PYZ
+57868 INFO: Building PYZ because PYZ-00.toc is non existent
+57868 INFO: Building PYZ (ZlibArchive) C:\Users\User\Desktop\os96ImageProcessor\build\OS96ImageOptimizer\PYZ-00.pyz
+58746 INFO: Building PYZ (ZlibArchive) C:\Users\User\Desktop\os96ImageProcessor\build\OS96ImageOptimizer\PYZ-00.pyz completed successfully.
+58786 INFO: checking PKG
+58786 INFO: Building PKG because PKG-00.toc is non existent
+58786 INFO: Building PKG (CArchive) OS96ImageOptimizer.pkg
+58853 INFO: Building PKG (CArchive) OS96ImageOptimizer.pkg completed successfully.
+58855 INFO: Bootloader C:\Users\User\Desktop\os96ImageProcessor\.venv-release313\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\runw.exe
+58856 INFO: checking EXE
+58856 INFO: Building EXE because EXE-00.toc is non existent
+58856 INFO: Building EXE from EXE-00.toc
+58856 INFO: Copying bootloader EXE to C:\Users\User\Desktop\os96ImageProcessor\build\OS96ImageOptimizer\OS96ImageOptimizer.exe
+59114 INFO: Copying icon to EXE
+59239 INFO: Copying version information to EXE
+59350 INFO: Copying 0 resources to EXE
+59350 INFO: Embedding manifest in EXE
+59463 INFO: Appending PKG archive to EXE
+59464 WARNING: Execution of '_append_data_to_exe' failed on attempt #1 / 20: PermissionError(13, 'Permission denied'). Retrying in 0.05 second(s)...
+59518 WARNING: Execution of '_append_data_to_exe' failed on attempt #2 / 20: PermissionError(13, 'Permission denied'). Retrying in 0.06 second(s)...
+59811 INFO: Fixing EXE headers
+60477 INFO: Building EXE from EXE-00.toc completed successfully.
+60486 INFO: checking COLLECT
+60486 INFO: Building COLLECT because COLLECT-00.toc is non existent
+60487 INFO: Removing dir C:\Users\User\Desktop\os96ImageProcessor\dist\OS96ImageOptimizer
+60686 INFO: Building COLLECT COLLECT-00.toc
+62188 INFO: Building COLLECT COLLECT-00.toc completed successfully.
+62200 INFO: Build complete! The results are available in: C:\Users\User\Desktop\os96ImageProcessor\dist
+Portable build ready: C:\Users\User\Desktop\os96ImageProcessor\dist\OS96ImageOptimizer-1.0.0rc2-portable.zip

@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "python": "3.13.16 (tags/v3.13.16:cbc944f, Sep 30 2026, 19:17:50) [MSC v.1944 64 bit (AMD64)]",
+  "images": 1000,
+  "seconds": 52.685,
+  "workers": 2,
+  "totals": {
+    "done": 1000,
+    "error": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "before": 370984,
+    "after": 100000
+  },
+  "pause_resume_exercised": true,
+  "stopped_batch": {
+    "done": 5,
+    "error": 0,
+    "skipped": 0,
+    "cancelled": 1,
+    "before": 1851,
+    "after": 500
+  },
+  "source_hashes_unchanged": true,
+  "temporary_files": []
+}

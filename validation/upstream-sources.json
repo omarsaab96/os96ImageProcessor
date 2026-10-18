@@ -1,0 +1,44 @@
+[
+  {
+    "file": "qtbase-6.10.2.tar.gz",
+    "source": "https://github.com/qt/qtbase/archive/refs/tags/v6.10.2.tar.gz",
+    "bytes": 67241635,
+    "sha256": "95271bc1f32db239723f597ab1899e624e3b22a16678b88520dee51ad5035faa"
+  },
+  {
+    "file": "qtsvg-6.10.2.tar.gz",
+    "source": "https://github.com/qt/qtsvg/archive/refs/tags/v6.10.2.tar.gz",
+    "bytes": 2901575,
+    "sha256": "70c58c2ad2d99ce1caf7e394e8e6c8a328563b70f97f9428e5c48d28d913a504"
+  },
+  {
+    "file": "pyside-setup-6.10.2.tar.gz",
+    "source": "https://github.com/pyside/pyside-setup/archive/refs/tags/v6.10.2.tar.gz",
+    "bytes": 20824078,
+    "sha256": "57d635236dcbeb08927de88ebda0854dc409d403b1cca2f3b75af801fdfa38b6"
+  },
+  {
+    "file": "pillow-12.3.0.tar.gz",
+    "source": "https://github.com/python-pillow/Pillow/archive/refs/tags/12.3.0.tar.gz",
+    "bytes": 47120631,
+    "sha256": "d7ce60fdf8b3d3b4370ea213834d7c852b1ca16396d4e75e5046be815b11b2fb"
+  },
+  {
+    "file": "libjpeg-turbo-3.2.0.tar.gz",
+    "source": "https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/3.2.0.tar.gz",
+    "bytes": 2537858,
+    "sha256": "980dd81f425082aa6d7c9e47fef27554ce7a9ffc8e2f6e863b97d263c5c50858"
+  },
+  {
+    "file": "oxipng-10.2.1.tar.gz",
+    "source": "https://github.com/oxipng/oxipng/archive/refs/tags/v10.2.1.tar.gz",
+    "bytes": 18417330,
+    "sha256": "460ccfcdcc9c3877b9f7fae1dfd4f2a3f93d3b2a2af3e3b62ca32b163f923cca"
+  },
+  {
+    "file": "cpython-3.13.16.tar.xz",
+    "source": "https://www.python.org/ftp/python/3.13.16/Python-3.13.16.tar.xz",
+    "bytes": 23225704,
+    "sha256": "f4b1bfb3c79b5bb11b8d228a12504163b4c0dab4d679828d8f5f26b6cb6ab35d"
+  }
+]

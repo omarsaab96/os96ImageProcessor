@@ -1,0 +1,23 @@
+[
+  {
+    "name": "PySide6-Essentials",
+    "version": "6.10.2",
+    "file": "pyside6_essentials-6.10.2-cp39-abi3-win_amd64.whl",
+    "source": "https://files.pythonhosted.org/packages/22/a8/616bbbd009efd3e17bf9a2db09d90c6764c010565cd2bdea2a240bfd18f7/pyside6_essentials-6.10.2-cp39-abi3-win_amd64.whl",
+    "sha256": "0741018c2b6395038cad4c41775cfae3f13a409e87995ac9f7d89e5b1fb6b22a"
+  },
+  {
+    "name": "shiboken6",
+    "version": "6.10.2",
+    "file": "shiboken6-6.10.2-cp39-abi3-win_amd64.whl",
+    "source": "https://files.pythonhosted.org/packages/71/5d/5ca52c0ef86b3d01572131b6709bd531a080995f7e680720e9424328ce1d/shiboken6-6.10.2-cp39-abi3-win_amd64.whl",
+    "sha256": "10f3c8c5e1b8bee779346f21c10dbc14cff068f0b0b4e62420c82a6bf36ac2e7"
+  },
+  {
+    "name": "Pillow",
+    "version": "12.3.0",
+    "file": "pillow-12.3.0-cp313-cp313-win_amd64.whl",
+    "source": "https://files.pythonhosted.org/packages/a6/9b/7a58e61d62be561da3a356fe2384d4059a6345fc130e23ef1c36a5b81d24/pillow-12.3.0-cp313-cp313-win_amd64.whl",
+    "sha256": "1cca606cd25738df4ed873d5ad46bbdb3d83b5cbca291f6b4ff13a4df6b0bbe8"
+  }
+]
