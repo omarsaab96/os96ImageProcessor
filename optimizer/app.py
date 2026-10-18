@@ -4,8 +4,8 @@ import tempfile
 from dataclasses import replace
 from pathlib import Path
 
-from PySide6.QtCore import Qt, QThread, Signal, QTimer, QRect
-from PySide6.QtGui import QColor, QPalette, QShortcut, QKeySequence
+from PySide6.QtCore import Qt, QThread, Signal, QTimer, QRect, QSize
+from PySide6.QtGui import QColor, QPalette, QShortcut, QKeySequence, QImage, QPixmap, QIcon
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel,
     QPushButton, QFileDialog, QComboBox, QSpinBox, QDoubleSpinBox,
@@ -13,8 +13,8 @@ from PySide6.QtWidgets import (
     QTableWidgetItem, QHeaderView, QProgressBar, QMessageBox, QSplitter, QScrollArea, QTabWidget,
     QSizePolicy, QLayout,
 )
-from .engine import Settings, Control, discover, run_batch, process, target_size, EXTENSIONS
-from PIL import Image
+from .engine import Settings, Control, discover, run_batch, process, estimate_output, target_size, EXTENSIONS
+from PIL import Image, ImageOps
 
 RESIZE_HELP = {
     'Keep original': 'Keeps each image’s original pixel dimensions. Optimization settings still apply.',
@@ -109,12 +109,21 @@ def file_size(value):
 
 
 def image_info(path):
-    """Read headers without decoding the full image."""
+    """Read metadata and prepare a small thumbnail in the scanning worker."""
     with Image.open(path) as image:
         size = image.size
         oriented = size[::-1] if image.getexif().get(274) in (5, 6, 7, 8) else size
-        return dict(bytes=path.stat().st_size, size=size, oriented=oriented,
-                    frames=getattr(image, 'n_frames', 1))
+        details = dict(bytes=path.stat().st_size, size=size, oriented=oriented,
+                       frames=getattr(image, 'n_frames', 1))
+        try:
+            image.thumbnail((40, 40))
+            preview = ImageOps.exif_transpose(image).convert('RGBA')
+            details['thumbnail'] = QImage(preview.tobytes(), preview.width, preview.height,
+                                          QImage.Format_RGBA8888).copy()
+        except Exception:
+            # A failed preview must not hide otherwise readable metadata.
+            pass
+        return details
 
 
 class Estimator(QThread):
@@ -133,8 +142,16 @@ class Estimator(QThread):
             for index, job in enumerate(self.jobs):
                 if self.control.stopped:
                     break
-                result, _, after = process(job, settings, self.control, lambda _: None)
-                if result == 'cancelled':
+                quick = settings.smart or settings.web
+                if quick:
+                    try:
+                        after = estimate_output(job, settings, self.control, settings.output / 'sample')
+                    except Exception:
+                        after = None
+                    result = 'done' if after is not None else 'error'
+                else:
+                    result, _, after = process(job, settings, self.control, lambda _: None)
+                if result == 'cancelled' or self.control.stopped:
                     break
                 self.result.emit(self.generation, index, after if result == 'done' else None,
                                  '' if result == 'done' else 'Unable to estimate; check the image during processing.')
@@ -183,7 +200,7 @@ class Window(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('OS96 · Image Optimizer')
-        self.resize(1440, 820)
+        self.resize(1000, 660)
         self.jobs, self.paths, self.worker, self.scanner = [], [], None, None
         self.excluded = set()
         self.setAcceptDrops(True)
@@ -224,6 +241,7 @@ class Window(QMainWindow):
         self.count = QLabel('Drop images or folders here, or use Add images / Add folder')
         ll.addWidget(self.count)
         self.table = ImageTable()
+        self.table.setIconSize(QSize(40, 40))
         self.table.files_dropped.connect(self.scan)
         self.table.itemSelectionChanged.connect(self.update_remove)
         for key in ('Delete', 'Backspace'):
@@ -280,8 +298,11 @@ class Window(QMainWindow):
         self.add_options_tab(self.resize_box, 'Resize')
         self.compression_box = QWidget()
         form = QFormLayout(self.compression_box)
-        self.lossless = QCheckBox('Lossless compression')
-        self.lossless.setChecked(True)
+        self.compression = QComboBox()
+        self.compression.addItems(['Automatic', 'Lossless', 'Manual quality'])
+        self.compression.setToolTip('Choose one compression strategy. Save for web controls metadata and color handling separately.')
+        self.web = QCheckBox('Save for web')
+        self.web.setToolTip('Remove descriptive metadata and convert to sRGB. Retains the source profile if a metadata-only JPEG is smaller. Uses your selected compression strategy. Larger outputs are skipped.')
         self.quality = QSpinBox()
         self.quality.setRange(1, 100)
         self.quality.setValue(85)
@@ -300,7 +321,9 @@ class Window(QMainWindow):
             label.setStyleSheet('color: #58697f; font-size: 11px;')
             form.addRow(label)
             return label
-        form.addRow(self.lossless)
+        form.addRow(self.web)
+        self.web_help = help_text('Removes descriptive metadata and converts colors to sRGB. If a metadata-only JPEG is smaller, keeps its original color profile instead. Uses the selected compression strategy. Outputs larger than the source are skipped. Filenames and formats are retained.')
+        form.addRow('Compression', self.compression)
         self.lossless_help = help_text('')
         form.addRow('JPEG / WebP quality', self.quality)
         self.quality_help = help_text('1–100: higher values preserve more detail and usually create larger files. Applies only to JPEG and lossy WebP; 100 is still not mathematically lossless.')
@@ -351,7 +374,8 @@ class Window(QMainWindow):
         self.pause.clicked.connect(self.toggle_pause)
         self.stop.clicked.connect(self.stop_batch)
         self.mode.currentTextChanged.connect(self.update_options)
-        self.lossless.toggled.connect(self.update_options)
+        self.compression.currentTextChanged.connect(self.update_options)
+        self.web.toggled.connect(self.update_options)
         self.in_place.toggled.connect(self.update_options)
         for widget in (self.width, self.height, self.dpi, self.print_width, self.print_height, self.quality, self.png):
             widget.valueChanged.connect(self.schedule_estimates)
@@ -444,10 +468,19 @@ class Window(QMainWindow):
         for field in (self.dpi, self.print_unit, self.print_width, self.print_height):
             form.setRowVisible(field, mode == 'By resolution')
         self.resize_note.setText(DIMENSION_HELP[option] if dimensions else RESIZE_HELP[mode])
-        self.compression_box.layout().setRowVisible(self.quality, not self.lossless.isChecked())
-        self.compression_box.layout().setRowVisible(self.quality_help, not self.lossless.isChecked())
-        if self.lossless.isChecked():
-            self.lossless_help.setText('PNG and WebP preserve pixel quality. JPEGs in Keep original mode preserve their compressed pixels, including when removing metadata or profiles. Resized JPEGs are reencoded at quality 100 and are not mathematically lossless. Resizing changes pixels in every format.')
+        web = self.web.isChecked()
+        self.web_help.setVisible(web)
+        self.metadata.setEnabled(not web)
+        self.color_profile.setEnabled(not web)
+        smart = self.compression.currentText() == 'Automatic'
+        manual = self.compression.currentText() == 'Manual quality'
+        self.png.setEnabled(not smart)
+        self.compression_box.layout().setRowVisible(self.quality, manual)
+        self.compression_box.layout().setRowVisible(self.quality_help, manual)
+        if smart:
+            self.lossless_help.setText('Estimates use small previews. JPEG: a bounded quality search with conservative pixel-error and local detail checks. If none pass, uses maximum quality. PNG and WebP: lossless encoding. Comparisons use the resized pixels when resizing. Cannot guarantee invisible differences. CMYK JPEG uses maximum quality.')
+        elif self.compression.currentText() == 'Lossless':
+            self.lossless_help.setText('PNG and WebP encode losslessly after resizing. JPEGs preserve compressed pixels when keeping original dimensions with Save for web off. Resizing or web color conversion requires JPEG encoding at quality 100, which can still change pixels. Making an image smaller removes fine detail. Use PNG or lossless WebP when exact resized pixels are required.')
         else:
             self.lossless_help.setText('Set JPEG / WebP quality below to control the size/detail tradeoff. PNG, TIFF, and BMP do not use this quality setting.')
         for widget in (self.output, self.browse, self.overwrite):
@@ -460,7 +493,9 @@ class Window(QMainWindow):
                         dimension_mode=self.dimension_mode.currentText(),
                         dpi=self.dpi.value(), print_width=self.print_width.value(),
                         print_height=self.print_height.value(), print_unit=self.print_unit.currentText(),
-                        lossless=self.lossless.isChecked(),
+                        lossless=self.compression.currentText() != 'Manual quality',
+                        smart=self.compression.currentText() == 'Automatic',
+                        web=self.web.isChecked(),
                         quality=self.quality.value(), png_level=self.png.value(), metadata=self.metadata.isChecked(),
                         color_profile=self.color_profile.isChecked())
 
@@ -472,6 +507,10 @@ class Window(QMainWindow):
         if self.busy:
             return
         settings = self.preview_settings()
+        quick = settings.smart or settings.web
+        self.estimate_note.setText(
+            'Sizes are rough preview estimates, capped at source size. Larger results are skipped; full compression runs on Start.'
+            if quick else 'Output sizes are estimated by a background trial encode. Originals are never modified.')
         for index, info in enumerate(self.info):
             valid = 'error' not in info and info['frames'] == 1
             if valid:
@@ -482,6 +521,7 @@ class Window(QMainWindow):
             item = self.table.item(index, 3)
             item.setData(Qt.UserRole, dimensions)
             item.setText(f'{dimensions}\n≈ …' if valid else 'Unavailable')
+            item.setToolTip('Estimating from a small preview; actual output may differ.' if quick else '')
         if self.jobs:
             self.estimate_timer.start()
 
@@ -503,7 +543,9 @@ class Window(QMainWindow):
         dimensions = item.data(Qt.UserRole)
         label = f'≈ {file_size(size)}' if size is not None else 'Unavailable'
         item.setText(f'{dimensions}\n{label}' if dimensions else label)
-        item.setToolTip(error or 'Trial encode using current settings; actual output may vary if the source changes.')
+        item.setToolTip(error or ('Rough preview estimate, capped at source size. Larger results are skipped rather than saved.'
+                                 if self.compression.currentText() == 'Automatic' or self.web.isChecked() else
+                                 'Trial encode using current settings; actual output may vary if the source changes.'))
 
     def estimates_finished(self):
         if self.closing:
@@ -555,6 +597,8 @@ class Window(QMainWindow):
             for column in range(2, 4):
                 self.table.setItem(index, column, QTableWidgetItem('Unavailable'))
             details = self.info[index]
+            if 'thumbnail' in details:
+                item.setIcon(QIcon(QPixmap.fromImage(details['thumbnail'])))
             if 'error' not in details:
                 w, h = details['size']
                 self.table.item(index, 2).setText(f"{w:,} × {h:,} px\n{file_size(details['bytes'])}")
@@ -575,7 +619,7 @@ class Window(QMainWindow):
         self.scanned([], [])
         self.schedule_estimates()
 
-    def set_busy(self, busy):
+    def set_busy(self, busy, refresh=True):
         self.busy = busy
         self.table.drop_enabled = not busy
         self.update_remove()
@@ -589,7 +633,7 @@ class Window(QMainWindow):
             widget.setEnabled(not busy)
         self.pause.setEnabled(busy)
         self.stop.setEnabled(busy)
-        if not busy:
+        if not busy and refresh:
             self.schedule_estimates()
 
     def start_batch(self):
@@ -622,12 +666,31 @@ class Window(QMainWindow):
         self.worker.status.connect(self.image_status)
         self.worker.progress.connect(self.batch_progress)
         self.worker.result.connect(self.completed)
-        self.worker.finished.connect(lambda: self.set_busy(False))
+        self.worker.finished.connect(lambda: self.set_busy(False, refresh=False))
         self.worker.start()
 
     def image_status(self, index, message):
         self.table.item(index, 1).setText(message)
         self.table.item(index, 1).setToolTip(message)
+        if (message == 'Done' or message == 'Skipped · output exists') and self.worker:
+            settings = self.worker.settings
+            job = self.jobs[index]
+            destination = job.source if settings.in_place else settings.output / job.relative
+            try:
+                size = destination.stat().st_size
+            except OSError:
+                return
+            item = self.table.item(index, 3)
+            dimensions = item.data(Qt.UserRole)
+            item.setText(f'{dimensions}\n{file_size(size)}' if dimensions else file_size(size))
+            item.setToolTip('Existing output file size; image was skipped.' if message.startswith('Skipped')
+                            else 'Actual output file size.')
+        elif message.startswith(('Error', 'Not processed', 'Cancelled', 'Skipped')):
+            item = self.table.item(index, 3)
+            dimensions = item.data(Qt.UserRole)
+            label = 'Skipped: would be larger' if message == 'Skipped · output would be larger' else 'No output'
+            item.setText(f'{dimensions}\n{label}' if dimensions else label)
+            item.setToolTip(message)
 
     def batch_progress(self, count, totals):
         self.progress.setValue(count)
@@ -657,6 +720,8 @@ class Window(QMainWindow):
         for i in range(len(self.jobs)):
             if self.table.item(i, 1).text() == 'Queued':
                 self.image_status(i, 'Not processed · stopped')
+            elif self.table.item(i, 1).text() == 'Done' or self.table.item(i, 1).text().startswith('Skipped'):
+                self.image_status(i, self.table.item(i, 1).text())
         saved = (totals['before'] - totals['after']) / 1048576
         self.summary.setText(f"{'Stopped' if stopped else 'Complete'} · {totals['done']} done · {totals['skipped']} skipped · {totals['error']} errors · {saved:.2f} MB saved")
 

@@ -4,11 +4,13 @@ import os
 import shutil
 import tempfile
 import threading
-from dataclasses import dataclass
+from io import BytesIO
+from dataclasses import dataclass, replace
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageCms
+from .compression import encode_smart
 
 EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff', '.bmp'}
 
@@ -38,6 +40,101 @@ class Settings:
     color_profile: bool = True
     workers: int = 2
     overwrite: bool = False
+    smart: bool = False
+    web: bool = False
+
+
+def web_colors(image):
+    """Convert tagged colors before stripping metadata; never just relabel them."""
+    profile = image.info.get('icc_profile')
+    if profile:
+        srgb = ImageCms.ImageCmsProfile(ImageCms.createProfile('sRGB'))
+        prepared = image.convert('RGBA') if image.mode == 'P' else image
+        try:
+            converted = ImageCms.profileToProfile(
+                prepared, ImageCms.ImageCmsProfile(BytesIO(profile)), srgb,
+                outputMode='RGBA' if 'A' in prepared.getbands() else 'RGB')
+        except (ImageCms.PyCMSError, OSError, ValueError) as exc:
+            raise ValueError('Cannot convert embedded color profile to sRGB; web export skipped to protect colors.') from exc
+        finally:
+            if prepared is not image:
+                prepared.close()
+        converted.info.clear()
+        converted.info['icc_profile'] = srgb.tobytes()
+        return converted
+    if image.mode == 'CMYK':
+        raise ValueError('CMYK web export requires an embedded color profile for accurate conversion.')
+    converted = image.copy()
+    # Untagged RGB is assumed to be sRGB; preserve palette and high bit depth.
+    converted.info.clear()
+    if 'transparency' in image.info:
+        converted.info['transparency'] = image.info['transparency']
+    return converted
+
+
+def estimate_output(job, settings, control, destination):
+    """Estimate from a bounded preview; never run full-resolution trial encoding."""
+    with Image.open(job.source) as original:
+        if getattr(original, 'n_frames', 1) > 1:
+            return None
+        fmt = original.format
+        reusable = reusable_jpeg(original, settings)
+        stored = original.size
+        oriented = stored[::-1] if original.getexif().get(274) in (5, 6, 7, 8) else stored
+        target = target_size(oriented, settings)
+        if target[0] * target[1] > Image.MAX_IMAGE_PIXELS:
+            return None
+        # JPEG draft decoding avoids decoding a 60 MP source just for a preview.
+        original.draft(original.mode, (768, 768))
+        with ImageOps.exif_transpose(original) as image:
+            scale = min(1.0, 768 / max(target))
+            sample_size = tuple(max(1, round(value * scale)) for value in target)
+            with image.resize(sample_size, Image.Resampling.LANCZOS) as sample:
+                prepared = web_colors(sample) if settings.web else sample.copy()
+                with prepared:
+                    options = {}
+                    if settings.color_profile or settings.web:
+                        profile = prepared.info.get('icc_profile')
+                        if profile:
+                            options['icc_profile'] = profile
+                    metadata_bytes = 0
+                    if settings.metadata and not settings.web:
+                        exif = original.getexif()
+                        metadata_bytes += len(exif.tobytes()) if exif else 0
+                        metadata_bytes += sum(len(k.encode()) + len(v.encode())
+                                              for k, v in original.info.items() if isinstance(v, str))
+                    if fmt == 'JPEG':
+                        options.update(quality=100 if settings.lossless else settings.quality,
+                                       optimize=True, subsampling=0)
+                    elif fmt == 'PNG':
+                        options['compress_level'] = settings.png_level
+                    elif fmt == 'WEBP':
+                        options.update(lossless=settings.lossless, quality=settings.quality, method=4)
+                    elif fmt == 'TIFF':
+                        options['compression'] = 'tiff_deflate'
+                    if not control.checkpoint():
+                        return None
+                    if settings.smart:
+                        if not encode_smart(prepared, destination, fmt, options, control, lambda _: None):
+                            return None
+                    else:
+                        prepared.save(destination, format=fmt, **options)
+                    # Profiles are fixed overhead and should not scale with pixels.
+                    fixed = len(options.get('icc_profile', b''))
+                    area_ratio = target[0] * target[1] / (sample_size[0] * sample_size[1])
+                    estimate = round(max(0, destination.stat().st_size - fixed) * area_ratio) + fixed + metadata_bytes
+                    if reusable:
+                        copy_jpeg(job.source, destination, settings.metadata and not settings.web,
+                                  settings.color_profile or settings.web, original.getexif().get(274, 1))
+                        estimate = min(estimate, destination.stat().st_size)
+                    if settings.resize == 'Keep original' and settings.metadata and settings.color_profile and not settings.web:
+                        estimate = min(estimate, job.source.stat().st_size)
+                    return min(estimate, job.source.stat().st_size)
+
+
+def reusable_jpeg(image, settings):
+    """A metadata-only JPEG is a size fallback, retaining the source color profile."""
+    return image.format == 'JPEG' and settings.resize == 'Keep original'
 
 
 def discover(paths: list[Path]) -> tuple[list[Job], list[str]]:
@@ -161,6 +258,8 @@ def copy_jpeg(source, destination, metadata, color_profile, orientation=1):
 def process(job: Job, settings: Settings, control: Control, emit):
     temporary = None
     try:
+        if settings.web:
+            settings = replace(settings, metadata=False, color_profile=True)
         if not control.checkpoint():
             return 'cancelled', 0, 0
         emit('Reading')
@@ -176,8 +275,10 @@ def process(job: Job, settings: Settings, control: Control, emit):
             if getattr(original, 'n_frames', 1) > 1:
                 raise ValueError('Animated or multipage image skipped to preserve all frames.')
             fmt = original.format
+            reusable = reusable_jpeg(original, settings)
             # Avoid changing JPEG pixels when lossless mode is requested.
-            copy_original = settings.lossless and settings.resize == 'Keep original' and fmt == 'JPEG'
+            needs_color_conversion = settings.web and bool(original.info.get('icc_profile'))
+            copy_original = settings.lossless and not settings.smart and reusable and not needs_color_conversion
             handle, name = tempfile.mkstemp(prefix='.os96-', suffix=job.source.suffix, dir=destination.parent)
             os.close(handle)
             temporary = Path(name)
@@ -190,6 +291,10 @@ def process(job: Job, settings: Settings, control: Control, emit):
             else:
                 image = ImageOps.exif_transpose(original)
                 try:
+                    if settings.web:
+                        converted = web_colors(image)
+                        image.close()
+                        image = converted
                     size = target_size(image.size, settings)
                     if size[0] * size[1] > Image.MAX_IMAGE_PIXELS:
                         raise ValueError('Requested output exceeds the safe pixel limit. Reduce dimensions, print size, or DPI.')
@@ -203,8 +308,9 @@ def process(job: Job, settings: Settings, control: Control, emit):
                         return 'cancelled', 0, 0
                     emit('Encoding')
                     options = {}
-                    if settings.color_profile and original.info.get('icc_profile'):
-                        options['icc_profile'] = original.info['icc_profile']
+                    profile = image.info.get('icc_profile') if settings.web else original.info.get('icc_profile')
+                    if settings.color_profile and profile:
+                        options['icc_profile'] = profile
                     elif not settings.color_profile:
                         image.info.pop('icc_profile', None)
                         options['icc_profile'] = b''
@@ -249,9 +355,26 @@ def process(job: Job, settings: Settings, control: Control, emit):
                         options.update(lossless=settings.lossless, quality=85 if settings.lossless else settings.quality, method=4)
                     elif fmt == 'TIFF':
                         options.update(compression='tiff_deflate')
-                    image.save(temporary, format=fmt, **options)
+                    if settings.smart:
+                        if not encode_smart(image, temporary, fmt, options, control, emit):
+                            return 'cancelled', 0, 0
+                    else:
+                        image.save(temporary, format=fmt, **options)
                 finally:
                     image.close()
+            if reusable and not copy_original:
+                # Metadata-only export is a valid, pixel-preserving candidate.
+                # Do not enlarge an existing JPEG just to reencode its pixels.
+                handle, baseline_name = tempfile.mkstemp(prefix='.os96-', suffix=job.source.suffix, dir=destination.parent)
+                os.close(handle)
+                baseline = Path(baseline_name)
+                try:
+                    copy_jpeg(job.source, baseline, settings.metadata, settings.color_profile,
+                              original.getexif().get(274, 1))
+                    if baseline.stat().st_size < temporary.stat().st_size:
+                        os.replace(baseline, temporary)
+                finally:
+                    baseline.unlink(missing_ok=True)
         if not control.checkpoint():
             emit('Cancelled')
             return 'cancelled', 0, 0
@@ -259,6 +382,9 @@ def process(job: Job, settings: Settings, control: Control, emit):
         if settings.resize == 'Keep original' and settings.metadata and settings.color_profile and temporary.stat().st_size >= before:
             shutil.copy2(job.source, temporary)
         after = temporary.stat().st_size
+        if after > before:
+            emit('Skipped · output would be larger')
+            return 'skipped', 0, 0
         if settings.in_place or settings.overwrite:
             os.replace(temporary, destination)
         else:

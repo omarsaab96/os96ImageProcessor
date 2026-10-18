@@ -27,6 +27,7 @@ class PreviewTests(unittest.TestCase):
             self.assertEqual(info['size'], (80, 40))
             self.assertEqual(info['oriented'], (40, 80))
             self.assertEqual(info['bytes'], path.stat().st_size)
+            self.assertEqual((info['thumbnail'].width(), info['thumbnail'].height()), (20, 40))
 
     def test_live_estimate_matches_trial_and_preserves_source(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -35,7 +36,10 @@ class PreviewTests(unittest.TestCase):
             original = path.read_bytes()
             jobs, _ = discover([path])
             window = Window()
+            window.compression.setCurrentText('Lossless')
             window.scanned(jobs, [], [image_info(path)])
+            self.assertFalse(window.table.item(0, 0).icon().isNull())
+            self.assertEqual(window.table.item(0, 0).text(), 'image.png')
             window.mode.setCurrentText('By dimensions')
             window.dimension_mode.setCurrentText('Exact')
             window.width.setValue(32)
@@ -94,18 +98,19 @@ class PreviewTests(unittest.TestCase):
 
     def test_optimize_quality_visibility_and_independent_controls(self):
         window = Window()
+        window.compression.setCurrentText('Lossless')
         form = window.compression_box.layout()
         label = form.labelForField(window.quality)
         self.assertTrue(window.quality.isHidden())
         self.assertTrue(label.isHidden())
         self.assertTrue(window.quality_help.isHidden())
-        window.lossless.setChecked(False)
+        window.compression.setCurrentText('Manual quality')
         self.assertFalse(window.quality.isHidden())
         self.assertFalse(label.isHidden())
         self.assertFalse(window.quality_help.isHidden())
         window.quality.setValue(72)
-        window.lossless.setChecked(True)
-        window.lossless.setChecked(False)
+        window.compression.setCurrentText('Lossless')
+        window.compression.setCurrentText('Manual quality')
         self.assertEqual(window.quality.value(), 72)
         window.metadata.setChecked(False)
         self.assertFalse(window.preview_settings().metadata)
@@ -116,8 +121,80 @@ class PreviewTests(unittest.TestCase):
         self.assertFalse(window.preview_settings().color_profile)
         window.close()
 
+    def test_web_preset_overrides_without_losing_manual_preferences(self):
+        window = Window()
+        window.compression.setCurrentText('Lossless')
+        window.web.setChecked(True)
+        self.assertTrue(window.preview_settings().web)
+        self.assertFalse(window.preview_settings().smart)
+        self.assertTrue(window.compression.isEnabled())
+        for field in (window.metadata, window.color_profile):
+            self.assertFalse(field.isEnabled())
+        window.web.setChecked(False)
+        self.assertFalse(window.preview_settings().smart)
+        self.assertTrue(window.metadata.isChecked())
+        self.assertTrue(window.metadata.isEnabled())
+        self.assertTrue(window.color_profile.isEnabled())
+        window.web.setChecked(True)
+        window.compression.setCurrentText('Manual quality')
+        self.assertTrue(window.preview_settings().web)
+        self.assertFalse(window.preview_settings().smart)
+        self.assertFalse(window.preview_settings().lossless)
+        self.assertFalse(window.quality.isHidden())
+        window.compression.setCurrentText('Automatic')
+        self.assertTrue(window.preview_settings().smart)
+        self.assertTrue(window.quality.isHidden())
+        window.close()
+
+    def test_automatic_compression_shows_estimate_before_start(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'image.jpg'
+            Image.new('RGB', (80, 40), 'navy').save(path)
+            jobs, _ = discover([path])
+            window = Window()
+            window.scanned(jobs, [], [image_info(path)])
+            window.schedule_estimates()
+            self.assertTrue(window.estimate_timer.isActive())
+            window.estimate_timer.stop()
+            window.launch_estimates()
+            deadline = time.monotonic() + 5
+            while window.estimator.isRunning() and time.monotonic() < deadline:
+                self.app.processEvents()
+                time.sleep(.01)
+            self.app.processEvents()
+            label = window.table.item(0, 3).text().splitlines()[-1]
+            self.assertTrue(label.startswith('≈ '))
+            self.assertNotIn('…', label)
+            self.assertIn('small preview', window.table.item(0, 3).toolTip())
+            window.close()
+
+    def test_batch_replaces_placeholder_for_done_and_existing_output(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'image.jpg'
+            output = root / 'export'
+            Image.new('RGB', (80, 40), 'navy').save(path)
+            jobs, _ = discover([path])
+            window = Window()
+            window.scanned(jobs, [], [image_info(path)])
+            window.schedule_estimates()
+            window.output.setText(str(output))
+            for status in ('Done', 'Skipped'):
+                window.start_batch()
+                deadline = time.monotonic() + 10
+                while window.busy and time.monotonic() < deadline:
+                    self.app.processEvents()
+                    time.sleep(.01)
+                self.assertFalse(window.busy)
+                self.assertTrue(window.table.item(0, 1).text().startswith(status))
+                expected = file_size((output / path.name).stat().st_size)
+                self.assertEqual(window.table.item(0, 3).text().splitlines()[-1], expected)
+                self.assertNotIn('Size after processing', window.table.item(0, 3).text())
+            window.close()
+
     def test_optimize_help_shrinks_when_lossless_is_toggled(self):
         window = Window()
+        window.compression.setCurrentText('Lossless')
         window.resize(1000, 650)
         window.options_tabs.setCurrentIndex(1)
         window.show()
@@ -125,14 +202,14 @@ class PreviewTests(unittest.TestCase):
             self.app.processEvents()
         long_height = window.lossless_help.height()
         for _ in range(3):
-            window.lossless.setChecked(False)
+            window.compression.setCurrentText('Manual quality')
             for _ in range(10):
                 self.app.processEvents()
             self.assertLess(window.lossless_help.height(), long_height)
             gap = window.quality.y() - (window.lossless_help.y() + window.lossless_help.height())
             self.assertGreaterEqual(gap, 0)
             self.assertLessEqual(gap, 12)
-            window.lossless.setChecked(True)
+            window.compression.setCurrentText('Lossless')
             for _ in range(10):
                 self.app.processEvents()
         window.close()
