@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "version": "1.0.0rc2",
+  "version": "1.0.0rc24",
   "platform": "Windows-11-10.0.26200-SP0",
   "checks": [
     "Qt window and plugin startup",

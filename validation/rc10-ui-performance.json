@@ -1,0 +1,54 @@
+{
+  "title": "OS96 Image Optimizer 1.0.0rc10",
+  "seconds": 65.73,
+  "progress": [
+    {
+      "count": 1,
+      "seconds": 5.99
+    },
+    {
+      "count": 2,
+      "seconds": 11.64
+    },
+    {
+      "count": 3,
+      "seconds": 17.72
+    },
+    {
+      "count": 4,
+      "seconds": 27.54
+    },
+    {
+      "count": 5,
+      "seconds": 34.06
+    },
+    {
+      "count": 6,
+      "seconds": 40.0
+    },
+    {
+      "count": 7,
+      "seconds": 46.06
+    },
+    {
+      "count": 8,
+      "seconds": 53.4
+    },
+    {
+      "count": 9,
+      "seconds": 65.71
+    }
+  ],
+  "statuses": [
+    "Done",
+    "Done",
+    "Done",
+    "Done",
+    "Done",
+    "Done",
+    "Done",
+    "Done",
+    "Done"
+  ],
+  "summary": "Complete \u00b7 9 done \u00b7 0 skipped \u00b7 0 errors \u00b7 64.91 MB saved"
+}

@@ -1,0 +1,50 @@
+{
+  "seconds": 52.469,
+  "totals": {
+    "done": 9,
+    "error": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "before": 103715288,
+    "after": 35656838
+  },
+  "progress": [
+    {
+      "completed": 1,
+      "elapsed": 5.44
+    },
+    {
+      "completed": 2,
+      "elapsed": 11.2
+    },
+    {
+      "completed": 3,
+      "elapsed": 16.9
+    },
+    {
+      "completed": 4,
+      "elapsed": 23.71
+    },
+    {
+      "completed": 5,
+      "elapsed": 29.79
+    },
+    {
+      "completed": 6,
+      "elapsed": 35.62
+    },
+    {
+      "completed": 7,
+      "elapsed": 41.5
+    },
+    {
+      "completed": 8,
+      "elapsed": 46.76
+    },
+    {
+      "completed": 9,
+      "elapsed": 52.47
+    }
+  ],
+  "peak_working_set_mb": 663.4
+}

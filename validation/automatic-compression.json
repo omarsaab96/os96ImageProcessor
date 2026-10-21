@@ -1,0 +1,19 @@
+{
+  "source_bytes": 4892825,
+  "output_bytes": 2088153,
+  "saved_percent": 57.32,
+  "source_sha256": "a8212ef8f276ffe894fe90826533f6156dc7b987b641827b26ca256d26c9e0e3",
+  "tinyjpg_bytes": 2043570,
+  "dimensions": [
+    7000,
+    4667
+  ],
+  "same_dimensions": true,
+  "sampling": 2,
+  "automatic_quality_check": true,
+  "rgb_rms": [
+    3.3069,
+    2.9455,
+    3.2581
+  ]
+}

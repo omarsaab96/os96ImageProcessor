@@ -18,10 +18,10 @@
     "sha256": "57d635236dcbeb08927de88ebda0854dc409d403b1cca2f3b75af801fdfa38b6"
   },
   {
-    "file": "pillow-12.3.0.tar.gz",
-    "source": "https://github.com/python-pillow/Pillow/archive/refs/tags/12.3.0.tar.gz",
-    "bytes": 47120631,
-    "sha256": "d7ce60fdf8b3d3b4370ea213834d7c852b1ca16396d4e75e5046be815b11b2fb"
+    "file": "pillow-13.0.0.tar.gz",
+    "source": "https://github.com/python-pillow/Pillow/archive/refs/tags/13.0.0.tar.gz",
+    "bytes": 47158478,
+    "sha256": "edf59ba26a21ea6d7e6a3755fe139a57297704591c4113ad470dac9ac2ccaf5e"
   },
   {
     "file": "libjpeg-turbo-3.2.0.tar.gz",
