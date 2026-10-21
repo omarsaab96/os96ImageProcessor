@@ -1,0 +1,4 @@
+# macos-x86_64 / Python 3.13 runtime wheels. Install with --require-hashes.
+PySide6-Essentials==6.10.2 --hash=sha256:1dee2cb9803ff135f881dadeb5c0edcef793d1ec4f8a9140a1348cecb71074e1
+shiboken6==6.10.2 --hash=sha256:3bd4e94e9a3c8c1fa8362fd752d399ef39265d5264e4e37bae61cdaa2a00c8c7
+Pillow==13.0.0 --hash=sha256:ef5fe6b7db3f501c56000ba8fe7c7e1a35ca1d45824fbeb95a67daa85cff4dbe

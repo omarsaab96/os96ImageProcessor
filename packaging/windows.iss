@@ -1,5 +1,8 @@
 #ifndef AppVersion
-#define AppVersion "1.0.0rc2"
+#define AppVersion "1.0.0rc24"
+#endif
+#ifndef DistributionDir
+#define DistributionDir "..\dist\OS96ImageOptimizer"
 #endif
 [Setup]
 AppId=OS96.ImageOptimizer
@@ -14,14 +17,13 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 OutputDir=..\dist
 OutputBaseFilename=OS96ImageOptimizer-{#AppVersion}-Setup
-SetupIconFile=..\assets\app.ico
 UninstallDisplayIcon={app}\OS96ImageOptimizer.exe
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
 LicenseFile=..\LICENSE
 [Files]
-Source: "..\dist\OS96ImageOptimizer\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#DistributionDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 [Icons]
 Name: "{group}\OS96 Image Optimizer"; Filename: "{app}\OS96ImageOptimizer.exe"
 [Run]

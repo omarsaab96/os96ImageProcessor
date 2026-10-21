@@ -1,13 +1,17 @@
-# OS96 Image Optimizer 1.0.0rc2
+# OS96 Image Optimizer 1.0.0rc24
 
-Local Windows batch optimization and resizing for JPEG, PNG, WebP, TIFF, and
+Local desktop batch optimization and resizing for JPEG, PNG, WebP, TIFF, and
 BMP. No uploads or API keys. Animated/multipage images fail explicitly.
-This is an unsigned release candidate; macOS distribution is not validated.
+This is a beta. Windows builds are unsigned. macOS builds use ad-hoc signatures,
+without Apple notarization; operating-system security prompts may appear.
+The release workflow builds and tests Windows x64, Apple Silicon and Intel Mac
+packages before publishing. macOS requires version 13 or newer.
 
 ## Run
 
 Use the installer or portable folder in `dist/` after building. Keep the portable
-executable beside its `_internal` folder. For source development and release
+executable beside its `_internal` folder. On a Mac, use the DMG matching your
+processor and drag the app to Applications. For source development and release
 builds, use Python 3.13.16 or a later 3.13 security update:
 
 ```powershell
@@ -18,21 +22,35 @@ python -m venv .venv
 
 ## Everyday workflow
 
-1. Add/drop images or folders. Subfolders are included, duplicate inputs removed.
+1. Add/drop images or folders to queue them. Processing starts only when you
+   click **Start optimization**. Automatic compression is selected on launch;
+   choose Lossless or Manual quality in Optimize when needed.
+   Subfolders are included, duplicate inputs removed.
    Remove selected/Delete removes queue entries without deleting source files.
-2. Choose Resize, Optimize, and Destination settings.
+2. Use the iOS-style switches at the top of the Resize and Compression tabs to enable each
+   step independently. Resize only, compression only, and both are supported.
+   Compression is enabled by default; resizing is disabled. Resize-only JPEG
+   export uses quality 100 and skips automatic searches and extra optimization.
+   Keep metadata, Keep color profile, Save for web, and Parallel images are in
+   Settings in the menu bar, before Help. Only save smaller is also in Settings.
+   Choose the output folder in Destination.
 3. Select a row and use Compare selected for a temporary full-resolution encode.
    Views have linked scrollbars and 100%, 50%, and 25% zoom. At 100%, one image
    pixel maps to one display pixel, including on high-DPI displays. Tagged
-   display colors convert to sRGB. Comparison supports up to 25 megapixels per
-   image; processing supports larger images within Pillow's safety limits.
-4. Start optimization. Pause/Stop act at safe checkpoints; native decode/encode
+   display colors convert to sRGB. Large comparisons use display previews capped at 4 megapixels, clearly labeled
+   as scaled. Compression still uses the full-resolution image; processing stays
+   within Pillow's safety limits.
+4. Use Start for queued images or changed settings. Replacement/overwrite always
+   requires confirmation.
+   Pause/Stop act at safe checkpoints; native decode/encode
    cannot be interrupted immediately. Completed files remain after Stop.
 5. Open output folder or Batch report. Reports include byte savings, per-file
    paths, and readable errors, and export to CSV. Retry failed reduces the queue
    to failed/cancelled/unprocessed images and runs them with current settings.
 
-Settings, destination, and named presets persist per user. Replace originals and
+Settings and destination persist per user. Compression strategy resets to
+Automatic on launch; other strategies remain available in the Compression tab.
+Replace originals and
 Overwrite existing reset on launch. Reports describe the latest batch; export
 them to retain after exit. Compare before in-place processing, which replaces
 the original after encoding successfully.
@@ -44,7 +62,7 @@ outputs are skipped unless explicitly overwritten.
 
 ## Resize and size policy
 
-Keep original preserves dimensions. By dimensions offers Exact (may stretch),
+Turn Resize off to preserve dimensions. By dimensions offers Exact (may stretch),
 Width/Height (preserve proportions), and Auto (width for landscape/square,
 height for portrait). By resolution resamples to print size and DPI in inches
 or centimeters: 6 x 4 inches at 200 DPI becomes 1200 x 800 pixels. Enlargement
@@ -58,19 +76,20 @@ Names and formats are retained; format conversion is not part of this release.
 
 ## Compression and color
 
-- Automatic JPEG uses a fast lossless path for already-quantized images when
-  keeping original dimensions without web conversion. This effort heuristic
-  uses source quantization tables, not a claimed perceptual quality score.
-  Other JPEGs use a bounded binary search over quality levels
-  75/80/85/88/91/94/97/100, then tests progressive coding at the chosen level.
-  Full chroma, 4:2:2 and 4:2:0 candidates are tested. Selected passing candidates
-  meet full-resolution per-channel RGB RMS limits
-  of 2.5 globally and 6 per 64-pixel tile, compared against resized pixels.
-  If none pass, quality 100 is used and may still exceed these limits. CMYK
-  uses the maximum-quality path. Numerical checks do not guarantee invisible
-  differences, an exhaustive optimum, or commercial encoder equivalence.
+- Automatic is the default. JPEG quality and color sampling are selected on
+  native-resolution detail samples. The quality search starts at 60 and searches
+  up to 100 as needed, across full chroma, 4:2:2 and 4:2:0.
+  Usually only one full-resolution progressive JPEG is encoded. The final image
+  must pass full-resolution per-channel RGB RMS limits of 4 globally and 12 per
+  64-pixel tile. Failed checks retry stronger settings, including full chroma.
+  If none pass, quality 100 is used and may still exceed these limits; existing
+  smaller JPEG originals remain a fallback. CMYK uses maximum quality.
+  Numerical checks do not guarantee invisible differences, an exhaustive optimum,
+  or commercial encoder equivalence.
 - Automatic PNG/WebP compression is lossless. WebP uses method 4.
-- Bundled jpegtran optimizes JPEG entropy coding without changing decoded pixels.
+- Bundled jpegtran optimizes JPEG entropy coding without changing decoded pixels
+  in Lossless/Manual modes. Automatic JPEG already uses optimized progressive
+  coding and skips redundant native passes.
   Automatic PNG additionally uses oxipng at effort 2. Native results must be
   smaller, pixel-identical (including alpha/high bit depth), and retain metadata
   and color profiles. Failure or timeout leaves the valid primary output. Native
@@ -88,7 +107,9 @@ Names and formats are retained; format conversion is not part of this release.
   be larger; Only save smaller can skip it. Orientation, alpha, and explicit
   print density are respected. TIFF/BMP retain their formats.
 
-Automatic/web estimates use previews bounded to 768 pixels per side and area
+Original-size JPEG estimates use a mosaic of native-resolution detail sampled
+across the image, avoiding texture loss from thumbnail resizing. Other
+automatic/web estimates use previews bounded to 768 pixels per side and area
 extrapolation. Actual sizes may differ substantially. Manual estimates use
 trial encodes. Estimates cap at source size only with Only save smaller enabled.
 Actual sizes replace estimates after processing. Estimates use temporary folders,
@@ -96,7 +117,10 @@ never source files or the chosen output directory.
 
 ## Reliability
 
-Two workers are the default; choose one for very large images. Pillow's image
+Parallel images defaults to Auto, which uses up to two workers and a shared
+64-megapixel budget. Explicit values 1 through 8 are honored without that limit.
+More concurrent large photos use more RAM and may slow down under memory pressure.
+Pillow's image
 safety limits remain enabled. Encoded output is decoded again before commit.
 Temporary files sit beside destinations; replacement uses atomic replacement.
 New files use exclusive creation. Filesystems lacking hard links use exclusive
@@ -126,10 +150,31 @@ and numerical quality. Synthetic results do not establish photographic quality
 or competitor speed. The build runs tests, bundles icon/version resources and
 licenses, smoke-tests the executable, and creates a portable ZIP with SHA-256.
 Inno Setup creates an installer/uninstaller. GitHub Actions builds artifacts
-without publishing. See RELEASE_CHECKLIST.md for clean-machine, real-corpus,
+with `.github/workflows/release.yml`; dispatch with Publish enabled to publish
+a GitHub beta after all platform checks pass. See RELEASE_CHECKLIST.md for clean-machine, real-corpus,
 licensing and signing requirements. LICENSE reserves the owner's rights pending
 a public distribution-license decision. Third-party rights remain intact;
 see THIRD_PARTY_NOTICES.md and bundled license texts.
+
+### macOS builds
+
+Run on each target architecture using Python 3.13.16 or a later 3.13 security
+update, Xcode command-line tools, CMake, and Rust 1.88 or newer:
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --require-hashes -r requirements-release-macos-$(uname -m).lock
+python -m pip install -r requirements-build.txt
+python scripts/build_macos_native.py
+python scripts/build_macos.py
+```
+
+The Mac build compiles static jpegtran and oxipng helpers from the matching source
+versions, freezes an app bundle, verifies its ad-hoc signature, runs the frozen
+self-test, and creates ZIP/DMG downloads with checksums. Source archives are
+published alongside binaries. Developer ID signing/notarization is not configured
+for this beta. Windows cannot produce a runnable macOS bundle.
 
 For the expanded reproducible comparison and workload checks:
 

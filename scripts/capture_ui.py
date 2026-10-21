@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from PIL import Image, ImageDraw
 from PySide6.QtCore import QTimer
 from PySide6.QtGui import QFontDatabase
+from PySide6.QtTest import QTest
 from optimizer.app import create_application, Window, image_info
 from optimizer.engine import Job, Settings
 from optimizer.workflow import PreviewWorker
@@ -32,10 +33,15 @@ def main():
         job = Job(source, Path(source.name))
         window.scanned([job], [], [image_info(source)])
         window.show()
-        for index, title in enumerate(('resize', 'optimize', 'destination')):
+        QTest.qWait(220)
+        for index, title in enumerate(('resize', 'compression', 'destination')):
             window.options_tabs.setCurrentIndex(index)
             app.processEvents()
             window.grab().save(str(destination / f'{title}.png'))
+        window.settings_dialog.show()
+        app.processEvents()
+        window.settings_dialog.grab().save(str(destination / 'settings.png'))
+        window.settings_dialog.hide()
         window.capture_batch(Settings(Path(temporary) / 'output'))
         window.table.item(0, 1).setText('Error · Example: output folder is read-only')
         window.finish_report({'done': 0, 'error': 1, 'before': 0, 'after': 0})

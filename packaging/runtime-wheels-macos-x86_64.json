@@ -1,0 +1,23 @@
+[
+  {
+    "name": "PySide6-Essentials",
+    "version": "6.10.2",
+    "file": "pyside6_essentials-6.10.2-cp39-abi3-macosx_13_0_universal2.whl",
+    "source": "https://files.pythonhosted.org/packages/1d/2e/5f18a77f5e0bd730bacec93a690d0ef3c96a9711d213653eacecbf241b8d/pyside6_essentials-6.10.2-cp39-abi3-macosx_13_0_universal2.whl",
+    "sha256": "1dee2cb9803ff135f881dadeb5c0edcef793d1ec4f8a9140a1348cecb71074e1"
+  },
+  {
+    "name": "shiboken6",
+    "version": "6.10.2",
+    "file": "shiboken6-6.10.2-cp39-abi3-macosx_13_0_universal2.whl",
+    "source": "https://files.pythonhosted.org/packages/fb/38/3912eb08a3b865b5fcdb4bdce8076cacc211986cee587f5cb62e637791af/shiboken6-6.10.2-cp39-abi3-macosx_13_0_universal2.whl",
+    "sha256": "3bd4e94e9a3c8c1fa8362fd752d399ef39265d5264e4e37bae61cdaa2a00c8c7"
+  },
+  {
+    "name": "Pillow",
+    "version": "13.0.0",
+    "file": "pillow-13.0.0-cp313-cp313-macosx_10_13_x86_64.whl",
+    "source": "https://files.pythonhosted.org/packages/08/bc/578ab2eaa04705a8978bd9be0fe15c3d43a8fc95097c4f7e39540e79e4fa/pillow-13.0.0-cp313-cp313-macosx_10_13_x86_64.whl",
+    "sha256": "ef5fe6b7db3f501c56000ba8fe7c7e1a35ca1d45824fbeb95a67daa85cff4dbe"
+  }
+]

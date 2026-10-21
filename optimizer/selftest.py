@@ -17,6 +17,7 @@ def run(report_path):
         from .workflow import PreviewWorker
         from . import __version__
         from .native import tool_path, pixel_equal, optimize_native
+        from .compression import quality_ok
         app = create_application()
         if os.name == 'nt' and os.environ['QT_QPA_PLATFORM'] == 'offscreen':
             from PySide6.QtGui import QFontDatabase
@@ -51,6 +52,9 @@ def run(report_path):
                 assert result[0] == 'done', status
                 with Image.open(root / 'codec-output' / job.relative) as decoded:
                     assert decoded.size == (96, 64)
+                    if extension == 'jpg':
+                        with Image.open(image_path) as reference:
+                            assert quality_ok(reference, decoded, automatic=True)
                 checks.append(extension + ' codec and Unicode path')
             for name in ('jpegtran', 'oxipng'):
                 assert tool_path(name) is not None, name + ' bundled hash verification failed'
@@ -59,7 +63,7 @@ def run(report_path):
             with Image.new('RGB', (512, 384), 'navy') as image:
                 image.save(native_path, optimize=False)
             job = Job(native_path, Path(native_path.name))
-            result = process(job, Settings(root / 'native-output'), Control(), lambda _: None)
+            result = process(job, Settings(root / 'native-output', smart=False), Control(), lambda _: None)
             assert result[0] == 'done'
             native_output = root / 'native-output' / job.relative
             assert native_output.stat().st_size < native_path.stat().st_size

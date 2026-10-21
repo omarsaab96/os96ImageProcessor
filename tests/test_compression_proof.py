@@ -92,14 +92,87 @@ class CompressionProofTests(unittest.TestCase):
             optimize_native(path, 'PNG', Control(), lambda _: None)
         self.assertEqual(path.read_bytes(), original)
 
-    def test_already_quantized_jpeg_uses_fast_lossless_path(self):
-        if tool_path('jpegtran') is None:
-            self.skipTest('Bundled jpegtran unavailable')
+    def test_already_quantized_jpeg_is_searched_in_automatic_mode(self):
+        from optimizer.compression import encode_smart
         source = self.root / 'photo.jpg'
         with Image.new('RGB', (128, 96), 'navy') as image:
             image.save(source, quality=75)
-        with patch('optimizer.engine.encode_smart', side_effect=AssertionError('Lossy search should not run')):
+        with patch('optimizer.engine.encode_smart', wraps=encode_smart) as search:
             result = process(Job(source, Path(source.name)), Settings(self.root / 'output', smart=True), Control(), lambda _: None)
+            search.assert_called_once()
         self.assertEqual(result[0], 'done')
         with Image.open(source) as a, Image.open(self.root / 'output' / source.name) as b:
-            self.assertTrue(pixel_equal(a, b))
+            self.assertEqual(a.size, b.size)
+            self.assertTrue(quality_ok(a, b, automatic=True))
+
+    def test_automatic_still_rejects_chroma_edge_damage(self):
+        with Image.new('RGB', (256, 256), 'red') as original:
+            draw = ImageDraw.Draw(original)
+            for x in range(0, 256, 2):
+                draw.line((x, 0, x, 255), fill='blue')
+            path = self.root / 'edges.jpg'
+            original.save(path, quality=100, subsampling=2)
+            with Image.open(path) as decoded:
+                self.assertFalse(quality_ok(original, decoded, automatic=True))
+
+    def test_default_compresses_photo_without_resizing_or_touching_source(self):
+        import random
+        from PIL import ImageFilter
+        rng = random.Random(96)
+        source = self.root / 'photo.jpg'
+        with Image.frombytes('L', (512, 384), rng.randbytes(512 * 384)) as noise:
+            with noise.filter(ImageFilter.GaussianBlur(1.2)).convert('RGB') as image:
+                image.save(source, quality=85, subsampling=0)
+        original = source.read_bytes()
+        destination = self.root / 'output'
+        messages = []
+        result = process(Job(source, Path(source.name)), Settings(destination), Control(), messages.append)
+        self.assertEqual(result[0], 'done')
+        self.assertLess(result[2], result[1] * .85)
+        self.assertTrue(any('quality 60' in message for message in messages))
+        self.assertEqual(source.read_bytes(), original)
+        with Image.open(source) as reference, Image.open(destination / source.name) as decoded:
+            self.assertEqual(reference.size, decoded.size)
+            self.assertTrue(quality_ok(reference, decoded, automatic=True))
+
+    def test_automatic_rejects_local_damage_and_alpha_changes(self):
+        with Image.new('RGBA', (512, 512), (100, 100, 100, 120)) as original:
+            with original.copy() as changed:
+                changed.paste((255, 255, 255, 120), (0, 0, 16, 16))
+                self.assertFalse(quality_ok(original, changed, automatic=True))
+            with original.copy() as changed:
+                changed.putpixel((20, 20), (100, 100, 100, 121))
+                self.assertFalse(quality_ok(original, changed, automatic=True))
+
+    def test_large_photo_uses_one_full_encode_and_verifies_it(self):
+        from optimizer.compression import encode_smart
+        from PIL import ImageFilter
+        with Image.effect_noise((1600, 1200), 20).filter(ImageFilter.GaussianBlur(1.2)).convert('RGB') as image:
+            destination = self.root / 'fast.jpg'
+            saved = []
+            original_save = Image.Image.save
+            def save(candidate, *args, **kwargs):
+                saved.append(candidate.size)
+                return original_save(candidate, *args, **kwargs)
+            with patch('PIL.Image.Image.save', new=save):
+                self.assertTrue(encode_smart(image, destination, 'JPEG', {}, Control(), lambda _: None))
+            self.assertEqual(saved.count(image.size), 1)
+            with Image.open(destination) as decoded:
+                self.assertTrue(quality_ok(image, decoded, automatic=True))
+
+    def test_sample_miss_retries_and_preserves_full_resolution_gate(self):
+        from optimizer.compression import encode_smart
+        with Image.new('RGB', (1600, 1200), 'navy') as image:
+            destination = self.root / 'retry.jpg'
+            full_checks = []
+            def check(reference, decoded, **kwargs):
+                if reference.size == image.size:
+                    full_checks.append(decoded.size)
+                    if len(full_checks) == 1:
+                        return False
+                return quality_ok(reference, decoded, **kwargs)
+            with patch('optimizer.compression.quality_ok', side_effect=check):
+                self.assertTrue(encode_smart(image, destination, 'JPEG', {}, Control(), lambda _: None))
+            self.assertGreaterEqual(len(full_checks), 2)
+            with Image.open(destination) as decoded:
+                self.assertTrue(quality_ok(image, decoded, automatic=True))

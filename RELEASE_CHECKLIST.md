@@ -1,3 +1,24 @@
+# Windows and macOS 1.0.0rc24 beta
+
+Current release preparation: 76 local tests pass on Windows. The Windows frozen
+application self-test passes. Apple Silicon and Intel macOS builds are prepared
+in `.github/workflows/release.yml`; they are not marked verified until those
+jobs execute successfully. GitHub publication is gated on both Mac jobs, fresh
+Windows installation checks, and matching upstream source packaging.
+
+The user authorized publishing an unsigned GitHub beta. Windows is unsigned;
+macOS uses ad-hoc signing, without Developer ID or notarization. Security prompts
+are expected and disclosed in the release notes. No signing credentials are
+configured. Physical-device and broad display-scaling checks remain manual.
+
+Build and publish using the **Windows and macOS beta** workflow with Publish
+selected. It creates Windows installer/portable downloads, separate Apple
+Silicon and Intel ZIP/DMG downloads, SHA-256 files, and upstream source archives.
+No release is published if any required platform check fails.
+
+The following is historical rc2 evidence, retained for reference. Its counts
+and missing-platform statements describe that earlier candidate only.
+
 # Windows 1.0.0rc2
 
 Local checks are recorded in validation/. A release candidate is deliberately

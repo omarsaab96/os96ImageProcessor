@@ -86,7 +86,7 @@ class ReleaseTests(unittest.TestCase):
             from io import BytesIO
             self.assertIn('sRGB', ImageCms.getProfileDescription(ImageCms.ImageCmsProfile(BytesIO(result.info['icc_profile']))))
 
-    def test_presets_and_report_capture(self):
+    def test_report_capture(self):
         window = Window()
         window.width.setValue(777)
         values = window.preference_values()
@@ -111,22 +111,41 @@ class ReleaseTests(unittest.TestCase):
         self.assertEqual(results[0][1].width(), 300)
         self.assertEqual(self.source.read_bytes(), original)
 
+    def test_large_comparison_scales_display_without_rejecting_source(self):
+        source = self.root / 'large.jpg'
+        with Image.new('RGB', (6000, 4500), 'navy') as image:
+            image.save(source, quality=85)
+        original = source.read_bytes()
+        results = []
+        worker = PreviewWorker(Job(source, Path(source.name)), Settings(self.root / 'unused', compress=False))
+        worker.result.connect(lambda *args: results.append(args))
+        worker.run()
+        self.assertIsNotNone(results[0][0])
+        for image in results[0][:2]:
+            self.assertLessEqual(image.width() * image.height(), 4_000_000)
+            self.assertLess(float(image.text('display_scale')), 1)
+        self.assertIn('processing uses full resolution', results[0][2])
+        self.assertEqual(source.read_bytes(), original)
+
     def test_preferences_survive_restart_without_destructive_flags(self):
         from PySide6.QtCore import QSettings
         preferences = QSettings(str(self.root / 'settings.ini'), QSettings.IniFormat)
         window = Window(persist=True, preferences=preferences)
         window.width.setValue(1234)
+        window.compression.setCurrentText('Lossless')
         window.output.setText(str(self.root / 'destination'))
         window.in_place.setChecked(True)
         window.overwrite.setChecked(True)
-        window.preset_values['My preset'] = window.preference_values()
         window.close()
         restored = Window(persist=True, preferences=preferences)
         self.assertEqual(restored.width.value(), 1234)
+        self.assertEqual(restored.compression.currentText(), 'Automatic')
+        self.assertEqual(restored.strategy_label.text(), 'Compression: Automatic')
+        restored.compression.setCurrentText('Manual quality')
+        self.assertEqual(restored.strategy_label.text(), 'Compression: Manual quality')
         self.assertEqual(restored.output.text(), str(self.root / 'destination'))
         self.assertFalse(restored.in_place.isChecked())
         self.assertFalse(restored.overwrite.isChecked())
-        self.assertIn('My preset', restored.preset_values)
         restored.close()
 
     def test_retry_runs_only_failed_entries(self):
@@ -142,6 +161,21 @@ class ReleaseTests(unittest.TestCase):
             start.assert_called_once()
         self.assertEqual([job.source for job in window.jobs], [self.source])
         window.close()
+
+    def test_enabled_steps_survive_restart(self):
+        from PySide6.QtCore import QSettings
+        preferences = QSettings(str(self.root / 'steps.ini'), QSettings.IniFormat)
+        window = Window(persist=True, preferences=preferences)
+        window.resize_enabled.setChecked(True)
+        window.compression_enabled.setChecked(False)
+        window.width.setValue(1234)
+        window.close()
+        restored = Window(persist=True, preferences=preferences)
+        self.assertTrue(restored.resize_enabled.isChecked())
+        self.assertFalse(restored.compression_enabled.isChecked())
+        self.assertFalse(restored.preview_settings().compress)
+        self.assertEqual(restored.preview_settings().width, 1234)
+        restored.close()
 
     def test_unicode_deep_path_and_mixed_batch(self):
         folder = self.root

@@ -3,10 +3,13 @@ import hashlib
 import json
 import urllib.request
 import zipfile
+import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from optimizer import __version__
 
 
 def main():
@@ -16,7 +19,7 @@ def main():
         'qtbase-6.10.2.tar.gz': 'https://github.com/qt/qtbase/archive/refs/tags/v6.10.2.tar.gz',
         'qtsvg-6.10.2.tar.gz': 'https://github.com/qt/qtsvg/archive/refs/tags/v6.10.2.tar.gz',
         'pyside-setup-6.10.2.tar.gz': 'https://github.com/pyside/pyside-setup/archive/refs/tags/v6.10.2.tar.gz',
-        'pillow-12.3.0.tar.gz': 'https://github.com/python-pillow/Pillow/archive/refs/tags/12.3.0.tar.gz',
+        'pillow-13.0.0.tar.gz': 'https://github.com/python-pillow/Pillow/archive/refs/tags/13.0.0.tar.gz',
         'libjpeg-turbo-3.2.0.tar.gz': 'https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/3.2.0.tar.gz',
         'oxipng-10.2.1.tar.gz': 'https://github.com/oxipng/oxipng/archive/refs/tags/v10.2.1.tar.gz',
         'cpython-3.13.16.tar.xz': 'https://www.python.org/ftp/python/3.13.16/Python-3.13.16.tar.xz',
@@ -34,9 +37,9 @@ def main():
         manifest = list(pool.map(fetch, sources.items()))
     (folder / 'manifest.json').write_text(json.dumps(manifest, indent=2), encoding='utf-8')
     (folder / 'README.txt').write_text('Upstream versioned sources for this release candidate. Keep this source bundle alongside binary downloads. Qt is dynamically linked and can be replaced with compatible modified builds. See THIRD_PARTY_NOTICES.md for build links. These upstream archives are not a certification that all public-distribution obligations have been reviewed.\n', encoding='utf-8')
-    package = ROOT / 'dist/OS96ImageOptimizer-1.0.0rc2-upstream-sources.zip'
+    package = ROOT / f'dist/OS96ImageOptimizer-{__version__}-upstream-sources.zip'
     with zipfile.ZipFile(package, 'w', compression=zipfile.ZIP_STORED) as archive:
-        for path in sorted(folder.iterdir()):
+        for path in [folder / name for name in sorted(sources)] + [folder / 'manifest.json', folder / 'README.txt']:
             archive.write(path, 'upstream-sources/' + path.name)
     Path(str(package) + '.sha256').write_text(hashlib.sha256(package.read_bytes()).hexdigest() + '  ' + package.name + '\n', encoding='ascii')
     (ROOT / 'validation/upstream-sources.json').write_text(json.dumps(manifest, indent=2), encoding='utf-8')

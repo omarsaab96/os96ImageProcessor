@@ -10,8 +10,8 @@ from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 
 from PIL import Image, ImageOps, ImageCms
-from .compression import encode_smart
-from .native import optimize_native, tool_path
+from .compression import encode_smart, jpeg_detail_sample
+from .native import optimize_native
 
 EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff', '.bmp'}
 
@@ -39,11 +39,12 @@ class Settings:
     png_level: int = 6
     metadata: bool = True
     color_profile: bool = True
-    workers: int = 2
+    workers: int = 0  # Automatic; positive values are explicit concurrency.
     overwrite: bool = False
-    smart: bool = False
+    smart: bool = True
     web: bool = False
     only_smaller: bool = False
+    compress: bool = True
 
 
 def web_colors(image):
@@ -76,6 +77,8 @@ def web_colors(image):
 
 def estimate_output(job, settings, control, destination):
     """Estimate from a bounded preview; never run full-resolution trial encoding."""
+    if not settings.compress:
+        settings = replace(settings, smart=False, lossless=True)
     with Image.open(job.source) as original:
         if getattr(original, 'n_frames', 1) > 1:
             return None
@@ -87,11 +90,15 @@ def estimate_output(job, settings, control, destination):
         if target[0] * target[1] > Image.MAX_IMAGE_PIXELS:
             return None
         # JPEG draft decoding avoids decoding a 60 MP source just for a preview.
-        original.draft(original.mode, (768, 768))
-        with ImageOps.exif_transpose(original) as image:
+        native_detail = fmt == 'JPEG' and settings.resize == 'Keep original'
+        if not native_detail:
+            original.draft(original.mode, (768, 768))
+        with (original if original.getexif().get(274, 1) == 1 else ImageOps.exif_transpose(original)) as image:
             scale = min(1.0, 768 / max(target))
             sample_size = tuple(max(1, round(value * scale)) for value in target)
-            with image.resize(sample_size, Image.Resampling.LANCZOS) as sample:
+            with (jpeg_detail_sample(image) if native_detail else
+                  image.resize(sample_size, Image.Resampling.LANCZOS)) as sample:
+                sample_size = sample.size
                 prepared = web_colors(sample) if settings.web else sample.copy()
                 with prepared:
                     options = {}
@@ -107,11 +114,11 @@ def estimate_output(job, settings, control, destination):
                                               for k, v in original.info.items() if isinstance(v, str))
                     if fmt == 'JPEG':
                         options.update(quality=100 if settings.lossless else settings.quality,
-                                       optimize=True, subsampling=0)
+                                       optimize=settings.compress, subsampling=0)
                     elif fmt == 'PNG':
-                        options['compress_level'] = settings.png_level
+                        options['compress_level'] = settings.png_level if settings.compress else 1
                     elif fmt == 'WEBP':
-                        options.update(lossless=settings.lossless, quality=settings.quality, method=4)
+                        options.update(lossless=settings.lossless, quality=settings.quality, method=4 if settings.compress else 0)
                     elif fmt == 'TIFF':
                         options['compression'] = 'tiff_deflate'
                     if not control.checkpoint():
@@ -137,18 +144,6 @@ def estimate_output(job, settings, control, destination):
 def reusable_jpeg(image, settings):
     """A metadata-only JPEG is a size fallback, retaining the source color profile."""
     return image.format == 'JPEG' and settings.resize == 'Keep original' and not settings.web
-
-
-def prefer_lossless_jpeg(image, settings):
-    """Avoid costly generational recompression of already-quantized JPEGs.
-
-    This is an effort heuristic, not an estimated perceptual quality score.
-    High-quality JPEGs, resizing, and web conversion still search candidates.
-    """
-    tables = getattr(image, 'quantization', {})
-    luma = tables.get(0, [])
-    return (settings.smart and reusable_jpeg(image, settings) and bool(luma)
-            and sum(luma) / len(luma) >= 12 and tool_path('jpegtran') is not None)
 
 
 def check_precision(image):
@@ -284,6 +279,8 @@ def copy_jpeg(source, destination, metadata, color_profile, orientation=1):
 def process(job: Job, settings: Settings, control: Control, emit):
     temporary = None
     try:
+        if not settings.compress:
+            settings = replace(settings, smart=False, lossless=True)
         if settings.web:
             settings = replace(settings, metadata=False, color_profile=True)
         if not control.checkpoint():
@@ -307,7 +304,9 @@ def process(job: Job, settings: Settings, control: Control, emit):
             reusable = reusable_jpeg(original, settings)
             # Avoid changing JPEG pixels when lossless mode is requested.
             needs_color_conversion = settings.web and bool(original.info.get('icc_profile'))
-            copy_original = (settings.lossless and not settings.smart and reusable and not needs_color_conversion) or prefer_lossless_jpeg(original, settings)
+            copy_original = ((not settings.compress and settings.resize == 'Keep original'
+                              and settings.metadata and settings.color_profile and not settings.web)
+                             or (settings.lossless and not settings.smart and reusable and not needs_color_conversion))
             handle, name = tempfile.mkstemp(prefix='.os96-', suffix=job.source.suffix, dir=destination.parent)
             os.close(handle)
             temporary = Path(name)
@@ -318,11 +317,12 @@ def process(job: Job, settings: Settings, control: Control, emit):
                     copy_jpeg(job.source, temporary, settings.metadata, settings.color_profile,
                               original.getexif().get(274, 1))
             else:
-                image = ImageOps.exif_transpose(original)
+                image = original if original.getexif().get(274, 1) == 1 else ImageOps.exif_transpose(original)
                 try:
                     if settings.web:
                         converted = web_colors(image)
-                        image.close()
+                        if image is not original:
+                            image.close()
                         image = converted
                     size = target_size(image.size, settings)
                     if size[0] * size[1] > Image.MAX_IMAGE_PIXELS:
@@ -330,7 +330,8 @@ def process(job: Job, settings: Settings, control: Control, emit):
                     if size != image.size:
                         emit('Resizing')
                         resized = image.resize(size, Image.Resampling.LANCZOS)
-                        image.close()
+                        if image is not original:
+                            image.close()
                         image = resized
                     if not control.checkpoint():
                         emit('Cancelled')
@@ -377,11 +378,11 @@ def process(job: Job, settings: Settings, control: Control, emit):
                         exif[296] = 2  # Pixels per inch.
                         options['exif'] = exif.tobytes()
                     if fmt == 'JPEG':
-                        options.update(quality=100 if settings.lossless else settings.quality, optimize=True, subsampling=0)
+                        options.update(quality=100 if settings.lossless else settings.quality, optimize=settings.compress, subsampling=0)
                     elif fmt == 'PNG':
-                        options.update(compress_level=settings.png_level)
+                        options.update(compress_level=settings.png_level if settings.compress else 1)
                     elif fmt == 'WEBP':
-                        options.update(lossless=settings.lossless, quality=85 if settings.lossless else settings.quality, method=4, exact=True)
+                        options.update(lossless=settings.lossless, quality=85 if settings.lossless else settings.quality, method=4 if settings.compress else 0, exact=True)
                     elif fmt == 'TIFF':
                         options.update(compression='tiff_deflate')
                     if settings.smart:
@@ -390,7 +391,8 @@ def process(job: Job, settings: Settings, control: Control, emit):
                     else:
                         image.save(temporary, format=fmt, **options)
                 finally:
-                    image.close()
+                    if image is not original:
+                        image.close()
             if reusable and not copy_original:
                 # Metadata-only export is a valid, pixel-preserving candidate.
                 # Do not enlarge an existing JPEG just to reencode its pixels.
@@ -410,7 +412,7 @@ def process(job: Job, settings: Settings, control: Control, emit):
         # Keep the smaller original when no resize/metadata removal was requested.
         if settings.resize == 'Keep original' and settings.metadata and settings.color_profile and not settings.web and temporary.stat().st_size >= before:
             shutil.copy2(job.source, temporary)
-        if fmt == 'JPEG' or (fmt == 'PNG' and settings.smart):
+        if settings.compress and ((fmt == 'JPEG' and not settings.smart) or (fmt == 'PNG' and settings.smart)):
             optimize_native(temporary, fmt, control, emit)
         if not control.checkpoint():
             emit('Cancelled')
@@ -457,10 +459,26 @@ def process(job: Job, settings: Settings, control: Control, emit):
                 pass  # A cleanup failure must not abort unrelated batch jobs.
 
 
+def batch_worker_limit(jobs, settings):
+    """Honor explicit concurrency; apply the image budget only in Auto mode."""
+    if settings.workers > 0:
+        return settings.workers
+    largest = 1
+    for job in jobs:
+        try:
+            with Image.open(job.source) as image:
+                target = target_size(image.size, settings)
+                largest = max(largest, image.width * image.height, target[0] * target[1])
+        except (OSError, ValueError, Image.DecompressionBombError):
+            pass  # Normal per-file error handling still reports unreadable inputs.
+    return max(1, min(2, os.cpu_count() or 1, 64_000_000 // largest))
+
+
 def run_batch(jobs, settings, control, status, progress):
     totals = dict(done=0, error=0, skipped=0, cancelled=0, before=0, after=0)
     iterator = iter(enumerate(jobs))
-    with ThreadPoolExecutor(max_workers=settings.workers) as pool:
+    workers = batch_worker_limit(jobs, settings)
+    with ThreadPoolExecutor(max_workers=workers) as pool:
         pending = {}
         def submit():
             if not control.checkpoint():
@@ -472,7 +490,7 @@ def run_batch(jobs, settings, control, status, progress):
             future = pool.submit(process, job, settings, control, lambda message: status(index, message))
             pending[future] = index
             return True
-        for _ in range(settings.workers):
+        for _ in range(workers):
             if not submit():
                 break
         completed = 0
@@ -486,6 +504,6 @@ def run_batch(jobs, settings, control, status, progress):
                 totals['after'] += after
                 completed += 1
                 progress(completed, totals.copy())
-            while len(pending) < settings.workers and submit():
+            while len(pending) < workers and submit():
                 pass
     return totals

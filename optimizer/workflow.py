@@ -8,7 +8,7 @@ from pathlib import Path
 from PIL import Image, ImageOps
 from PySide6.QtCore import QSettings, QThread, Signal, Qt, QUrl
 from PySide6.QtGui import QDesktopServices, QImage, QPixmap
-from PySide6.QtWidgets import (QPushButton, QHBoxLayout, QComboBox, QInputDialog,
+from PySide6.QtWidgets import (QPushButton, QHBoxLayout, QComboBox,
     QFileDialog, QMessageBox, QDialog, QVBoxLayout, QLabel, QScrollArea,
     QTableWidget, QTableWidgetItem, QHeaderView)
 
@@ -32,18 +32,31 @@ class PreviewWorker(QThread):
                             only_smaller=False, overwrite=True), self.control, messages.append)
                 if result[0] != 'done':
                     raise ValueError(messages[-1] if messages else 'Preview cancelled')
-                images = []
+                pixels = []
                 for path in (self.job.source, target):
                     with Image.open(path) as source:
-                        if source.width * source.height > 25_000_000:
-                            raise ValueError('Full-resolution comparison supports up to 25 megapixels per image. Processing supports larger images.')
+                        pixels.append(source.width * source.height)
+                display_scale = min(1.0, (4_000_000 / max(pixels)) ** .5)
+                images = []
+                for path in (self.job.source, target):
+                    if not self.control.checkpoint():
+                        return
+                    with Image.open(path) as source:
+                        if display_scale < 1:
+                            source.thumbnail((max(1, int(source.width * display_scale)),
+                                              max(1, int(source.height * display_scale))), Image.Resampling.LANCZOS)
                         with ImageOps.exif_transpose(source) as oriented:
                             with web_colors(oriented) as display:
                                 with display.convert('RGBA') as rgba:
-                                    images.append(QImage(rgba.tobytes(), rgba.width, rgba.height,
-                                                         QImage.Format_RGBA8888).copy())
+                                    picture = QImage(rgba.tobytes(), rgba.width, rgba.height,
+                                                     QImage.Format_RGBA8888).copy()
+                                    picture.setText('display_scale', str(display_scale))
+                                    images.append(picture)
                 if not self.control.stopped:
-                    self.result.emit(*images, f'Original: {self.job.source.stat().st_size:,} bytes | Output: {target.stat().st_size:,} bytes')
+                    details = f'Original: {self.job.source.stat().st_size:,} bytes | Output: {target.stat().st_size:,} bytes'
+                    if display_scale < 1:
+                        details += f' | Display scaled to {display_scale:.1%}; processing uses full resolution.'
+                    self.result.emit(*images, details)
         except Exception as exc:
             self.result.emit(None, None, str(exc))
 
@@ -54,19 +67,6 @@ class WorkflowMixin:
         self.preferences = preferences if preferences is not None else QSettings('OS96', 'ImageOptimizer')
         self.preview_worker = None
         self.report_rows, self.batch_rows, self.report_totals = [], [], {}
-        try:
-            self.preset_values = json.loads(str(self.preferences.value('presets', '{}'))) if persist else {}
-            if not isinstance(self.preset_values, dict):
-                self.preset_values = {}
-        except (TypeError, ValueError):
-            self.preset_values = {}
-        self.preset = QComboBox()
-        self.preset.addItems(['Choose preset…', *sorted(self.preset_values)])
-        save = QPushButton('Save preset')
-        save.clicked.connect(self.save_preset)
-        self.preset.textActivated.connect(self.apply_preset)
-        right.insertWidget(0, self.preset)
-        right.insertWidget(1, save)
         row = QHBoxLayout()
         compare = QPushButton('Compare selected')
         retry = QPushButton('Retry failed')
@@ -77,20 +77,23 @@ class WorkflowMixin:
             row.addWidget(button)
             button.clicked.connect(action)
         left.addLayout(row)
-        self.workflow_controls = [compare, retry, self.preset, save]
+        self.workflow_controls = [compare, retry]
         self.web.setToolTip('Converts tagged colors to sRGB and removes descriptive metadata. Uses the selected compression strategy.')
-        self.web_help.setText('Converts tagged colors to sRGB and removes descriptive metadata. Untagged RGB is assumed sRGB. Filenames and formats are retained. Enable Only save smaller to skip larger results.')
+        self.web_help.setText('Removes descriptive metadata and converts tagged colors to sRGB, retaining the converted profile. Untagged RGB is assumed sRGB. This overrides Keep metadata and Keep color profile, so those controls are disabled. Their choices apply again when Save for web is off.')
         if persist:
             try:
                 self.apply_values(json.loads(str(self.preferences.value('settings', '{}'))))
                 self.output.setText(str(self.preferences.value('destination', '')))
+                # Start every session with automatic compression; other strategies
+                # remain available explicitly in the compression settings.
+                self.compression.setCurrentText('Automatic')
             except (TypeError, ValueError):
                 pass
 
     def preference_widgets(self):
         return {name: getattr(self, name) for name in ('mode', 'dimension_mode', 'width', 'height',
             'dpi', 'print_width', 'print_height', 'print_unit', 'compression', 'quality', 'png',
-            'metadata', 'color_profile', 'web', 'threads', 'only_smaller')}
+            'metadata', 'color_profile', 'web', 'threads', 'only_smaller', 'resize_enabled', 'compression_enabled')}
 
     def preference_values(self):
         values = {}
@@ -116,21 +119,7 @@ class WorkflowMixin:
         if self.persist:
             self.preferences.setValue('settings', json.dumps(self.preference_values()))
             self.preferences.setValue('destination', self.output.text())
-            self.preferences.setValue('presets', json.dumps(self.preset_values))
             self.preferences.sync()
-
-    def save_preset(self):
-        name, accepted = QInputDialog.getText(self, 'Save preset', 'Preset name')
-        if accepted and name.strip():
-            name = name.strip()
-            self.preset_values[name] = self.preference_values()
-            if self.preset.findText(name) < 0:
-                self.preset.addItem(name)
-            self.preset.setCurrentText(name)
-            self.save_preferences()
-
-    def apply_preset(self, name):
-        self.apply_values(self.preset_values.get(name, {}))
 
     def open_output(self):
         folder = self.last_settings.output if hasattr(self, 'last_settings') and not self.last_settings.in_place else Path(self.output.text())
@@ -234,13 +223,16 @@ class WorkflowMixin:
             return
         self.summary.setText('Comparison ready')
         dialog = QDialog(self)
-        dialog.setWindowTitle('Before / after — 100% pixel view')
+        scaled = float(original.text('display_scale') or 1) < 1
+        dialog.setWindowTitle('Before / after — scaled preview' if scaled else 'Before / after — 100% pixel view')
         dialog.resize(1100, 700)
         layout = QVBoxLayout(dialog)
-        layout.addWidget(QLabel(details))
+        detail_label = QLabel(details)
+        detail_label.setWordWrap(True)
+        layout.addWidget(detail_label)
         layout.addWidget(QLabel('Left: original | Right: encoded output. Scrollbars are linked. Display colors are converted to sRGB.'))
         zoom = QComboBox()
-        zoom.addItems(['100%', '50%', '25%'])
+        zoom.addItems(['100% of preview', '50% of preview', '25% of preview'] if scaled else ['100%', '50%', '25%'])
         layout.addWidget(zoom)
         row = QHBoxLayout()
         layout.addLayout(row)
@@ -254,7 +246,7 @@ class WorkflowMixin:
             views.append(view)
             labels.append(label)
         def resize_images():
-            scale = int(zoom.currentText()[:-1]) / 100
+            scale = int(zoom.currentText().split('%')[0]) / 100
             for label, picture in zip(labels, (original, output)):
                 pixmap = QPixmap.fromImage(picture)
                 if scale != 1:

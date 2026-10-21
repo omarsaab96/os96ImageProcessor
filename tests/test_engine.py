@@ -4,7 +4,7 @@ import threading
 from io import BytesIO
 from pathlib import Path
 from PIL import Image, ImageCms, ImageOps
-from optimizer.engine import Job, Settings, Control, discover, process, run_batch, target_size, estimate_output
+from optimizer.engine import Job, Settings, Control, discover, process, run_batch, target_size, estimate_output, batch_worker_limit
 from optimizer.compression import quality_ok
 
 
@@ -33,10 +33,36 @@ class EngineTests(unittest.TestCase):
         jobs, _ = discover([self.source, path])
         self.assertEqual(len(jobs), 1)
 
+    def test_large_images_reduce_parallelism_without_decoding(self):
+        from unittest.mock import patch, MagicMock
+        opened = MagicMock()
+        opened.__enter__.return_value.size = (9504, 6336)
+        opened.__enter__.return_value.width = 9504
+        opened.__enter__.return_value.height = 6336
+        with patch('optimizer.engine.Image.open', return_value=opened):
+            self.assertEqual(batch_worker_limit([Job(Path('large.jpg'), Path('large.jpg'))], Settings(self.output)), 1)
+            self.assertEqual(batch_worker_limit([Job(Path('large.jpg'), Path('large.jpg'))], Settings(self.output, workers=8)), 8)
+        small = self.make_image()
+        self.assertEqual(batch_worker_limit([Job(small, Path(small.name))], Settings(self.output, workers=4)), 4)
+        with patch('optimizer.engine.Image.open', side_effect=Image.DecompressionBombError('too large')):
+            self.assertEqual(batch_worker_limit([Job(small, Path(small.name))], Settings(self.output)), 2)
+
+    def test_explicit_eight_workers_can_run_eight_jobs_concurrently(self):
+        from unittest.mock import patch
+        barrier = threading.Barrier(8, timeout=5)
+        jobs = [Job(Path(f'photo-{i}.jpg'), Path(f'photo-{i}.jpg')) for i in range(8)]
+        def concurrent_process(*args):
+            barrier.wait()
+            return 'done', 100, 50
+        with patch('optimizer.engine.process', side_effect=concurrent_process):
+            totals = run_batch(jobs, Settings(self.output, workers=8), Control(),
+                               lambda *_: None, lambda *_: None)
+        self.assertEqual(totals['done'], 8)
+
     def test_lossless_pixels_and_existing_output(self):
         path = self.make_image()
         job = Job(path, Path('nested/image.png'))
-        settings = Settings(self.output)
+        settings = Settings(self.output, smart=False)
         result = process(job, settings, Control(), lambda _: None)
         self.assertEqual(result[0], 'done')
         with Image.open(path) as a, Image.open(self.output / job.relative) as b:
@@ -76,7 +102,7 @@ class EngineTests(unittest.TestCase):
 
     def test_jpeg_lossless_preserves_decoded_pixels(self):
         path = self.make_image('photo.jpg')
-        process(Job(path, Path('photo.jpg')), Settings(self.output), Control(), lambda _: None)
+        process(Job(path, Path('photo.jpg')), Settings(self.output, smart=False), Control(), lambda _: None)
         with Image.open(path) as source, Image.open(self.output / 'photo.jpg') as output:
             self.assertEqual(source.tobytes(), output.tobytes())
         self.assertLessEqual((self.output / 'photo.jpg').stat().st_size, path.stat().st_size)
@@ -113,6 +139,43 @@ class EngineTests(unittest.TestCase):
                 self.assertFalse(quality_ok(reference, changed))
                 self.assertTrue(quality_ok(reference, reference))
 
+    def test_resize_only_bypasses_compression_search_and_native_optimizer(self):
+        from unittest.mock import patch
+        for extension in ('jpg', 'png', 'webp'):
+            source = self.make_image('resize-only.' + extension)
+            settings = Settings(self.output, compress=False, smart=True, lossless=False,
+                                quality=1, resize='By dimensions', width=64, height=32)
+            with patch('optimizer.engine.encode_smart') as smart, patch('optimizer.engine.optimize_native') as native:
+                result = process(Job(source, Path(source.name)), settings, Control(), lambda _: None)
+                self.assertEqual(result[0], 'done')
+                smart.assert_not_called()
+                native.assert_not_called()
+            with Image.open(self.output / source.name) as output:
+                self.assertEqual(output.size, (64, 32))
+                if extension == 'jpg':
+                    self.assertTrue(all(value == 1 for value in output.quantization[0]))
+
+    def test_no_steps_preserves_original_bytes(self):
+        for extension in ('jpg', 'png', 'webp'):
+            source = self.make_image('copy.' + extension)
+            settings = Settings(self.output, compress=False)
+            self.assertEqual(process(Job(source, Path(source.name)), settings, Control(), lambda _: None)[0], 'done')
+            self.assertEqual(source.read_bytes(), (self.output / source.name).read_bytes())
+
+    def test_jpeg_estimate_uses_native_texture_and_tracks_output(self):
+        import random
+        from PIL import ImageFilter
+        source = self.source / 'texture.jpg'
+        with Image.frombytes('L', (2000, 1500), random.Random(96).randbytes(3_000_000)) as noise:
+            with noise.filter(ImageFilter.GaussianBlur(1.2)).convert('RGB') as image:
+                image.save(source, quality=85, subsampling=0)
+        settings = Settings(self.output)
+        job = Job(source, Path(source.name))
+        estimate = estimate_output(job, settings, Control(), self.root / 'estimate.jpg')
+        result = process(job, settings, Control(), lambda _: None)
+        self.assertEqual(result[0], 'done')
+        self.assertLess(abs(estimate - result[2]) / result[2], .25)
+
     def test_smart_estimate_encodes_only_bounded_preview(self):
         from unittest.mock import patch
         from optimizer.compression import encode_smart
@@ -128,7 +191,8 @@ class EngineTests(unittest.TestCase):
             size = estimate_output(Job(path, Path(path.name)), Settings(self.output, smart=True),
                                    Control(), self.root / 'preview')
         self.assertGreater(size, 0)
-        self.assertEqual(sizes, [(768, 512)])
+        self.assertEqual(len(sizes), 1)
+        self.assertLessEqual(max(sizes[0]), 768)
         self.assertEqual(path.read_bytes(), original)
 
     def test_web_removes_metadata_preserves_profile_orientation_and_alpha(self):
@@ -146,7 +210,7 @@ class EngineTests(unittest.TestCase):
                                  Control(), lambda _: None)[0], 'done')
         with Image.open(self.output / path.name) as result:
             self.assertEqual(result.size, (20, 40))
-            self.assertEqual(result.getpixel((0, 0)), (10, 90, 150, 120))
+            self.assertEqual(result.convert('RGBA').getpixel((0, 0)), (10, 90, 150, 120))
             self.assertNotIn('Description', result.info)
             self.assertFalse(result.getexif())
             self.assertIn('sRGB', ImageCms.getProfileDescription(
@@ -301,7 +365,7 @@ class EngineTests(unittest.TestCase):
         path = self.make_image('tiny.png')
         original = path.read_bytes()
         messages = []
-        settings = Settings(self.output, in_place=True, resize='By dimensions',
+        settings = Settings(self.output, smart=False, in_place=True, resize='By dimensions',
                             width=1000, height=1000, only_smaller=True)
         self.assertEqual(process(Job(path, Path(path.name)), settings, Control(), messages.append)[0], 'skipped')
         self.assertEqual(messages[-1], 'Skipped · output would be larger')
@@ -321,7 +385,7 @@ class EngineTests(unittest.TestCase):
                     with self.subTest(extension=extension, metadata=metadata, color_profile=color_profile):
                         relative = Path(f'{metadata}-{color_profile}.{extension}')
                         result = process(Job(source, relative), Settings(self.output,
-                                         metadata=metadata, color_profile=color_profile), Control(), lambda _: None)
+                                         smart=False, metadata=metadata, color_profile=color_profile), Control(), lambda _: None)
                         self.assertEqual(result[0], 'done')
                         with Image.open(self.output / relative) as output:
                             self.assertEqual(output.info.get('icc_profile'), profile if color_profile else None)

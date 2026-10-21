@@ -1,5 +1,6 @@
 """Compile the installer, optionally sign, and checksum the finished artifact."""
 import hashlib
+import json
 import os
 import shutil
 import subprocess
@@ -17,7 +18,12 @@ def main():
     compiler = next((path for path in candidates if path.is_file()), None) or shutil.which('ISCC.exe')
     if not compiler:
         raise SystemExit('Inno Setup 6 compiler not found.')
-    subprocess.run([str(compiler), '/Qp', '/DAppVersion=' + __version__, str(ROOT / 'packaging/windows.iss')], check=True)
+    distribution = Path(os.environ.get('OS96_DIST_DIR', str(ROOT / 'dist'))).resolve() / 'OS96ImageOptimizer'
+    manifest = json.loads((distribution / 'build-manifest.json').read_text(encoding='utf-8'))
+    if manifest['application'] != __version__:
+        raise SystemExit('Installer input version does not match the current application.')
+    subprocess.run([str(compiler), '/Qp', '/DAppVersion=' + __version__,
+        '/DDistributionDir=' + str(distribution), str(ROOT / 'packaging/windows.iss')], check=True)
     installer = ROOT / f'dist/OS96ImageOptimizer-{__version__}-Setup.exe'
     if os.environ.get('OS96_SIGNING_THUMBPRINT'):
         subprocess.run(['powershell.exe', '-NoProfile', '-File', str(ROOT / 'scripts/sign_windows.ps1'),

@@ -10,7 +10,7 @@ def main():
     comparison = json.loads((ROOT / 'validation/optimizer-comparison.json').read_text(encoding='utf-8'))
     stress = json.loads((ROOT / 'validation/stress-release.json').read_text(encoding='utf-8'))
     lines = [f"# Windows {report['version']} validation", '',
-        f"Local unsigned-beta checks passed: **{report['ready_for_unsigned_beta']}**. The build uses Python 3.13.16, Pillow 12.3.0, and PySide6/Shiboken 6.10.2.", '',
+        f"Local unsigned-beta checks passed: **{report['ready_for_unsigned_beta']}**. The build uses Python 3.13.16, Pillow 13.0.0, and PySide6/Shiboken 6.10.2.", '',
         f"All {report['unit_tests']} tests pass. Tests cover formats, orientation, metadata/ICC, alpha, high-bit-depth grayscale, explicit rejection of unsupported 16-bit color, resizing, cancellation, native optimizer failure/damage/metadata guards, actual Windows file locks, file collisions, presets, reports, and visual comparison.", '',
         '## Compression evidence', '',
         f"{comparison['corpus_files']} unchanged input files were compared with per-file hashes, bytes, timings, PSNR, SSIM, and full-resolution quality checks. The corpus separates camera photographs, illustrations, scientific imagery, screenshots, and generated graphics. The source manifest is photo-sources.json.", '',

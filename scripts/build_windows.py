@@ -20,10 +20,11 @@ def main():
         raise SystemExit('Build the Windows release on Windows.')
     if sys.version_info[:3] < (3, 13, 16) or sys.version_info[:2] != (3, 13):
         raise SystemExit('Use Python 3.13.16 or a newer 3.13 security update for release builds.')
-    for name, version in [('PySide6-Essentials', '6.10.2'), ('shiboken6', '6.10.2'), ('Pillow', '12.3.0')]:
+    for name, version in [('PySide6-Essentials', '6.10.2'), ('shiboken6', '6.10.2'), ('Pillow', '13.0.0')]:
         if metadata.version(name) != version:
             raise SystemExit(f'Install requirements-build.txt first: expected {name} {version}')
     assets = ROOT / 'assets'
+    distribution_root = Path(os.environ.get('OS96_DIST_DIR', str(ROOT / 'dist'))).resolve()
     assets.mkdir(exist_ok=True)
     icon = Image.new('RGBA', (256, 256), (0, 0, 0, 0))
     draw = ImageDraw.Draw(icon)
@@ -38,13 +39,13 @@ def main():
         '-r', str(ROOT / 'requirements-release.lock'), '-f', 'json',
         '-o', str(ROOT / 'validation/dependency-audit.json')], cwd=ROOT, check=True)
     subprocess.run([sys.executable, '-m', 'PyInstaller', '--noconfirm', '--clean', '--windowed',
-        '--name', 'OS96ImageOptimizer', '--icon', str(assets / 'app.ico'),
+        '--name', 'OS96ImageOptimizer', '--distpath', str(distribution_root), '--icon', str(assets / 'app.ico'),
         '--version-file', str(ROOT / 'packaging/windows-version.txt'),
         '--add-data', f'{assets};assets', '--exclude-module', 'tkinter',
         '--exclude-module', 'numpy', '--exclude-module', 'scipy', '--exclude-module', 'skimage',
         '--exclude-module', 'pip_audit', '--exclude-module', 'matplotlib',
         str(ROOT / 'main.py')], cwd=ROOT, check=True)
-    distribution = ROOT / 'dist/OS96ImageOptimizer'
+    distribution = distribution_root / 'OS96ImageOptimizer'
     # Keep the helper's VC runtime next to the executable rather than depending
     # on a globally installed redistributable or the caller's working directory.
     runtime = distribution / '_internal/VCRUNTIME140.dll'

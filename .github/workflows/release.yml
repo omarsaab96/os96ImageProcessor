@@ -1,0 +1,117 @@
+name: Windows and macOS beta
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish a GitHub prerelease after every platform passes
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13.16'
+          cache: pip
+      - run: python -m pip install --require-hashes -r requirements-release.lock
+      - run: python -m pip install -r requirements-build.txt
+      - run: python scripts/build_windows.py
+      - run: python scripts/package_windows.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-windows
+          path: |
+            dist/*portable.zip*
+            dist/*Setup.exe*
+            validation/frozen-selftest.json
+            validation/dependency-audit.json
+          if-no-files-found: error
+  windows-install:
+    needs: windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-windows
+          path: downloaded
+      - name: Test installer and portable app without Python
+        shell: pwsh
+        run: |
+          $version = (Select-String -Path optimizer/__init__.py -Pattern "__version__ = '([^']+)'" ).Matches.Groups[1].Value
+          ./packaging/verify_clean_windows.ps1 -ArtifactDirectory "$pwd/downloaded/dist" -ResultDirectory "$pwd/clean-results" -Version $version
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-windows-install-check
+          path: clean-results
+  macos:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            architecture: arm64
+          - runner: macos-15-intel
+            architecture: x86_64
+    runs-on: ${{ matrix.runner }}
+    env:
+      QT_QPA_PLATFORM: offscreen
+      MACOSX_DEPLOYMENT_TARGET: '13.0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13.16'
+          architecture: ${{ matrix.architecture == 'arm64' && 'arm64' || 'x64' }}
+          cache: pip
+      - run: python -m pip install --require-hashes -r requirements-release-macos-${{ matrix.architecture }}.lock
+      - run: python -m pip install -r requirements-build.txt
+      - run: python scripts/build_macos_native.py
+      - run: python scripts/build_macos.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-macos-${{ matrix.architecture }}
+          path: |
+            dist/*macos-${{ matrix.architecture }}.zip*
+            dist/*macos-${{ matrix.architecture }}.dmg*
+            validation/macos-${{ matrix.architecture }}-*.json
+          if-no-files-found: error
+  upstream-sources:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13.16'
+      - run: python scripts/package_upstream_sources.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-upstream-sources
+          path: dist/*upstream-sources.zip*
+          if-no-files-found: error
+  publish:
+    if: ${{ inputs.publish }}
+    needs: [windows-install, macos, upstream-sources]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: release-*
+          path: artifacts
+          merge-multiple: true
+      - name: Publish verified beta downloads
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          version=$(python -c 'from optimizer import __version__; print(__version__)')
+          mapfile -d '' files < <(find artifacts -type f \( -name '*.zip' -o -name '*.exe' -o -name '*.dmg' -o -name '*.sha256' \) -print0)
+          gh release create "v$version" "${files[@]}" --target "$GITHUB_SHA" --prerelease --title "OS96 Image Optimizer $version beta" --notes-file RELEASE_NOTES.md

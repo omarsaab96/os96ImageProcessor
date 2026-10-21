@@ -2,6 +2,8 @@
 import hashlib
 import json
 import os
+import platform
+import sys
 import subprocess
 import tempfile
 from functools import lru_cache
@@ -13,7 +15,13 @@ from PIL import Image
 @lru_cache(maxsize=2)
 def tool_path(name):
     folder = Path(__file__).resolve().parent.parent / 'assets/native'
-    executable = folder / f'{name}.exe'
+    if sys.platform == 'darwin':
+        folder /= 'macos-' + platform.machine()
+        executable = folder / name
+    elif sys.platform == 'win32':
+        executable = folder / f'{name}.exe'
+    else:
+        return None
     try:
         expected = json.loads((folder / 'manifest.json').read_text(encoding='utf-8'))[name]['sha256']
         if hashlib.sha256(executable.read_bytes()).hexdigest() == expected:

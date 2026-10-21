@@ -54,7 +54,8 @@ jobs:
       - name: Test actual portable app, installer and uninstaller on a fresh runner
         shell: pwsh
         run: |
-          ./packaging/verify_clean_windows.ps1 -ArtifactDirectory "$pwd/downloaded/dist" -ResultDirectory "$pwd/clean-results"
+          $version = (Select-String -Path optimizer/__init__.py -Pattern "__version__ = '([^']+)'" ).Matches.Groups[1].Value
+          ./packaging/verify_clean_windows.ps1 -ArtifactDirectory "$pwd/downloaded/dist" -ResultDirectory "$pwd/clean-results" -Version $version
       - uses: actions/upload-artifact@v4
         if: always()
         with:

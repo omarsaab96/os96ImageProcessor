@@ -1,2 +1,2 @@
 PySide6-Essentials>=6.10.2,<7
-Pillow>=12.3,<13
+Pillow>=13.0,<14

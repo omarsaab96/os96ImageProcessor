@@ -8,7 +8,7 @@ from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QItemSelectionModel, QMimeData, QUrl, QPointF, Qt
 from PySide6.QtGui import QDropEvent
 from PySide6.QtTest import QTest
-from optimizer.app import Window, image_info, file_size, dropped_paths
+from optimizer.app import Window, image_info, file_size, output_size, dropped_paths
 from optimizer.engine import discover
 
 
@@ -41,6 +41,7 @@ class PreviewTests(unittest.TestCase):
             self.assertFalse(window.table.item(0, 0).icon().isNull())
             self.assertEqual(window.table.item(0, 0).text(), 'image.png')
             window.mode.setCurrentText('By dimensions')
+            window.resize_enabled.setChecked(True)
             window.dimension_mode.setCurrentText('Exact')
             window.width.setValue(32)
             window.height.setValue(24)
@@ -73,12 +74,12 @@ class PreviewTests(unittest.TestCase):
     def test_resize_modes_show_relevant_fields_and_behavior(self):
         window = Window()
         self.assertEqual([window.mode.itemText(i) for i in range(window.mode.count())],
-                         ['Keep original', 'By dimensions', 'By resolution'])
-        self.assertTrue(window.width.isHidden())
-        self.assertTrue(window.height.isHidden())
-        self.assertTrue(window.dimension_mode.isHidden())
-        self.assertIn('original pixel dimensions', window.resize_note.text())
+                         ['By dimensions', 'By resolution'])
+        self.assertFalse(window.width.isEnabled())
+        self.assertFalse(window.height.isEnabled())
+        self.assertFalse(window.resize_enabled.isChecked())
         window.mode.setCurrentText('By dimensions')
+        window.resize_enabled.setChecked(True)
         for option, width_visible, height_visible, explanation in [
             ('Exact', True, True, 'stretching'), ('Height', False, True, 'calculates its width'),
             ('Width', True, False, 'calculates its height'), ('Auto', True, True, 'portrait')]:
@@ -94,6 +95,32 @@ class PreviewTests(unittest.TestCase):
         self.assertFalse(window.dpi.isHidden())
         self.assertFalse(window.print_width.isHidden())
         self.assertIn('DPI', window.resize_note.text())
+        window.close()
+
+    def test_resize_and_compression_are_independent_steps(self):
+        from unittest.mock import patch
+        window = Window()
+        self.assertFalse(window.resize_enabled.isChecked())
+        self.assertTrue(window.compression_enabled.isChecked())
+        window.resize_enabled.setChecked(True)
+        self.assertEqual(window.preview_settings().resize, 'By dimensions')
+        self.assertTrue(window.preview_settings().compress)
+        window.compression_enabled.setChecked(False)
+        self.assertFalse(window.preview_settings().smart)
+        self.assertFalse(window.preview_settings().compress)
+        self.assertTrue(window.preview_settings().lossless)
+        self.assertFalse(window.compression_box.isEnabled())
+        self.assertTrue(window.resize_box.isEnabled())
+        window.resize_enabled.setChecked(False)
+        self.assertEqual(window.preview_settings().resize, 'Keep original')
+        self.assertFalse(window.estimate_timer.isActive())
+        with patch('optimizer.app.QMessageBox.information') as message:
+            window.start_batch()
+            message.assert_called_once()
+        for widget in (window.metadata, window.color_profile, window.threads):
+            self.assertIs(widget.parentWidget(), window.settings_box)
+        self.assertEqual([window.options_tabs.tabText(i) for i in range(3)],
+                         ['Resize', 'Compression', 'Destination'])
         window.close()
 
     def test_optimize_quality_visibility_and_independent_controls(self):
@@ -121,7 +148,7 @@ class PreviewTests(unittest.TestCase):
         self.assertFalse(window.preview_settings().color_profile)
         window.close()
 
-    def test_web_preset_overrides_without_losing_manual_preferences(self):
+    def test_web_overrides_without_losing_manual_preferences(self):
         window = Window()
         window.compression.setCurrentText('Lossless')
         window.web.setChecked(True)
@@ -181,16 +208,43 @@ class PreviewTests(unittest.TestCase):
             window.output.setText(str(output))
             for status in ('Done', 'Skipped'):
                 window.start_batch()
+                self.assertTrue(window.start.isHidden())
+                self.assertFalse(window.pause.isHidden())
+                self.assertFalse(window.stop.isHidden())
                 deadline = time.monotonic() + 10
                 while window.busy and time.monotonic() < deadline:
                     self.app.processEvents()
                     time.sleep(.01)
                 self.assertFalse(window.busy)
                 self.assertTrue(window.table.item(0, 1).text().startswith(status))
-                expected = file_size((output / path.name).stat().st_size)
+                expected = output_size((output / path.name).stat().st_size, len(path.read_bytes()))
                 self.assertEqual(window.table.item(0, 3).text().splitlines()[-1], expected)
                 self.assertNotIn('Size after processing', window.table.item(0, 3).text())
+                self.assertEqual(window.progress.value(), 0)
+                self.assertFalse(window.loading_timer.isActive())
+                self.assertFalse(window.start.isHidden())
+                self.assertTrue(window.pause.isHidden())
+                self.assertTrue(window.stop.isHidden())
+                self.assertEqual(window.percentage.text(), '0%')
             window.close()
+
+    def test_loading_animates_and_output_percentage_handles_growth(self):
+        window = Window()
+        window.set_busy(True)
+        self.assertTrue(window.loading_timer.isActive())
+        first = window.progress.phase
+        window.animate_loading()
+        self.assertNotEqual(first, window.progress.phase)
+        self.assertTrue(window.progress.animating)
+        self.assertEqual(window.progress.maximum(), 0)
+        window.set_busy(False, refresh=False)
+        self.assertEqual(window.progress.value(), 0)
+        self.assertEqual(window.activity.text(), '')
+        self.assertFalse(window.progress.animating)
+        self.assertEqual(output_size(500, 1000), '500 B (-50.0%)')
+        self.assertEqual(output_size(1500, 1000, estimated=True), '≈ 1.5 KB (+50.0%)')
+        self.assertEqual(output_size(500, 0), '500 B')
+        window.close()
 
     def test_optimize_help_shrinks_when_lossless_is_toggled(self):
         window = Window()
@@ -254,6 +308,32 @@ class PreviewTests(unittest.TestCase):
             window.set_busy(False)
             window.clear_jobs()
             window.close()
+
+    def test_drop_only_queues_and_keeps_original(self):
+        for surface in ('table', 'window'):
+            with self.subTest(surface=surface), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                path = root / 'image.jpg'
+                Image.new('RGB', (100, 80), 'navy').save(path, quality=95)
+                original = path.read_bytes()
+                window = Window()
+                self.assertEqual(window.compression.currentText(), 'Automatic')
+                window.output.setText(str(root / 'output'))
+                mime = QMimeData()
+                mime.setUrls([QUrl.fromLocalFile(str(path))])
+                event = QDropEvent(QPointF(10, 10), Qt.CopyAction, mime, Qt.LeftButton, Qt.NoModifier)
+                (window.table if surface == 'table' else window).dropEvent(event)
+                deadline = time.monotonic() + 10
+                while window.busy and time.monotonic() < deadline:
+                    self.app.processEvents()
+                    time.sleep(.01)
+                self.app.processEvents()
+                self.assertFalse(window.busy)
+                self.assertIsNone(window.worker)
+                self.assertFalse((root / 'output' / path.name).exists())
+                self.assertEqual(window.table.item(0, 1).text(), 'Ready')
+                self.assertEqual(path.read_bytes(), original)
+                window.close()
 
     def test_drop_files_folders_and_busy_guard(self):
         with tempfile.TemporaryDirectory() as directory:
