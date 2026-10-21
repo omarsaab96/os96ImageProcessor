@@ -23,7 +23,7 @@ class PlatformPackagingTests(unittest.TestCase):
                     patch('optimizer.native.platform.machine', return_value='arm64'):
                 try:
                     tool_path.cache_clear()
-                    self.assertEqual(tool_path('jpegtran'), helper)
+                    self.assertEqual(tool_path('jpegtran'), helper.resolve())
                     helper.write_bytes(b'tampered')
                     tool_path.cache_clear()
                     self.assertIsNone(tool_path('jpegtran'))
