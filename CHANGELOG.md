@@ -1,3 +1,9 @@
+# 1.0.0rc25
+
+- Process Sony JPEG photos containing MPF preview thumbnails as single photographs.
+- Keep protection for actual multipage and stereo MPO images.
+- Remove stale MPF preview offsets when rewriting JPEG metadata.
+
 # 1.0.0rc24
 
 - Prepare Windows installer/portable and Apple Silicon/Intel macOS beta release builds.

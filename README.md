@@ -1,4 +1,4 @@
-# OS96 Image Optimizer 1.0.0rc24
+# OS96 Image Optimizer 1.0.0rc25
 
 Local desktop batch optimization and resizing for JPEG, PNG, WebP, TIFF, and
 BMP. No uploads or API keys. Animated/multipage images fail explicitly.

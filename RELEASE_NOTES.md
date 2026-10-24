@@ -1,3 +1,8 @@
+Fixed in 1.0.0rc25:
+
+- Sony camera JPGs with embedded MPF previews now process successfully instead of reporting “Animated or multipage image skipped”.
+- Actual multipage and stereo MPO images remain protected from losing frames.
+
 OS96 Image Optimizer beta for Windows and macOS.
 
 - Automatic image compression preserves dimensions; resizing is a separate optional step.

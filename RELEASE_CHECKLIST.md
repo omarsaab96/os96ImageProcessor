@@ -1,3 +1,13 @@
+# Windows and macOS 1.0.0rc25 beta
+
+Fix: recognize embedded MPF preview thumbnails in Sony JPEG photos. All 104
+previously rejected photos from the supplied report pass the updated reader;
+a full-resolution export succeeded, and the local suite ran 79 tests with
+two skips and no failures.
+Local testing used Python 3.9 / Pillow 11.3; locked-runtime and frozen-app
+verification remain gated on the release workflow. Publish only after Windows,
+Apple Silicon, Intel Mac, installer and upstream-source jobs pass.
+
 # Windows and macOS 1.0.0rc24 beta
 
 Current release preparation: 76 local tests pass on Windows. The Windows frozen
