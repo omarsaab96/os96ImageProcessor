@@ -1,5 +1,5 @@
 #ifndef AppVersion
-#define AppVersion "1.0.0rc25"
+#define AppVersion "1.0.0rc26"
 #endif
 #ifndef DistributionDir
 #define DistributionDir "..\dist\OS96ImageOptimizer"

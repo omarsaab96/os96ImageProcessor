@@ -1,3 +1,13 @@
+# Windows and macOS 1.0.0rc26 beta
+
+Fix: restore Mac Settings through the native Preferences menu role and add
+Command-comma. Native macOS inspection confirmed the menu entry is enabled;
+opening the action shows the Settings dialog. The local suite ran 80 tests,
+with two skips and no failures, using Python 3.9 / Pillow 11.3.
+Locked-runtime and frozen-app checks remain gated on the release workflow.
+Publish only after Windows, Apple Silicon, Intel Mac, installer and
+upstream-source jobs pass.
+
 # Windows and macOS 1.0.0rc25 beta
 
 Fix: recognize embedded MPF preview thumbnails in Sony JPEG photos. All 104

@@ -5,7 +5,7 @@ from dataclasses import replace
 from pathlib import Path
 
 from PySide6.QtCore import Qt, QThread, Signal, QTimer, QElapsedTimer, QRect, QRectF, QSize, QVariantAnimation, QEasingCurve
-from PySide6.QtGui import QColor, QPalette, QShortcut, QKeySequence, QImage, QPixmap, QIcon, QPainter, QPainterPath, QLinearGradient, QPen
+from PySide6.QtGui import QAction, QColor, QPalette, QShortcut, QKeySequence, QImage, QPixmap, QIcon, QPainter, QPainterPath, QLinearGradient, QPen
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel,
     QPushButton, QFileDialog, QComboBox, QSpinBox, QDoubleSpinBox,
@@ -350,12 +350,20 @@ class Window(WorkflowMixin, QMainWindow):
         super().__init__()
         self.setWindowTitle(f'OS96 Image Optimizer {__version__}')
         self.setWindowIcon(QIcon(str(Path(__file__).resolve().parent.parent / 'assets' / 'app.ico')))
-        file_menu = self.menuBar().addMenu('File')
+        self.file_menu = self.menuBar().addMenu('File')
+        file_menu = self.file_menu
         self.add_files_action = file_menu.addAction('Add images…')
         self.add_files_action.triggered.connect(self.select_files)
         self.add_folder_action = file_menu.addAction('Add folder…')
         self.add_folder_action.triggered.connect(self.select_folder)
-        self.settings_action = self.menuBar().addAction('Settings')
+        if sys.platform == 'darwin':
+            # Native macOS menus need the action inside a menu before merging.
+            self.settings_action = QAction('Settings…', self)
+            self.settings_action.setMenuRole(QAction.PreferencesRole)
+            self.settings_action.setShortcut(QKeySequence(QKeySequence.Preferences))
+            file_menu.addAction(self.settings_action)
+        else:
+            self.settings_action = self.menuBar().addAction('Settings')
         self.settings_action.triggered.connect(self.show_settings)
         about = self.menuBar().addMenu('Help').addAction('About OS96')
         about.triggered.connect(lambda: QMessageBox.about(self, 'About OS96',

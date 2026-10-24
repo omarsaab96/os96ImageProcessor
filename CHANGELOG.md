@@ -1,3 +1,8 @@
+# 1.0.0rc26
+
+- Restore Settings in the native macOS application menu using the Preferences menu role.
+- Add the standard Command-comma shortcut for Mac Settings.
+
 # 1.0.0rc25
 
 - Process Sony JPEG photos containing MPF preview thumbnails as single photographs.

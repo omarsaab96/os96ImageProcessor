@@ -27,6 +27,24 @@ class ReleaseTests(unittest.TestCase):
     def tearDown(self):
         self.temp.cleanup()
 
+    def test_mac_settings_action_is_accessible_and_opens_dialog(self):
+        from PySide6.QtGui import QAction, QKeySequence
+        class SettingsWindow(Window):
+            opened = False
+
+            def show_settings(self):
+                self.opened = True
+
+        with patch('optimizer.app.sys.platform', 'darwin'):
+            window = SettingsWindow()
+            file_menu = window.file_menu
+            self.assertIn(window.settings_action, file_menu.actions())
+            self.assertEqual(window.settings_action.menuRole(), QAction.PreferencesRole)
+            self.assertEqual(window.settings_action.shortcut(), QKeySequence(QKeySequence.Preferences))
+            window.settings_action.trigger()
+            self.assertTrue(window.opened)
+            window.close()
+
     def test_enlargement_is_written_unless_smaller_only(self):
         self.assertEqual(process(self.job, self.settings, Control(), lambda _: None)[0], 'done')
         with Image.open(self.settings.output / self.job.relative) as result:

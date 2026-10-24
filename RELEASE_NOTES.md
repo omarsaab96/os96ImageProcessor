@@ -1,7 +1,8 @@
-Fixed in 1.0.0rc25:
+Fixed in 1.0.0rc26:
 
-- Sony camera JPGs with embedded MPF previews now process successfully instead of reporting “Animated or multipage image skipped”.
-- Actual multipage and stereo MPO images remain protected from losing frames.
+- Restore Settings in the Mac application menu (shown as Preferences on some macOS/Qt versions).
+- Open Settings on Mac with Command-comma (⌘,).
+- Includes the rc25 fix for Sony JPGs with embedded MPF preview thumbnails.
 
 OS96 Image Optimizer beta for Windows and macOS.
 
