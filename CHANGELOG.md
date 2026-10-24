@@ -1,3 +1,9 @@
+# 1.0.0rc27
+
+- Recognize Apple HDR gain maps embedded in JPEGs as auxiliary images instead of rejecting the photos as multipage.
+- Re-encoded JPEGs export the standard image without the HDR gain map; unchanged copies retain it.
+- Keep rejecting unidentified auxiliaries and real multipage/stereo images.
+
 # 1.0.0rc26
 
 - Restore Settings in the native macOS application menu using the Preferences menu role.

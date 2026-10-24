@@ -1,8 +1,9 @@
-Fixed in 1.0.0rc26:
+Fixed in 1.0.0rc27:
 
-- Restore Settings in the Mac application menu (shown as Preferences on some macOS/Qt versions).
-- Open Settings on Mac with Command-comma (⌘,).
-- Includes the rc25 fix for Sony JPGs with embedded MPF preview thumbnails.
+- Fix iPhone JPEGs incorrectly failing with “Animated or multipage image skipped.”
+- Recognize embedded Apple HDR gain maps while retaining protection for real multipage images.
+- Re-encoded exports contain the standard image without the auxiliary HDR gain map; unchanged original-file copies retain it.
+- Includes the previous Sony MPF thumbnail and Mac Settings fixes.
 
 OS96 Image Optimizer beta for Windows and macOS.
 

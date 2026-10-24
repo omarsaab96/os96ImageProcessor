@@ -62,6 +62,40 @@ class EngineTests(unittest.TestCase):
         self.assertTrue(any('multipage' in message for message in messages))
         self.assertFalse((self.output / path.name).exists())
 
+    def test_apple_hdr_gain_map_exports_standard_jpeg(self):
+        path = self.source / 'iphone.jpeg'
+        xmp = (b'<x xmlns:apdi="http://ns.apple.com/pixeldatainfo/1.0/">'
+               b'<apdi:AuxiliaryImageType>urn:com:apple:photo:2020:aux:hdrgainmap'
+               b'</apdi:AuxiliaryImageType></x>')
+        with Image.new('RGB', (160, 80), 'red') as primary, Image.new('RGB', (80, 40), 'gray') as gain:
+            gain.encoderinfo = {'xmp': xmp}
+            primary.save(path, format='MPO', save_all=True, append_images=[gain])
+        with open_photo(path) as photo:
+            self.assertEqual(photo.format, 'JPEG')
+            self.assertEqual(photo.size, (160, 80))
+        messages = []
+        result = process(Job(path, Path(path.name)),
+                         Settings(self.output, smart=False, lossless=False), Control(), messages.append)
+        self.assertEqual(result[0], 'done', messages)
+        with Image.open(self.output / path.name) as photo:
+            self.assertEqual(photo.format, 'JPEG')
+            self.assertEqual(getattr(photo, 'n_frames', 1), 1)
+            self.assertEqual(photo.size, (160, 80))
+
+    def test_unidentified_auxiliary_is_still_multipage(self):
+        for xmp in (b'<broken', b'<x>urn:com:apple:photo:2020:aux:hdrgainmap</x>',
+                    b'<x xmlns:apdi="http://ns.apple.com/pixeldatainfo/1.0/" '
+                    b'apdi:AuxiliaryImageType="other"/>'):
+            with self.subTest(xmp=xmp):
+                path = self.source / 'unknown.jpeg'
+                with Image.new('RGB', (160, 80)) as primary, Image.new('RGB', (80, 40)) as auxiliary:
+                    auxiliary.encoderinfo = {'xmp': xmp}
+                    primary.save(path, format='MPO', save_all=True, append_images=[auxiliary])
+                with open_photo(path) as photo:
+                    self.assertEqual(photo.format, 'MPO')
+                    self.assertEqual(photo.tell(), 0)
+                    self.assertEqual(photo.n_frames, 2)
+
     def test_hierarchy_and_deduplication(self):
         path = self.make_image()
         jobs, errors = discover([self.source])

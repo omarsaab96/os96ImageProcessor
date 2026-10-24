@@ -1,3 +1,13 @@
+# Windows and macOS 1.0.0rc27 beta
+
+Fix: recognize identified Apple HDR gain maps in JPEGs. All 466 rejected
+photos in the supplied report pass the updated reader; the example exports
+from 3,616,661 to 1,320,367 bytes and passes the full-resolution quality check.
+Re-encoding omits the auxiliary HDR gain map. Real multipage and unidentified
+auxiliary images remain protected. Local tests use Python 3.9 / Pillow 11.3;
+locked-runtime and frozen-app checks run in the release workflow. Publication
+is gated on Windows, both Mac architectures, installer and upstream-source jobs.
+
 # Windows and macOS 1.0.0rc26 beta
 
 Fix: restore Mac Settings through the native Preferences menu role and add

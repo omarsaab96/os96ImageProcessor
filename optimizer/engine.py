@@ -9,6 +9,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass, replace
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
+from xml.etree import ElementTree
 
 from PIL import Image, ImageOps, ImageCms
 from .compression import encode_smart, jpeg_detail_sample
@@ -78,22 +79,45 @@ def web_colors(image):
 
 @contextmanager
 def open_photo(path):
-    """Treat MPF preview thumbnails as one photo, preserving real MPO sequences."""
+    """Open MPF previews/Apple HDR auxiliaries as a standard single JPEG."""
     original = Image.open(path)
     try:
         entries = getattr(original, 'mpinfo', {}).get(45058, [])
         if (original.format == 'MPO' and len(entries) == original.n_frames
                 and len(entries) > 1
                 and entries[0]['Attribute']['MPType'] == 'Baseline MP Primary Image'
-                and all(entry['Attribute']['MPType'] in (
-                    'Large Thumbnail (VGA Equivalent)',
-                    'Large Thumbnail (Full HD Equivalent)') for entry in entries[1:])):
+                and _single_photo_mpf(original, entries)):
             from PIL.JpegImagePlugin import JpegImageFile
             original.close()
             original = JpegImageFile(path)
         yield original
     finally:
         original.close()
+
+
+def _single_photo_mpf(original, entries):
+    """Accept only explicitly identified auxiliaries; unknown MPOs stay protected."""
+    try:
+        for index, entry in enumerate(entries[1:], 1):
+            kind = entry['Attribute']['MPType']
+            if kind in ('Large Thumbnail (VGA Equivalent)',
+                        'Large Thumbnail (Full HD Equivalent)'):
+                continue
+            if kind != 'Undefined':
+                return False
+            original.seek(index)
+            try:
+                xmp = ElementTree.fromstring(original.info.get('xmp', b''))
+            except ElementTree.ParseError:
+                return False
+            tag = '{http://ns.apple.com/pixeldatainfo/1.0/}AuxiliaryImageType'
+            expected = 'urn:com:apple:photo:2020:aux:hdrgainmap'
+            if not (any(node.text == expected for node in xmp.iter(tag))
+                    or any(node.get(tag) == expected for node in xmp.iter())):
+                return False
+        return True
+    finally:
+        original.seek(0)
 
 
 def estimate_output(job, settings, control, destination):

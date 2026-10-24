@@ -1,7 +1,10 @@
-# OS96 Image Optimizer 1.0.0rc26
+# OS96 Image Optimizer 1.0.0rc27
 
 Local desktop batch optimization and resizing for JPEG, PNG, WebP, TIFF, and
 BMP. No uploads or API keys. Animated/multipage images fail explicitly.
+JPEGs containing MPF thumbnails or identified Apple HDR gain maps are supported
+as single photos. Re-encoding exports the standard image without the auxiliary
+HDR gain map; unchanged original-file copies retain it.
 This is a beta. Windows builds are unsigned. macOS builds use ad-hoc signatures,
 without Apple notarization; operating-system security prompts may appear.
 The release workflow builds and tests Windows x64, Apple Silicon and Intel Mac
