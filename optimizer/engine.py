@@ -5,6 +5,7 @@ import shutil
 import tempfile
 import threading
 from io import BytesIO
+from contextlib import contextmanager
 from dataclasses import dataclass, replace
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
@@ -75,11 +76,31 @@ def web_colors(image):
     return converted
 
 
+@contextmanager
+def open_photo(path):
+    """Treat MPF preview thumbnails as one photo, preserving real MPO sequences."""
+    original = Image.open(path)
+    try:
+        entries = getattr(original, 'mpinfo', {}).get(45058, [])
+        if (original.format == 'MPO' and len(entries) == original.n_frames
+                and len(entries) > 1
+                and entries[0]['Attribute']['MPType'] == 'Baseline MP Primary Image'
+                and all(entry['Attribute']['MPType'] in (
+                    'Large Thumbnail (VGA Equivalent)',
+                    'Large Thumbnail (Full HD Equivalent)') for entry in entries[1:])):
+            from PIL.JpegImagePlugin import JpegImageFile
+            original.close()
+            original = JpegImageFile(path)
+        yield original
+    finally:
+        original.close()
+
+
 def estimate_output(job, settings, control, destination):
     """Estimate from a bounded preview; never run full-resolution trial encoding."""
     if not settings.compress:
         settings = replace(settings, smart=False, lossless=True)
-    with Image.open(job.source) as original:
+    with open_photo(job.source) as original:
         if getattr(original, 'n_frames', 1) > 1:
             return None
         fmt = original.format
@@ -263,6 +284,8 @@ def copy_jpeg(source, destination, metadata, color_profile, orientation=1):
             keep = True
             if code == 0xE2 and payload.startswith(b'ICC_PROFILE\x00'):
                 keep = color_profile
+            elif code == 0xE2 and payload.startswith(b'MPF\x00'):
+                keep = False  # Rewritten headers invalidate MPF preview offsets.
             elif code == 0xE0 and payload.startswith(b'JFIF\x00'):
                 keep = True  # Density and compatibility header.
             elif code == 0xEE and payload.startswith(b'Adobe'):
@@ -296,7 +319,7 @@ def process(job: Job, settings: Settings, control: Control, emit):
             return 'skipped', 0, 0
         before = job.source.stat().st_size
         destination.parent.mkdir(parents=True, exist_ok=True)
-        with Image.open(job.source) as original:
+        with open_photo(job.source) as original:
             check_precision(original)
             if getattr(original, 'n_frames', 1) > 1:
                 raise ValueError('Animated or multipage image skipped to preserve all frames.')

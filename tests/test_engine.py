@@ -4,7 +4,7 @@ import threading
 from io import BytesIO
 from pathlib import Path
 from PIL import Image, ImageCms, ImageOps
-from optimizer.engine import Job, Settings, Control, discover, process, run_batch, target_size, estimate_output, batch_worker_limit
+from optimizer.engine import Job, Settings, Control, discover, process, run_batch, target_size, estimate_output, batch_worker_limit, open_photo
 from optimizer.compression import quality_ok
 
 
@@ -24,6 +24,43 @@ class EngineTests(unittest.TestCase):
         path.parent.mkdir(parents=True, exist_ok=True)
         Image.new('RGB', (160, 80), (20, 100, 160)).save(path)
         return path
+
+    def test_mpf_thumbnail_is_processed_as_single_jpeg(self):
+        from unittest.mock import patch
+        path = self.source / 'camera.JPG'
+        with Image.new('RGB', (160, 80), 'red') as primary, Image.new('RGB', (40, 20), 'blue') as preview:
+            primary.save(path, format='MPO', save_all=True, append_images=[preview])
+        opened = Image.open(path)
+        opened.mpinfo[45058][0]['Attribute']['MPType'] = 'Baseline MP Primary Image'
+        opened.mpinfo[45058][1]['Attribute']['MPType'] = 'Large Thumbnail (Full HD Equivalent)'
+        with patch('optimizer.engine.Image.open', return_value=opened):
+            with open_photo(path) as photo:
+                self.assertEqual(photo.format, 'JPEG')
+                self.assertEqual(photo.size, (160, 80))
+                self.assertEqual(getattr(photo, 'n_frames', 1), 1)
+                photo.load()
+
+    def test_metadata_rewrite_removes_stale_mpf_offsets(self):
+        from optimizer.engine import copy_jpeg
+        path = self.source / 'camera.JPG'
+        with Image.new('RGB', (160, 80), 'red') as primary, Image.new('RGB', (40, 20), 'blue') as preview:
+            primary.save(path, format='MPO', save_all=True, append_images=[preview])
+        destination = self.source / 'rewritten.jpg'
+        copy_jpeg(path, destination, True, True, 1)
+        with Image.open(destination) as photo:
+            self.assertEqual(photo.format, 'JPEG')
+            photo.load()
+            self.assertEqual(photo.size, (160, 80))
+
+    def test_real_mpo_sequence_is_still_rejected(self):
+        path = self.source / 'stereo.JPG'
+        with Image.new('RGB', (160, 80), 'red') as first, Image.new('RGB', (160, 80), 'blue') as second:
+            first.save(path, format='MPO', save_all=True, append_images=[second])
+        messages = []
+        result = process(Job(path, Path(path.name)), Settings(self.output), Control(), messages.append)
+        self.assertEqual(result[0], 'error')
+        self.assertTrue(any('multipage' in message for message in messages))
+        self.assertFalse((self.output / path.name).exists())
 
     def test_hierarchy_and_deduplication(self):
         path = self.make_image()

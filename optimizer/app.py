@@ -13,7 +13,7 @@ from PySide6.QtWidgets import (
     QTableWidgetItem, QHeaderView, QProgressBar, QMessageBox, QSplitter, QScrollArea, QTabWidget,
     QSizePolicy, QLayout, QGraphicsOpacityEffect, QDialog,
 )
-from .engine import Settings, Control, discover, run_batch, process, estimate_output, target_size, EXTENSIONS
+from .engine import Settings, Control, discover, run_batch, process, estimate_output, target_size, EXTENSIONS, open_photo
 from PIL import Image, ImageOps
 from .workflow import WorkflowMixin
 from . import __version__
@@ -259,7 +259,7 @@ def output_size(value, original, estimated=False):
 
 def image_info(path):
     """Read metadata and prepare a small thumbnail in the scanning worker."""
-    with Image.open(path) as image:
+    with open_photo(path) as image:
         size = image.size
         oriented = size[::-1] if image.getexif().get(274) in (5, 6, 7, 8) else size
         details = dict(bytes=path.stat().st_size, size=size, oriented=oriented,
